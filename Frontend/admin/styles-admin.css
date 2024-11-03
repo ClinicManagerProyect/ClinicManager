@@ -236,7 +236,7 @@ a {
 
 
 /* Doctores */
-.doctors--right--btns {
+.employees--right--btns {
     display: flex;
     align-items: center;
     gap: 30px;
@@ -263,7 +263,7 @@ a {
     border-radius: 50%;
     color: #000;
 }
-.doctors--cards {
+.employees--cards {
     display: flex;
     gap: 20px;
 }
@@ -305,7 +305,7 @@ a {
 /* responsive starts here */
 @media screen and (max-width:1350px) {
     .cards,
-    .doctors--cards {
+    .employees--cards {
         overflow-x: scroll;
     }
 }

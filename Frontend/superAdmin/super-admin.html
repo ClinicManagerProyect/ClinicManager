@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles-admin.css">
+    <link rel="stylesheet" href="styles-super-admin.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <title></title>
 
@@ -26,7 +26,7 @@
             </div>
 
             <div class="picon profile">
-                <img src="../img/profile.png" >
+                <img src="../img/super_admi.png" >
             </div>
         </div>
     </div>
@@ -59,63 +59,20 @@
     </div>
 
     <div class="main--content">
-        <div class="overview">
-            <div class="title">
-                <h2 class="section--title">Avances</h2>
-                <select name="date" id="date" class="dropdown">
-                    <option value="today">Hoy</option>
-                    <option value="lastweek">La semana pasada</option>
-                    <option value="lastmonth">El mes Pasado </option>
-                    <option value="lastyear">El año pasado</option>
-                    <option value="alltime">Todo el tiempo</option>
-                </select>
-            </div>
-            <div class="cards">
-                <div class="card card-1">
-                    <div class="card--data">
-                        <div class="card--content">
-                            <h5 class="card--title">Total Doctores</h5>
-                            <h1>4</h1>
-                        </div>
-                        <i class="ri-user-2-line card--icon--lg"></i>
-                    </div>
-                    <div class="card--stats">
-                        <span><i class="ri-bar-chart-fill card--icon stat--icon"></i>50%</span>
-                        <span><i class="ri-arrow-up-s-fill card--icon up--arrow"></i>2</span>
-                        <span><i class="ri-arrow-down-s-fill card--icon down--arrow"></i>2</span>
-                    </div>
-                </div>
-                <div class="card card-2">
-                    <div class="card--data">
-                        <div class="card--content">
-                            <h5 class="card--title">Total Tareas</h5>
-                            <h1>65</h1>
-                        </div>
-                        <i class="ri-user-line card--icon--lg"></i>
-                    </div>
-                    <div class="card--stats">
-                        <span><i class="ri-bar-chart-fill card--icon stat--icon"></i>60%</span>
-                        <span><i class="ri-arrow-up-s-fill card--icon up--arrow"></i>40</span>
-                        <span><i class="ri-arrow-down-s-fill card--icon down--arrow"></i>25</span>
-                    </div>
-                </div>
-
-            </div>
-        </div>
         <div class="employees">
             <div class="title">
-                <h2 class="section--title">Doctores</h2>
+                <h2 class="section--title">Empleados</h2>
                 <div class="employees--right--btns">
                     <select name="date"  class="dropdown doctor--filter">
                         <option >Filtrar </option>
                         <option value="free">Libre</option>
                         <option value="busy">Ocupado</option>
                     </select>
-                    <button class="add"><i class="ri-add-line"></i>Añadir Doctor</button>
+                    <button class="add"><i class="ri-add-line"></i>Añadir Empelado</button>
                 </div>
             </div>
             <div class="employees--cards">
-                <a href="#" class="doctor--card">
+                <a href="#" class="employees--card">
                     <div class="img--box--cover">
                         <div class="img--box">
                             <img src="../img/Doc1.png" alt="">
@@ -123,15 +80,15 @@
                     </div>
                     <p class="free">Libre</p>
                 </a>
-                <a href="#" class="doctor--card">
+                <a href="#" class="employees--card">
                     <div class="img--box--cover">
                         <div class="img--box">
-                            <img src="../img/Doc2.png" alt="">
+                            <img src="../img/employ1.png" alt="">
                         </div>
                     </div>
                     <p class="busy">Ocupado</p>
                 </a>
-                <a href="#" class="doctor--card">
+                <a href="#" class="employees--card">
                     <div class="img--box--cover">
                         <div class="img--box">
                             <img src="../img/Doc3.png" alt="">
@@ -139,19 +96,16 @@
                     </div>
                     <p class="busy">Ocupado</p>
                 </a>
-                <a href="#" class="doctor--card">
+                <a href="#" class="employees--card">
                     <div class="img--box--cover">
                         <div class="img--box">
-                            <img src="../img/Doc4.png" alt="">
+                            <img src="../img/nurse1.png" alt="">
                         </div>
                     </div>
                     <p class="free">Libre</p>
                 </a>
-
-
             </div>
         </div>
-
     </div>
 </section>
 </body>

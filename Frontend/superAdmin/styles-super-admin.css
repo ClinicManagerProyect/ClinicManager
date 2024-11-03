@@ -186,56 +186,13 @@ a {
     width: 150px;
     padding: 5px;
 }
-.cards {
-    display: flex;
-    gap: 20px;
-}
-.card {
-    padding: 20px;
-    border-radius: 20px;
-    min-width: 230px;
-    height: auto;
-    transition: .3s;
-}
-.card:hover {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-.card--data {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-}
-.card h1 {
-    font-size: 30px;
-    margin-top: 10px;
-}
 
-.card--stats {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 5px;
-}
-.card--stats span {
+/* Empleados */
+.employees--right--btns {
     display: flex;
     align-items: center;
+    gap: 30px;
 }
-
-
-.card-1 {
-    background-color: rgba(251, 80, 217, 0.1);
-}
-.card-1 .card--title {
-    color: rgb(236, 64, 64);
-}
-
-.card-2 {
-    background-color: rgba(79, 229, 92, 0.1);
-}
-.card-2 .card--title {
-    color: rgb(54, 215, 42);
-}
-/*Estilo del boton Añadir*/
 .add {
     display: flex;
     align-items: center;
@@ -258,44 +215,45 @@ a {
     border-radius: 50%;
     color: #000;
 }
-
-
-/*Lista de tareas*/
-.tasks {
-    margin-bottom: 20px;
+.employees--cards {
+    display: flex;
+    gap: 20px;
 }
-.table {
-    height: 200px;
-    overflow-y: scroll;
+.employees--card {
+    padding: 20px;
+    border-radius: 20px;
+    height: auto;
+    transition: .3s;
+    border: 2px solid #f1f1f1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: .8rem;
 }
-table {
-    width: 100%;
-    text-align: left;
-    border-collapse: collapse;
+.employees--card:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
-tr {
-    border-bottom: 1px solid #f1f1f1;
+.img--box--cover {
+    border: 1px solid #5073fb;
+    padding: 2px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-bottom: 10px;
 }
-
-th {
-    padding-block: 10px;
+.img--box {
+    position: relative;
+    width: 71px;
+    height: 71px;
+    overflow: hidden;
+    border-radius: 50%;
 }
-.edit {
+.free {
     color: #70d7a5;
-    margin-right: 10px;
 }
-.delete {
-    color: #e86786;
+.busy {
+    color: #fb5050;
 }
-.pending {
-    color: #f1d243;
-}
-.confirmed {
-    color: #70d7a5;
-}
-.rejected {
-    color: #e86786;
-}
+
 /* responsive starts here */
 @media screen and (max-width:1350px) {
     .cards,

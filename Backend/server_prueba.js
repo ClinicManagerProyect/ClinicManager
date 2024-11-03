@@ -10,7 +10,8 @@ app.use(cors());
 
 const users = [
     { username: 'admin', password: 'admin123', role: 'admin' },
-    { username: 'user', password: 'user123', role: 'user' }
+    { username: 'user', password: 'user123', role: 'user' },
+    {username: 'super_admin', password: 'superadmin123', role: 'superadmin' }
 ];
 
 

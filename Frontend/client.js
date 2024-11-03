@@ -33,11 +33,20 @@ new Vue({
             }
         },
         redirectUser() {
-            if (this.userRole === 'admin') {
-                window.location.href = 'admin/admin.html';
-            } else if (this.userRole === 'user') {
-                window.location.href = 'user/user.html';
-            }
-        }
+             switch (this.userRole) {
+               case 'admin':
+                 window.location.href = 'admin/admin.html';
+                 break;
+                   case 'user':
+                  window.location.href = 'user/user.html';
+                   break;
+                   case 'super_admin':
+                  window.location.href = 'superAdmin/super-admin.html';
+                   break;
+                 default:
+            console.error('Invalid user role:', this.userRole);
+            window.location.href = 'error.html';
+    }
+}
     }
 });
