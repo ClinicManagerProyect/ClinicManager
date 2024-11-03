@@ -34,9 +34,9 @@ new Vue({
         },
         redirectUser() {
             if (this.userRole === 'admin') {
-                window.location.href = './admin.html'; 
+                window.location.href = 'admin/admin.html';
             } else if (this.userRole === 'user') {
-                window.location.href = './user.html'; 
+                window.location.href = 'user/user.html';
             }
         }
     }

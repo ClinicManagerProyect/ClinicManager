@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles-user.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <title></title>
+
+</head>
+<body>
+<section class="header">
+    <div class="logo">
+        <i class="ri-menu-line icon icon-0 menu"></i>
+        <h2>Hosp<span>Ital</span></h2>
+    </div>
+    <div class="search--notification--profile">
+        <div class="search">
+            <input type="text" placeholder="Search..">
+            <button><i class=""></i></button>
+        </div>
+        <div class="notification--profile">
+            <div class="picon lock">
+                <img src="../img/notification.png" ></img>
+            </div>
+
+            <div class="picon profile">
+                <img src="../img/doctor.png"  alt="">
+            </div>
+        </div>
+    </div>
+</section>
+<section class="main">
+    <div class="sidebar">
+        <ul class="sidebar--items">
+            <li>
+                <a href="#" id="active--link">
+                    <span class="icon icon-1"><i class="ri-layout-grid-line"></i></span>
+                    <span class="sidebar--item">Control</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon icon-2"><i class="ri-calendar-2-line"></i></span>
+                    <span class="sidebar--item">Horario</span>
+                </a>
+            </li>
+
+        </ul>
+        <ul class="sidebar--bottom-items">
+            <li>
+                <a href="../index.html">
+                    <span class="icon icon-8"><i class="ri-logout-box-r-line"></i></span>
+                    <span class="sidebar--item">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main--content">
+        <div class="overview">
+            <div class="title">
+                <h2 class="section--title">Avances</h2>
+                <select name="date" id="date" class="dropdown">
+                    <option value="today">Hoy</option>
+                    <option value="lastweek">La semana pasada</option>
+                    <option value="lastmonth">El mes Pasado </option>
+                    <option value="lastyear">El año pasado</option>
+                    <option value="alltime">Todo el tiempo</option>
+                </select>
+            </div>
+            <div class="cards">
+                <div class="card card-1">
+                    <div class="card--data">
+                        <div class="card--content">
+                            <h5 class="card--title">Tareas Pendientes</h5>
+                            <h1>2</h1>
+                        </div>
+                    </div>
+                    <div class="card--stats">
+                        <span><i class="ri-bar-chart-fill card--icon stat--icon"></i>50%</span>
+                        <span><i class="ri-arrow-up-s-fill card--icon up--arrow"></i>2</span>
+                    </div>
+                </div>
+                <div class="card card-2">
+                    <div class="card--data">
+                        <div class="card--content">
+                            <h5 class="card--title">Tareas Completas</h5>
+                            <h1>2</h1>
+                        </div>
+                        <i class="ri-user-line card--icon--lg"></i>
+                    </div>
+                    <div class="card--stats">
+                        <span><i class="ri-bar-chart-fill card--icon stat--icon"></i>50%</span>
+                        <span><i class="ri-arrow-up-s-fill card--icon up--arrow"></i>2</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="tasks">
+            <div class="title">
+                <h2 class="section--title">Recent Patients</h2>
+                <button class="add"><i class="ri-add-line"></i>Añadir Tarea</button>
+            </div>
+            <div class="table">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Tarea</th>
+                        <th>Fecha & Hora de Inicio </th>
+                        <th>Fecha & Hora Final</th>
+                        <th>Funcion</th>
+                        <th>Estado</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Ronda</td>
+                        <td>05/12/2024 09:00 </td>
+                        <td>05/12/2024 15:00</td>
+                        <td>Hacer listado de pasientes Habitacion 300-350 </td>
+                        <td class="pending">Pendiente</td>
+                        <td><span><i class="ri-edit-line edit"></i><i class="ri-delete-bin-line delete"></i></span></td>
+                    </tr>
+                    <tr>
+                        <td>Preparación de quirófano</td>
+                        <td>07/12/2024 14:00</td>
+                        <td>07/12/2024 15:00</td>
+                        <td>Verificar equipo médico</td>
+                        <td class="in_progress">En progreso</td>
+                        <td><span><i class="ri-edit-line edit"></i><i class="ri-delete-bin-line delete"></i></span></td>
+                    </tr>
+                    <tr>
+                        <td>Mantenimiento preventivo de equipos médicos	</td>
+                        <td>12/12/2024 16:00</td>
+                        <td>12/12/2024 18:00	</td>
+                        <td>Verificar el funcionamiento de equipos de rayos X y resonancia magnética</td>
+                        <td class="confirmed">Confirmada</td>
+                        <td><span><i class="ri-edit-line edit"></i><i class="ri-delete-bin-line delete"></i></span></td>
+                    </tr>
+                    <tr>
+                        <td>Entrega de resultados de laboratorio</td>
+                        <td>11/12/2024 13:00</td>
+                        <td>11/12/2024 14:00</td>
+                        <td>Informar a los médicos sobre los resultados de los exámenes</td>
+                        <td class="rejected">Pendiente</td>
+                        <td><span><i class="ri-edit-line edit"></i><i class="ri-delete-bin-line delete"></i></span></td>
+                    </tr>
+                    <tr>
+                        <td>Visita a pacientes en pediatría</td>
+                        <td>08/12/2024 10:00</td>
+                        <td>08/12/2024 12:00</td>
+                        <td>Realizar rondas y verificar estado de salud</td>
+                        <td class="confirmed">Confirmada</td>
+                        <td><span><i class="ri-edit-line edit"></i><i class="ri-delete-bin-line delete"></i></span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

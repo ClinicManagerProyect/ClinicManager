@@ -5,15 +5,36 @@ body{
     background: linear-gradient(#6f95da, #d9d9d9);
     height: 100vh;
 }
-.login{
-    position: absolute;
-    top:50%;
-    left:50%;
-    transform: translate(-50%,-50%);
-    width:400px;
-    background: #ffffff;
-    border-radius: 15px;
+
+.login-container {
+    display: flex;
+    justify-content: center; /* Centra los elementos horizontalmente */
+    align-items: center;
+    height: 100vh;
+    width: 50%;
+    margin: 0 auto;
 }
+
+.image-container, .login {
+    flex: 1;
+    text-align: center;
+    max-width: 400px;
+    padding: 0; /* Elimina el padding para que los elementos se peguen */
+}
+.image-container img {
+    width: 490px;
+    height: auto;
+    border-radius: 15px;
+
+}
+
+.login {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
 .login h1{
     text-align: center;
     padding: 0 0 20px 0;
@@ -66,6 +87,7 @@ form .username{
 .username input:valid ~ span::before{
     width: 100%;
 }
+
 .recordar{
     margin: -5px 0 20px 5px;
     color: #2752e5;
@@ -74,6 +96,7 @@ form .username{
 .recordar:hover{
     text-decoration: underline;
 }
+
 input[type="submit"]{
     width: 100%;
     height: 50px;
@@ -88,18 +111,5 @@ input[type="submit"]{
 input[type="submit"]:hover{
     background: #1a379a;
     transition: .5s;
-}
-.registro{
-    margin: 30px 0;
-    text-align: center;
-    font-size: 16px;
-    color: #01092d;
-}
-.registro a{
-    color: #3d299a;
-    text-decoration: none;
-}
-.registro a:hover{
-    text-decoration: underline;
 }
 

@@ -8,22 +8,25 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 </head>
 <body>
-<div id="app" class="login">
-    <h1> Iniciar Sesión</h1>
-    <form @submit.prevent="login">
-        <div class="username">
-            <input type="text" v-model="username" required>
-            <label>Usuario</label>
-        </div>
-        <div class="username">
-            <input type="password" v-model="password" required>
-            <label>Contraseña</label>
-        </div>
-        <div class="recordar">Olvidé mi contraseña</div>
-        <input type="submit" value="Iniciar">
-
-        
-    </form>
+<div id="app" class="login-container">
+    <div class="image-container">
+        <img src="../Frontend/img/login.png" alt="">
+    </div>
+    <div class="login">
+        <h1>Iniciar Sesión</h1>
+        <form @submit.prevent="login">
+            <div class="username">
+                <input type="text" v-model="username" required>
+                <label>Usuario</label>
+            </div>
+            <div class="username">
+                <input type="password" v-model="password" required>
+                <label>Contraseña</label>
+            </div>
+            <div class="recordar">Olvidé mi contraseña</div>
+            <input type="submit" value="Iniciar">
+        </form>
+    </div>
 </div>
 <script src="client.js"></script>
 </body>
