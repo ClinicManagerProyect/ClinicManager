@@ -37,13 +37,14 @@ new Vue({
                case 'admin':
                  window.location.href = 'admin/admin.html';
                  break;
-                   case 'user':
+               case 'super_admin':
+                     window.location.href = 'superAdmin/super-admin.html';
+                     break;
+               case 'user':
                   window.location.href = 'user/user.html';
                    break;
-                   case 'super_admin':
-                  window.location.href = 'superAdmin/super-admin.html';
-                   break;
-                 default:
+
+              default:
             console.error('Invalid user role:', this.userRole);
             window.location.href = 'error.html';
     }
