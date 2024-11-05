@@ -1,5 +1,5 @@
 // data_base/queries.js
-const connection = require('../data_base/dataBase'); // Asegúrate de que la ruta sea correcta
+const connection = require('../data_base/dataBase'); 
 
 // Función para verificar usuario y contraseña
 const validateUser = (username, password, callback) => {

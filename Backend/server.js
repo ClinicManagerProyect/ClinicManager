@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const connection = require("../data_base/dataBase");
 const {validateUser} = require('../data_base/queries');
 const app = express();
 const PORT = 4000;

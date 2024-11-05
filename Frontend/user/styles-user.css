@@ -378,3 +378,71 @@ th {
         padding: 10px;
     }
 }
+.task-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.task-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    width: calc(50% - 20px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.task-header h3 {
+    font-size: 1.2em;
+    margin: 0;
+}
+
+.task-status {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.task-status.pending { background-color: #f0ad4e; color: #fff; }
+.task-status.in_progress { background-color: #5bc0de; color: #fff; }
+.task-status.confirmed { background-color: #5cb85c; color: #fff; }
+.task-status.rejected { background-color: #d9534f; color: #fff; }
+
+.task-function {
+    font-size: 1em;
+    color: #666;
+    margin: 8px 0;
+}
+
+.task-time {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+.task-actions {
+    text-align: right;
+}
+
+.task-actions i {
+    font-size: 1.2em;
+    color: #888;
+    cursor: pointer;
+    margin: 0 4px;
+    transition: color 0.3s;
+}
+
+.task-actions i:hover {
+    color: #333;
+}

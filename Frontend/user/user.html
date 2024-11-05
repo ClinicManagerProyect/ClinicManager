@@ -102,63 +102,58 @@
 
         <div class="tasks">
             <div class="title">
-                <h2 class="section--title">Tareas Asiganadas</h2>
+                <h2 class="section--title">Tareas Asignadas</h2>
                 <button class="add"><i class="ri-add-line"></i>Añadir Tarea</button>
             </div>
-            <div class="table">
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Tarea</th>
-                        <th>Fecha & Hora de Inicio </th>
-                        <th>Fecha & Hora Final</th>
-                        <th>Funcion</th>
-                        <th>Estado</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>Ronda</td>
-                        <td>05/12/2024 09:00 </td>
-                        <td>05/12/2024 15:00</td>
-                        <td>Hacer listado de pasientes Habitacion 300-350 </td>
-                        <td class="pending">Pendiente</td>
-                        <td><span><i class="ri-edit-line edit"></i><i class="ri-delete-bin-line delete"></i></span></td>
-                    </tr>
-                    <tr>
-                        <td>Preparación de quirófano</td>
-                        <td>07/12/2024 14:00</td>
-                        <td>07/12/2024 15:00</td>
-                        <td>Verificar equipo médico</td>
-                        <td class="in_progress">En progreso</td>
-                        <td><span><i class="ri-edit-line edit"></i><i class="ri-delete-bin-line delete"></i></span></td>
-                    </tr>
-                    <tr>
-                        <td>Mantenimiento preventivo de equipos médicos	</td>
-                        <td>12/12/2024 16:00</td>
-                        <td>12/12/2024 18:00	</td>
-                        <td>Verificar el funcionamiento de equipos de rayos X y resonancia magnética</td>
-                        <td class="confirmed">Confirmada</td>
-                        <td><span><i class="ri-edit-line edit"></i><i class="ri-delete-bin-line delete"></i></span></td>
-                    </tr>
-                    <tr>
-                        <td>Entrega de resultados de laboratorio</td>
-                        <td>11/12/2024 13:00</td>
-                        <td>11/12/2024 14:00</td>
-                        <td>Informar a los médicos sobre los resultados de los exámenes</td>
-                        <td class="rejected">Pendiente</td>
-                        <td><span><i class="ri-edit-line edit"></i><i class="ri-delete-bin-line delete"></i></span></td>
-                    </tr>
-                    <tr>
-                        <td>Visita a pacientes en pediatría</td>
-                        <td>08/12/2024 10:00</td>
-                        <td>08/12/2024 12:00</td>
-                        <td>Realizar rondas y verificar estado de salud</td>
-                        <td class="confirmed">Confirmada</td>
-                        <td><span><i class="ri-edit-line edit"></i><i class="ri-delete-bin-line delete"></i></span></td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div class="task-cards">
+                <!-- Tarjeta de Tarea -->
+                <div class="task-card">
+                    <div class="task-header">
+                        <h3>Ronda</h3>
+                        <span class="task-status pending">Pendiente</span>
+                    </div>
+                    <p class="task-function">Hacer listado de pacientes Habitacion 300-350</p>
+                    <div class="task-time">
+                        <span><strong>Inicio:</strong> 05/12/2024 09:00</span>
+                        <span><strong>Fin:</strong> 05/12/2024 15:00</span>
+                    </div>
+                    <div class="task-actions">
+                        <i class="ri-edit-line edit"></i>
+                        <i class="ri-delete-bin-line delete"></i>
+                    </div>
+                </div>
+        
+                <!-- Repite la estructura de la tarjeta de tarea para cada tarea -->
+                <div class="task-card">
+                    <div class="task-header">
+                        <h3>Preparación de quirófano</h3>
+                        <span class="task-status in_progress">En progreso</span>
+                    </div>
+                    <p class="task-function">Verificar equipo médico</p>
+                    <div class="task-time">
+                        <span><strong>Inicio:</strong> 07/12/2024 14:00</span>
+                        <span><strong>Fin:</strong> 07/12/2024 15:00</span>
+                    </div>
+                    <div class="task-actions">
+                        <i class="ri-edit-line edit"></i>
+                        <i class="ri-delete-bin-line delete"></i>
+                    </div>
+                </div>
+                <div class="task-card">
+                    <div class="task-header">
+                        <h3>Visita Paciente Habitacion 305A</h3>
+                        <span class="task-status confirmed">Completada</span>
+                    </div>
+                    <p class="task-function">Pasr ronda de visita paciente, verificar estado de salud e inquietudes con los medicos de turno</p>
+                    <div class="task-time">
+                        <span><strong>Inicio:</strong> 07/12/2024 15:30</span>
+                        <span><strong>Fin:</strong> 07/12/2024 16:00</span>
+                    </div>
+                    <div class="task-actions">
+                        <i class="ri-edit-line edit"></i>
+                        <i class="ri-delete-bin-line delete"></i>
+                    </div>
+                </div>        
             </div>
         </div>
     </div>
