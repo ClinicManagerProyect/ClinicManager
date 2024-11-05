@@ -18,11 +18,12 @@ new Vue({
                         password: this.password
                     })
                 });
-
+        
                 if (response.ok) {
                     const data = await response.json();
+                    console.log("Respuesta del servidor:", data); 
                     this.userRole = data.user.role; 
-                    localStorage.setItem('userRole', this.userRole); 
+                    localStorage.setItem('token', data.token); 
                     this.redirectUser();
                 } else {
                     const errorData = await response.json();
@@ -33,8 +34,17 @@ new Vue({
             }
         },
         redirectUser() {
+            const token = localStorage.getItem('token'); 
+        
+            if (!token) {
+                alert('Debes iniciar sesión primero.');
+                window.location.href = 'index.html'; 
+                return;
+            }
+
             switch (this.userRole) {
                 case 'A': 
+                
                     window.location.href = 'admin/admin.html';
                     break;
                 case 'G': 
@@ -44,7 +54,7 @@ new Vue({
                     window.location.href = 'user/user.html';
                     break;
                 default:
-                    console.error('Invalid user role:', this.userRole);
+                    console.error('Rol de usuario no válido:', this.userRole);
                     alert('Rol de usuario no reconocido.');
                     break;
             }

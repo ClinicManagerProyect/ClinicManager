@@ -10,6 +10,35 @@
 
 </head>
 <body>
+    <script>
+        window.onload = function() {
+            const token = localStorage.getItem('token'); 
+    
+            if (!token) {
+                alert('Debes iniciar sesión primero.');
+                window.location.href = '../index.html'; 
+                return;
+            }
+    
+           
+            const payload = JSON.parse(atob(token.split('.')[1])); 
+    
+            // Verificar la expiración del token
+            const currentTime = Math.floor(Date.now() / 1000); 
+            if (payload.exp < currentTime) {
+                alert('Token expirado. Debes iniciar sesión nuevamente.');
+                localStorage.removeItem('token'); 
+                window.location.href = '../index.html'; 
+                return;
+            }
+    
+
+            if (payload.role !== 'G') { 
+                alert('Acceso no autorizado.');
+                window.location.href = '../index.html'; 
+                return;
+            }
+        }</script> 
 <section class="header">
     <div class="logo">
         <i class="ri-menu-line icon icon-0 menu"></i>
