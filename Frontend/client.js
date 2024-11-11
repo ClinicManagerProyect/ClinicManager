@@ -43,20 +43,20 @@ new Vue({
             }
 
             switch (this.userRole) {
-                case 'A': 
+                case 'GER': 
                 
                     window.location.href = 'admin/admin.html';
                     break;
-                case 'G': 
+                case 'ADM': 
                     window.location.href = 'superAdmin/super-admin.html';
                     break;
-                case 'E': 
+                case 'EMP': 
                     window.location.href = 'user/user.html';
                     break;
                 default:
                     console.error('Rol de usuario no válido:', this.userRole);
                     alert('Rol de usuario no reconocido.');
-                    break;
+                    break; 
             }
         }
     }
