@@ -57,7 +57,14 @@ new Vue({
         console.error("Error al registrar:", error);
       }
     },
-    async DeshabilitarEmpleado(idUsuario) {
+    async DeshabilitarEmpleado() {
+
+      const idUsuario = prompt("Por favor, ingresa el ID del usuario a deshabilitar:");
+      if (!idUsuario) {
+        alert("No ingresaste un ID de usuario.");
+        return;
+      }
+      alert("Usuario Deshabilitado")
       try {
         const response = await fetch(
           `http://localhost:4000/deshabilitarEmpleado/${idEmpleado}`,
@@ -76,6 +83,12 @@ new Vue({
           const data = await response.json();
           console.log("Empleado deshabilitado:", data);
           alert("Empleado deshabilitado exitosamente.");
+
+          this.usuario = this.usuario.map((usuario) =>
+              usuario.ID_USUARIO === idUsuario
+                  ? { ...usuario, ESTADO_USUARIO: "I" } // Cambiar el estado a "Inactivo"
+                  : usuario
+          );
         } else {
           const errorData = await response.json();
           alert(errorData.message);

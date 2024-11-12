@@ -385,3 +385,20 @@ a {
     background-color: #f9f9f9;
     border-radius: 5px;
 }
+employee-details {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+.employees-table button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+.employees-table button:hover {
+    background-color: darkred;
+}

@@ -10,35 +10,35 @@
 
 </head>
 <body>
-    <script>
-        window.onload = function() {
-            const token = localStorage.getItem('token'); 
-    
-            if (!token) {
-                alert('Debes iniciar sesión primero.');
-                window.location.href = '../index.html'; 
-                return;
-            }
-    
-           
-            const payload = JSON.parse(atob(token.split('.')[1])); 
-    
-            // Verificar la expiración del token
-            const currentTime = Math.floor(Date.now() / 1000); 
-            if (payload.exp < currentTime) {
-                alert('Token expirado. Debes iniciar sesión nuevamente.');
-                localStorage.removeItem('token'); 
-                window.location.href = '../index.html'; 
-                return;
-            }
-    
+<script>
+    window.onload = function() {
+        const token = localStorage.getItem('token');
 
-            if (payload.role !== 'ADM') { 
-                alert('Acceso no autorizado.');
-                window.location.href = '../index.html'; 
-                return;
-            }
-        }</script> 
+        if (!token) {
+            alert('Debes iniciar sesión primero.');
+            window.location.href = '../index.html';
+            return;
+        }
+
+
+        const payload = JSON.parse(atob(token.split('.')[1]));
+
+        // Verificar la expiración del token
+        const currentTime = Math.floor(Date.now() / 1000);
+        if (payload.exp < currentTime) {
+            alert('Token expirado. Debes iniciar sesión nuevamente.');
+            localStorage.removeItem('token');
+            window.location.href = '../index.html';
+            return;
+        }
+
+
+        if (payload.role !== 'ADM') {
+            alert('Acceso no autorizado.');
+            window.location.href = '../index.html';
+            return;
+        }
+    }</script>
 <section class="header">
     <div class="logo">
         <i class="ri-menu-line icon icon-0 menu"></i>
@@ -100,29 +100,34 @@
     </div>
     <div id="app">
         <div class="main--content">
-          <h2 class="section--title">Lista de Empleados</h2>
-          <table class="employees-table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Estado</th>
-                <th>Rol</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="empleado in empleados" :key="empleado.ID_PERSONA">
-                <td>{{ empleado.ID_PERSONA }}</td>
-                <td>{{ empleado.NOMBRE_COMPLETO }}</td>
-                <td :class="empleado.ESTADO_USUARIO.toLowerCase()">
-                  {{ empleado.ESTADO_USUARIO === 'A' ? 'Activo' : 'Inactivo' }}
-                </td>
-                <td>{{ empleado.NOMBRE_EMPLEO }}</td>
-              </tr>
-            </tbody>
-          </table>
+            <h2 class="section--title">Lista de Empleados</h2>
+            <table class="employees-table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Estado</th>
+                    <th>Rol</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="empleado in empleados" :key="empleado.ID_PERSONA">
+
+                    <td>{{ empleado.ID_PERSONA }}</td>
+                    <td>{{ empleado.NOMBRE_COMPLETO }}</td>
+                    <td :class="empleado.ESTADO_USUARIO.toLowerCase()">
+                        {{ empleado.ESTADO_USUARIO === 'A' ? 'Activo' : 'Inactivo' }}
+                    </td>
+                    <td>{{ empleado.NOMBRE_EMPLEO }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <button @click="DeshabilitarEmpleado">
+                Deshabilitar Usuario
+            </button>
         </div>
-      </div>
+    </div>
     </div>
 </section>
 <script src="admin.js"></script>
