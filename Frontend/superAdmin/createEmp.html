@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Registro</title>
+    <link rel="stylesheet" href="styles-add-emp.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 </head>
 <body>
@@ -99,6 +100,9 @@
             <input type="time" id="hora_salida" v-model="empleado.hora_salida" required><br><br>
 
             <button type="submit">Registrar Usuario</button>
+            <a href="super-admin.html">
+                <span class="bottom">Cancelar</span>
+            </a>
         </form>
     </div>
     <script src="admin.js"></script>    
