@@ -48,6 +48,7 @@ new Vue({
           const data = await response.json();
           console.log("Registro exitoso:", data);
           alert("Registro completado exitosamente.");
+          window.location.href = 'super-admin.html';
         } else {
           const errorData = await response.json();
           alert(errorData.message);
@@ -83,7 +84,7 @@ new Vue({
         console.error("Error al deshabilitar el empleado:", error);
       }
     },
-    
+
     async verEmpleados() {
       try {
         const response = await fetch("http://localhost:4000/empleados", {
@@ -95,13 +96,16 @@ new Vue({
 
         if (response.ok) {
           this.empleados = await response.json();
-          console.log("Empleados obtenidos:", this.empleados);
+          if (!Array.isArray(this.empleados)) {
+            throw new Error("Formato de respuesta no válido.");
+          }
         } else {
           const errorData = await response.json();
-          alert(errorData.message);
+          throw new Error(errorData.message || "Error desconocido.");
         }
       } catch (error) {
         console.error("Error al obtener empleados:", error);
+        alert("No se pudieron cargar los empleados.");
       }
     },
 
@@ -128,5 +132,8 @@ new Vue({
         console.error("Error al obtener el empleado:", error);
       }
     },
+  },
+  mounted() {
+    this.verEmpleados();
   },
 });

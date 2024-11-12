@@ -1,6 +1,4 @@
-
 const connection = require('../data_base/dataBase'); 
-
 
 const validateUser = (username, password, callback) => {
     const query = 'SELECT id_usuario, tipo_usuario FROM usuario WHERE id_usuario = ? AND contrasena = ? AND ESTADO="A" ';
@@ -11,6 +9,7 @@ const validateUser = (username, password, callback) => {
         callback(null, results);
     });
 };
+
 const insertPersona = (persona, callback) => {
     const query = 'INSERT INTO PERSONA (ID_PERSONA, TIPO_IDENTIFICACION, NOMBRES, APELLIDOS, GENERO, CORREO, DIRECCION, TELEFONO) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
     connection.query(query, [
@@ -30,7 +29,6 @@ const insertPersona = (persona, callback) => {
     });
 };
 
-
 const insertUsuario = (usuario, personaId, callback) => {
     const query = 'INSERT INTO USUARIO (ID_USUARIO, ID_PERSONA, CONTRASENA, TIPO_USUARIO, ESTADO) VALUES (?, ?, ?, ?, ?)';
     connection.query(query, [
@@ -47,13 +45,12 @@ const insertUsuario = (usuario, personaId, callback) => {
     });
 };
 
-
 const insertEmpleado = (usuarioId, empleado, callback) => {
     const query = 'INSERT INTO EMPLEADO (ID_USUARIO, ID_EMPLEO, ID_GERENTE, FECHA_CONTRATACION, ESTADO, HORA_ENTRADA, HORA_SALIDA) VALUES (?, ?, ?, ?, ?, ?, ?)';
     connection.query(query, [
         usuarioId,  
         empleado.id_empleo,
-        empleado.id_gerente,
+        empleado.id_gerente || null,
         empleado.fecha_contratacion,
         empleado.estado,
         empleado.hora_entrada,
@@ -63,6 +60,49 @@ const insertEmpleado = (usuarioId, empleado, callback) => {
             return callback(err, null);
         }
         callback(null, results);
+    });
+};
+
+const registrarEmpleadoCompleto = (persona, usuario, empleado, callback) => {
+    connection.beginTransaction((err) => {
+        if (err) {
+            return callback(err, null);
+        }
+        insertPersona(persona, (err, personaResults) => {
+            if (err) {
+                return connection.rollback(() => {
+                    callback(err, null);
+                });
+            }
+
+    
+            insertUsuario(usuario, persona.id_persona, (err, usuarioResults) => {
+                if (err) {
+                    return connection.rollback(() => {
+                        callback(err, null);
+                    });
+                }
+
+                
+                insertEmpleado(usuario.id_usuario, empleado, (err, empleadoResults) => {
+                    if (err) {
+                        return connection.rollback(() => {
+                            callback(err, null);
+                        });
+                    }
+
+                    // Commit si todo sale bien
+                    connection.commit((err) => {
+                        if (err) {
+                            return connection.rollback(() => {
+                                callback(err, null);
+                            });
+                        }
+                        callback(null, empleadoResults);
+                    });
+                });
+            });
+        });
     });
 };
 
@@ -86,7 +126,6 @@ const deshabilitarEmpleado = (idEmpleado, callback) => {
                     });
                 }
 
-               
                 connection.commit((err) => {
                     if (err) {
                         return connection.rollback(() => {
@@ -99,8 +138,9 @@ const deshabilitarEmpleado = (idEmpleado, callback) => {
         });
     });
 };
+
 function obtenerTodosLosEmpleados(callback) {
-    const query = 'SELECT * FROM empleado where estado="A"';
+    const query = 'SELECT   P.ID_PERSONA,CONCAT(P.NOMBRES, " ", P.APELLIDOS) AS NOMBRE_COMPLETO,U.ESTADO AS ESTADO_USUARIO,EM.NOMBRE_EMPLEO FROM EMPLEADO E JOIN USUARIO U ON E.ID_USUARIO = U.ID_USUARIO JOIN PERSONA P ON U.ID_PERSONA = P.ID_PERSONA JOIN EMPLEO EM ON E.ID_EMPLEO = EM.ID_EMPLEO AND U.ESTADO="A";';
     connection.query(query, (err, results) => {
         if (err) {
             return callback(err);
@@ -108,6 +148,7 @@ function obtenerTodosLosEmpleados(callback) {
         callback(null, results);
     });
 }
+
 function obtenerEmpleadoPorId(idEmpleado, callback) {
     const query = 'SELECT * FROM empleado WHERE id_usuario = ? AND estado="A"';
     connection.query(query, [idEmpleado], (err, results) => {
@@ -117,11 +158,13 @@ function obtenerEmpleadoPorId(idEmpleado, callback) {
         callback(null, results[0]);
     });
 }
+
 module.exports = {
     validateUser,
     insertPersona,
     insertUsuario,
     insertEmpleado,
+    registrarEmpleadoCompleto, 
     deshabilitarEmpleado,
     obtenerTodosLosEmpleados,
     obtenerEmpleadoPorId

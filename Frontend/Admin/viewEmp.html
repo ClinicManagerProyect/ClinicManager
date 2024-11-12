@@ -98,44 +98,33 @@
             </li>
         </ul>
     </div>
-    <div class="app">
+    <div id="app">
         <div class="main--content">
-            <h2 class="section--title">Lista de Empleados</h2>
-
-            <!-- Tabla de empleados -->
-            <table class="employees-table">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Estado</th>
-                    <th>Rol</th>
-                    <th>Acciones</th>
-                </tr>
-                </thead>
-                <tbody>
-                <!-- Iteramos sobre los empleados -->
-                <tr v-for="empleado in empleados" :key="empleado.id_empleo">
-                    <td>{{ empleado.id_empleo }}</td>
-                    <td>{{ empleado.nombres }} {{ empleado.apellidos }}</td>
-                    <td :class="empleado.estado.toLowerCase()">{{ empleado.estado }}</td>
-                    <td>{{ empleado.rol }}</td>
-                    <td>
-                        <button @click="verEmpleado(empleado.id_empleo)">Ver</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <!-- Detalles de un empleado seleccionado -->
-            <div v-if="empleadoSeleccionado">
-                <h3>Detalles del Empleado</h3>
-                <p><strong>ID:</strong> {{ empleadoSeleccionado.id_empleo }}</p>
-                <p><strong>Nombre:</strong> {{ empleadoSeleccionado.nombres }} {{ empleadoSeleccionado.apellidos }}</p>
-                <p><strong>Estado:</strong> {{ empleadoSeleccionado.estado }}</p>
-                <p><strong>Rol:</strong> {{ empleadoSeleccionado.rol }}</p>
-            </div>
+          <h2 class="section--title">Lista de Empleados</h2>
+          <table class="employees-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Estado</th>
+                <th>Rol</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="empleado in empleados" :key="empleado.ID_PERSONA">
+                <td>{{ empleado.ID_PERSONA }}</td>
+                <td>{{ empleado.NOMBRE_COMPLETO }}</td>
+                <td :class="empleado.ESTADO_USUARIO.toLowerCase()">
+                  {{ empleado.ESTADO_USUARIO === 'A' ? 'Activo' : 'Inactivo' }}
+                </td>
+                <td>{{ empleado.NOMBRE_EMPLEO }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+      </div>
     </div>
 </section>
+<script src="admin.js"></script>
 </body>
 </html>

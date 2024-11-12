@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
-const { validateUser, insertPersona, insertUsuario, insertEmpleado, deshabilitarEmpleado, obtenerTodosLosEmpleados, obtenerEmpleadoPorId } = require('../data_base/queries');
+const { validateUser, insertPersona, insertUsuario, insertEmpleado, deshabilitarEmpleado, obtenerTodosLosEmpleados, obtenerEmpleadoPorId,registrarEmpleadoCompleto } = require('../data_base/queries');
 const app = express();
 const PORT = 4000;
 
@@ -43,30 +43,14 @@ app.post('/login', (req, res) => {
 app.post('/registro', async (req, res) => {
     const { persona, usuario, empleado } = req.body;
     console.log("Datos recibidos:", { persona, usuario, empleado });
+
     try {
-   
-        insertPersona(persona, (err, personaResults) => {
+        registrarEmpleadoCompleto(persona, usuario, empleado, (err, result) => {
             if (err) {
-                console.error('Error al insertar persona:', err);
-                return res.status(500).json({ message: 'Error al insertar persona' });
+                console.error('Error al registrar:', err);
+                return res.status(500).json({ message: 'Error al registrar datos en la base de datos' });
             }
-
-     
-            insertUsuario(usuario, persona.id_persona, (err, usuarioResults) => {
-                if (err) {
-                    console.error('Error al insertar usuario:', err);
-                    return res.status(500).json({ message: 'Error al insertar usuario' });
-                }
-
-                insertEmpleado(usuario.id_usuario, empleado, (err, empleadoResults) => {
-                    if (err) {
-                        console.error('Error al insertar empleado:', err);
-                        return res.status(500).json({ message: 'Error al insertar empleado' });
-                    }
-
-                    res.status(200).json({ message: 'Registro exitoso' });
-                });
-            });
+            res.status(200).json({ message: 'Registro exitoso' });
         });
     } catch (error) {
         console.error('Error al registrar:', error);

@@ -45,10 +45,10 @@ new Vue({
             switch (this.userRole) {
                 case 'GER': 
                 
-                    window.location.href = 'admin/admin.html';
+                    window.location.href = 'Manager_area/admin.html';
                     break;
                 case 'ADM': 
-                    window.location.href = 'superAdmin/super-admin.html';
+                    window.location.href = 'Admin/super-admin.html';
                     break;
                 case 'EMP': 
                     window.location.href = 'user/user.html';
