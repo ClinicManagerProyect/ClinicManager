@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles-super-admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <title></title>
+
+</head>
+<body>
+    <script>
+        window.onload = function() {
+            const token = localStorage.getItem('token'); 
+    
+            if (!token) {
+                alert('Debes iniciar sesión primero.');
+                window.location.href = '../index.html'; 
+                return;
+            }
+    
+           
+            const payload = JSON.parse(atob(token.split('.')[1])); 
+    
+            // Verificar la expiración del token
+            const currentTime = Math.floor(Date.now() / 1000); 
+            if (payload.exp < currentTime) {
+                alert('Token expirado. Debes iniciar sesión nuevamente.');
+                localStorage.removeItem('token'); 
+                window.location.href = '../index.html'; 
+                return;
+            }
+    
+
+            if (payload.role !== 'ADM') { 
+                alert('Acceso no autorizado.');
+                window.location.href = '../index.html'; 
+                return;
+            }
+        }</script> 
+<section class="header">
+    <div class="logo">
+        <i class="ri-menu-line icon icon-0 menu"></i>
+        <h2>Hosp<span>Ital</span></h2>
+    </div>
+    <div class="search--notification--profile">
+        <div class="search">
+            <input type="text" placeholder="Search..">
+            <button><i class=""></i></button>
+        </div>
+        <div class="notification--profile">
+            <div class="picon lock">
+                <img src="../img/notification.png" ></img>
+            </div>
+
+            <div class="picon profile">
+                <img src="../img/super_admi.png" >
+            </div>
+        </div>
+    </div>
+</section>
+<section class="main">
+    <div class="sidebar">
+        <ul class="sidebar--items">
+            <li>
+                <a href="super-admin.html" id="active--link">
+                    <span class="icon icon-1"><i class="ri-layout-grid-line"></i></span>
+                    <span class="sidebar--item">Control</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon icon-2"><i class="ri-calendar-2-line"></i></span>
+                    <span class="sidebar--item">Horario</span>
+                </a>
+            </li>
+            <li>
+                <a href="viewEmp.html">
+                    <span class="icon icon-2"><i class="ri-calendar-2-line"></i></span>
+                    <span class="sidebar--item">Ver Lista Empleados </span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon icon-2"><i class="ri-calendar-2-line"></i></span>
+                    <span class="sidebar--item">Borrar Empleados </span>
+                </a>
+            </li>
+
+        </ul>
+        <ul class="sidebar--bottom-items">
+            <li>
+                <a href="../index.html">
+                    <span class="icon icon-8"><i class="ri-logout-box-r-line"></i></span>
+                    <span class="sidebar--item">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div clas="app">
+    <div class="main--content">
+        <h2 class="section--title">Lista de Empleados</h2>
+        <!-- Tabla de empleados -->
+        <table class="employees-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Estado</th>
+                <th>Rol</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr @submit.prevent="">
+                <td>{{ empleado.id }}</td>
+                <td>{{ empleado.nombre }}</td>
+                <td :class="empleado.estado.toLowerCase()">{{ empleado.estado }}</td>
+                <td>{{ empleado.rol }}</td>
+                <td>
+                    <button @click="verEmpleado(empleado.id)">Ver</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- Detalles de un empleado seleccionado -->
+        <div  @submit.prevent="verEmpleados">
+            <h3>Detalles del Empleado</h3>
+            <p><strong>ID:</strong> {{ empleadoSeleccionado.id }}</p>
+            <p><strong>Nombre:</strong> {{ empleadoSeleccionado.nombre }}</p>
+            <p><strong>Estado:</strong> {{ empleadoSeleccionado.estado }}</p>
+            <p><strong>Rol:</strong> {{ empleadoSeleccionado.rol }}</p>
+        </div>
+    </div>
+    </div>
+</section>
+</body>
+</html>
