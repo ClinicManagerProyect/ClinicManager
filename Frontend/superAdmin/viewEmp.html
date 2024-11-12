@@ -98,42 +98,43 @@
             </li>
         </ul>
     </div>
-    <div clas="app">
-    <div class="main--content">
-        <h2 class="section--title">Lista de Empleados</h2>
-        <!-- Tabla de empleados -->
-        <table class="employees-table">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Estado</th>
-                <th>Rol</th>
-                <th>Acciones</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr @submit.prevent="">
-                <td>{{ empleado.id }}</td>
-                <td>{{ empleado.nombre }}</td>
-                <td :class="empleado.estado.toLowerCase()">{{ empleado.estado }}</td>
-                <td>{{ empleado.rol }}</td>
-                <td>
-                    <button @click="verEmpleado(empleado.id)">Ver</button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="app">
+        <div class="main--content">
+            <h2 class="section--title">Lista de Empleados</h2>
 
-        <!-- Detalles de un empleado seleccionado -->
-        <div  @submit.prevent="verEmpleados">
-            <h3>Detalles del Empleado</h3>
-            <p><strong>ID:</strong> {{ empleadoSeleccionado.id }}</p>
-            <p><strong>Nombre:</strong> {{ empleadoSeleccionado.nombre }}</p>
-            <p><strong>Estado:</strong> {{ empleadoSeleccionado.estado }}</p>
-            <p><strong>Rol:</strong> {{ empleadoSeleccionado.rol }}</p>
+            <!-- Tabla de empleados -->
+            <table class="employees-table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Estado</th>
+                    <th>Rol</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Iteramos sobre los empleados -->
+                <tr v-for="empleado in empleados" :key="empleado.id_empleo">
+                    <td>{{ empleado.id_empleo }}</td>
+                    <td>{{ empleado.nombres }} {{ empleado.apellidos }}</td>
+                    <td :class="empleado.estado.toLowerCase()">{{ empleado.estado }}</td>
+                    <td>{{ empleado.rol }}</td>
+                    <td>
+                        <button @click="verEmpleado(empleado.id_empleo)">Ver</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- Detalles de un empleado seleccionado -->
+            <div v-if="empleadoSeleccionado">
+                <h3>Detalles del Empleado</h3>
+                <p><strong>ID:</strong> {{ empleadoSeleccionado.id_empleo }}</p>
+                <p><strong>Nombre:</strong> {{ empleadoSeleccionado.nombres }} {{ empleadoSeleccionado.apellidos }}</p>
+                <p><strong>Estado:</strong> {{ empleadoSeleccionado.estado }}</p>
+                <p><strong>Rol:</strong> {{ empleadoSeleccionado.rol }}</p>
+            </div>
         </div>
-    </div>
     </div>
 </section>
 </body>
