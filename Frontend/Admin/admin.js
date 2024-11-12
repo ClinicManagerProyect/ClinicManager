@@ -57,6 +57,7 @@ new Vue({
         console.error("Error al registrar:", error);
       }
     },
+
     async DeshabilitarEmpleado() {
 
       const idUsuario = prompt("Por favor, ingresa el ID del usuario a deshabilitar:");
@@ -67,7 +68,7 @@ new Vue({
       alert("Usuario Deshabilitado")
       try {
         const response = await fetch(
-          `http://localhost:4000/deshabilitarEmpleado/${idEmpleado}`,
+          `http://localhost:4000/deshabilitarEmpleado/${idUsuario}`,
           {
             method: "PUT",
             headers: {
