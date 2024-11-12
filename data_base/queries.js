@@ -45,14 +45,14 @@ const insertUsuario = (usuario, personaId, callback) => {
     });
 };
 
-const insertEmpleado = (usuarioId, empleado, callback) => {
+const insertEmpleado = (usuarioId, usuarioEstado,empleado, callback) => {
     const query = 'INSERT INTO EMPLEADO (ID_USUARIO, ID_EMPLEO, ID_GERENTE, FECHA_CONTRATACION, ESTADO, HORA_ENTRADA, HORA_SALIDA) VALUES (?, ?, ?, ?, ?, ?, ?)';
     connection.query(query, [
         usuarioId,  
         empleado.id_empleo,
         empleado.id_gerente || null,
         empleado.fecha_contratacion,
-        empleado.estado,
+        usuarioEstado,
         empleado.hora_entrada,
         empleado.hora_salida
     ], (err, results) => {
@@ -84,14 +84,14 @@ const registrarEmpleadoCompleto = (persona, usuario, empleado, callback) => {
                 }
 
                 
-                insertEmpleado(usuario.id_usuario, empleado, (err, empleadoResults) => {
+                insertEmpleado(usuario.id_usuario, usuario.estado,empleado, (err, empleadoResults) => {
                     if (err) {
                         return connection.rollback(() => {
                             callback(err, null);
                         });
                     }
 
-                    // Commit si todo sale bien
+                    
                     connection.commit((err) => {
                         if (err) {
                             return connection.rollback(() => {
