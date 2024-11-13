@@ -4,35 +4,47 @@ const jwt = require("jsonwebtoken");
 const { validateUser, insertPersona, insertUsuario, insertEmpleado, deshabilitarEmpleado, obtenerTodosLosEmpleados, obtenerEmpleadoPorId,registrarEmpleadoCompleto } = require('../data_base/queries');
 const app = express();
 const PORT = 4000;
+const bcrypt = require('bcryptjs');
 
 app.use(cors());
 app.use(express.json());
 
 const SECRET_KEY = '211100';
 
+
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
 
-    validateUser(username, password, (err, results) => {
+    
+    validateUser(username, (err, results) => {
         if (err) {
             console.error('Error en el proceso de login:', err);
             return res.status(500).json({ message: 'Error en el servidor' });
         }
 
-        console.log(results);
         if (results.length > 0) {
             const user = results[0];
-            console.log("user:", user);
-            const token = jwt.sign({ id: user.id_usuario, role: user.tipo_usuario }, SECRET_KEY, { expiresIn: '1h' });
-            console.log("Token:", token);
+            console.log("Usuario encontrado:", user);
+            bcrypt.compare(password, user.contrasena, (err, isMatch) => {
+                if (err) {
+                    console.error('Error al verificar la contraseña:', err);
+                    return res.status(500).json({ message: 'Error en el servidor' });
+                }
+                if (isMatch) {
+                    const token = jwt.sign({ id: user.id_usuario, role: user.tipo_usuario }, SECRET_KEY, { expiresIn: '1h' });
+                    console.log("Token generado:", token);
 
-            res.json({
-                success: true,
-                user: {
-                    username: user.id_usuario,  
-                    role: user.tipo_usuario     
-                },
-                token: token
+                    res.json({
+                        success: true,
+                        user: {
+                            username: user.id_usuario,
+                            role: user.tipo_usuario
+                        },
+                        token: token
+                    });
+                } else {
+                    res.status(401).json({ success: false, message: 'Usuario o contraseña incorrectos' });
+                }
             });
         } else {
             res.status(401).json({ success: false, message: 'Usuario o contraseña incorrectos' });
@@ -40,11 +52,15 @@ app.post('/login', (req, res) => {
     });
 });
 
+
+
 app.post('/registro', async (req, res) => {
     const { persona, usuario, empleado } = req.body;
     console.log("Datos recibidos:", { persona, usuario, empleado });
 
     try {
+        const hashedPassword = await bcrypt.hash(usuario.contrasena, 10);
+        usuario.contrasena= hashedPassword;
         registrarEmpleadoCompleto(persona, usuario, empleado, (err, result) => {
             if (err) {
                 console.error('Error al registrar:', err);

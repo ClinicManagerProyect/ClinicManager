@@ -58,14 +58,11 @@ new Vue({
       }
     },
 
-    async DeshabilitarEmpleado() {
-
-      const idUsuario = prompt("Por favor, ingresa el ID del usuario a deshabilitar:");
+    async DeshabilitarEmpleado(idUsuario) {
       if (!idUsuario) {
-        alert("No ingresaste un ID de usuario.");
+        alert("No se recibió un ID de usuario válido.");
         return;
       }
-      alert("Usuario Deshabilitado")
       try {
         const response = await fetch(
           `http://localhost:4000/deshabilitarEmpleado/${idUsuario}`,
@@ -74,28 +71,25 @@ new Vue({
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-              usuario: this.usuario,
-            }),
           }
         );
-
         if (response.ok) {
           const data = await response.json();
           console.log("Empleado deshabilitado:", data);
+  
+          const empleado = this.empleados.find((emp) => emp.id_usuario === idUsuario);
+          if (empleado) {
+            empleado.estado = "Inactivo";
+          }
           alert("Empleado deshabilitado exitosamente.");
-
-          this.usuario = this.usuario.map((usuario) =>
-              usuario.ID_USUARIO === idUsuario
-                  ? { ...usuario, ESTADO_USUARIO: "I" } // Cambiar el estado a "Inactivo"
-                  : usuario
-          );
+          location.reload();
         } else {
           const errorData = await response.json();
-          alert(errorData.message);
+          alert(errorData.message || "Error al deshabilitar el empleado.");
         }
       } catch (error) {
         console.error("Error al deshabilitar el empleado:", error);
+        alert("Error al realizar la solicitud.");
       }
     },
 

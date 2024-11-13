@@ -1,8 +1,9 @@
 const connection = require('../data_base/dataBase'); 
 
-const validateUser = (username, password, callback) => {
-    const query = 'SELECT id_usuario, tipo_usuario FROM usuario WHERE id_usuario = ? AND contrasena = ? AND ESTADO="A" ';
-    connection.query(query, [username, password], (err, results) => {
+const validateUser = (username, callback) => {
+   
+    const query = 'SELECT id_usuario, tipo_usuario, contrasena FROM usuario WHERE id_usuario = ? AND ESTADO = "A"';
+    connection.query(query, [username], (err, results) => {
         if (err) {
             return callback(err, null);
         }
@@ -140,7 +141,7 @@ const deshabilitarEmpleado = (idEmpleado, callback) => {
 };
 
 function obtenerTodosLosEmpleados(callback) {
-    const query = 'SELECT   P.ID_PERSONA,CONCAT(P.NOMBRES, " ", P.APELLIDOS) AS NOMBRE_COMPLETO,U.ESTADO AS ESTADO_USUARIO,EM.NOMBRE_EMPLEO FROM EMPLEADO E JOIN USUARIO U ON E.ID_USUARIO = U.ID_USUARIO JOIN PERSONA P ON U.ID_PERSONA = P.ID_PERSONA JOIN EMPLEO EM ON E.ID_EMPLEO = EM.ID_EMPLEO AND U.ESTADO="A";';
+    const query = 'SELECT   P.ID_PERSONA,CONCAT(P.NOMBRES, " ", P.APELLIDOS) AS NOMBRE_COMPLETO,U.ESTADO AS ESTADO_USUARIO,EM.NOMBRE_EMPLEO, U.ID_USUARIO FROM EMPLEADO E JOIN USUARIO U ON E.ID_USUARIO = U.ID_USUARIO JOIN PERSONA P ON U.ID_PERSONA = P.ID_PERSONA JOIN EMPLEO EM ON E.ID_EMPLEO = EM.ID_EMPLEO AND U.ESTADO="A";';
     connection.query(query, (err, results) => {
         if (err) {
             return callback(err);

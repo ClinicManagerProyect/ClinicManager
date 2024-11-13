@@ -80,12 +80,6 @@
                     <span class="sidebar--item">Ver Lista Empleados </span>
                 </a>
             </li>
-            <li>
-                <a href="delEmpt.html">
-                    <span class="icon icon-2"><i class="ri-calendar-2-line"></i></span>
-                    <span class="sidebar--item">Borrar Empleados </span>
-                </a>
-            </li>
 
         </ul>
         <ul class="sidebar--bottom-items">
@@ -107,6 +101,8 @@
                 <th>Nombre</th>
                 <th>Estado</th>
                 <th>Rol</th>
+                <th>Usuario</th>
+                <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -117,6 +113,11 @@
                   {{ empleado.ESTADO_USUARIO === 'A' ? 'Activo' : 'Inactivo' }}
                 </td>
                 <td>{{ empleado.NOMBRE_EMPLEO }}</td>
+                <td>{{ empleado.ID_USUARIO }}</td>
+                <td>  
+                 <button @click="DeshabilitarEmpleado(empleado.ID_USUARIO)">
+                    Deshabilitar
+                  </button></td>
               </tr>
             </tbody>
           </table>
