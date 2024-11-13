@@ -10,11 +10,11 @@
 <body>
 <div id="app" class="login-container">
     <div class="image-container">
-        <img src="../Frontend/img/login.png" alt="">
+        <img src="../Frontend/img/logo.png" alt="">
     </div>
     <div class="login">
         <h1>Iniciar Sesión</h1>
-        <form @submit.prevent="login">
+        <form v-if="!forgotPassword" @submit.prevent="login">
             <div class="username">
                 <input type="text" v-model="username" required>
                 <label>Usuario</label>
@@ -23,8 +23,17 @@
                 <input type="password" v-model="password" required>
                 <label>Contraseña</label>
             </div>
-            <div class="recordar">Olvidé mi contraseña</div>
+            <div class="recordar" @click="showForgotPassword">Olvidé mi contraseña</div>
             <input type="submit" value="Iniciar">
+        </form>
+
+        <form v-if="forgotPassword" @submit.prevent="sendRecoveryEmail">
+            <div class="username">
+                <input type="email" v-model="email" required>
+                <label>Correo Electrónico</label>
+            </div>
+            <input type="submit" value="Enviar enlace de recuperación">
+            <div class="cancelar" @click="cancelForgotPassword">Cancelar</div>
         </form>
     </div>
 </div>

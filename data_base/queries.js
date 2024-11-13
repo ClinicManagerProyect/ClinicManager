@@ -11,6 +11,28 @@ const validateUser = (username, callback) => {
     });
 };
 
+const validateUserByEmail = (email, callback) => {
+
+    const query = 'SELECT * FROM persona WHERE correo = ?';
+    connection.query(query, [email], (err, results) => {
+        if (err) {
+            return callback(err, null);
+        }
+        callback(null, results);
+    });
+};
+
+function updatePasswordByEmail(email, newPassword, callback) {
+ 
+    const query = 'UPDATE USUARIO SET CONTRASENA = ? WHERE ID_PERSONA = (SELECT ID_PERSONA FROM PERSONA WHERE CORREO = ?);';
+    connection.query(query, [newPassword, email], (err, results) => {
+        if (err) {
+            return callback(err);
+        }
+        callback(null, results);
+    });
+}
+
 const insertPersona = (persona, callback) => {
     const query = 'INSERT INTO PERSONA (ID_PERSONA, TIPO_IDENTIFICACION, NOMBRES, APELLIDOS, GENERO, CORREO, DIRECCION, TELEFONO) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
     connection.query(query, [
@@ -168,5 +190,7 @@ module.exports = {
     registrarEmpleadoCompleto, 
     deshabilitarEmpleado,
     obtenerTodosLosEmpleados,
+    validateUserByEmail,
+    updatePasswordByEmail,
     obtenerEmpleadoPorId
 };

@@ -3,9 +3,12 @@ new Vue({
     data: {
         username: '',
         password: '',
-        userRole: null
+        email: '', 
+        userRole: null,
+        forgotPassword: false 
     },
     methods: {
+        
         async login() {
             try {
                 const response = await fetch('http://localhost:4000/login', {
@@ -33,6 +36,8 @@ new Vue({
                 console.error('Error al iniciar sesión:', error);
             }
         },
+        
+      
         redirectUser() {
             const token = localStorage.getItem('token'); 
         
@@ -44,7 +49,6 @@ new Vue({
 
             switch (this.userRole) {
                 case 'GER': 
-                
                     window.location.href = 'Manager_area/admin.html';
                     break;
                 case 'ADM': 
@@ -57,6 +61,40 @@ new Vue({
                     console.error('Rol de usuario no válido:', this.userRole);
                     alert('Rol de usuario no reconocido.');
                     break; 
+            }
+        },
+        
+      
+        showForgotPassword() {
+            this.forgotPassword = true;
+        },
+        
+        
+        cancelForgotPassword() {
+            this.forgotPassword = false;
+        },
+        
+        
+        async sendRecoveryEmail() {
+            try {
+                const response = await fetch('http://localhost:4000/forgot-password', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email: this.email })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    alert('Se ha enviado un enlace de recuperación a tu correo');
+                    this.cancelForgotPassword(); 
+                } else {
+                    const errorData = await response.json();
+                    alert(errorData.message);
+                }
+            } catch (error) {
+                console.error('Error al enviar el correo:', error);
             }
         }
     }
