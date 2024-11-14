@@ -1,19 +1,29 @@
 const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
-const {obtenerGerentes,updatePasswordByEmail,validateUserByEmail ,validateUser,deshabilitarEmpleado, obtenerTodosLosEmpleados, obtenerEmpleadoPorId,registrarEmpleadoCompleto } = require('../data_base/queries');
-const app = express();
-const PORT = process.env.PORT;
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 const path = require('path');
 require('dotenv').config({ path: ".env" }); 
 
+const { 
+    obtenerGerentes,
+    updatePasswordByEmail,
+    validateUserByEmail,
+    validateUser,
+    deshabilitarEmpleado,
+    obtenerTodosLosEmpleados,
+    obtenerEmpleadoPorId,
+    registrarEmpleadoCompleto 
+} = require('../data_base/queries');
+
+const app = express();
+const PORT = process.env.PORT;
+const SECRET_KEY = process.env.KEY_JSW;
+
 app.use(express.static(path.join(__dirname, '../frontend')));
 app.use(cors());
 app.use(express.json());
-const SECRET_KEY = process.env.KEY_JSW;
-
 
 const transporter = nodemailer.createTransport({
     service: 'Gmail',
@@ -21,7 +31,8 @@ const transporter = nodemailer.createTransport({
         user: process.env.GMAIL_USER,
         pass: process.env.GMAIL_PASS
     }
-  });
+});
+
 
   app.get('/reset_password', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/reset_password.html'));

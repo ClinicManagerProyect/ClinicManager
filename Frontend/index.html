@@ -32,7 +32,10 @@
                 <input type="email" v-model="email" required>
                 <label>Correo Electrónico</label>
             </div>
-            <input type="submit" value="Enviar enlace de recuperación">
+            <div v-if="loading" class="loading">
+                <span>Enviando...</span> 
+            </div>
+            <input v-if="!loading" type="submit" value="Enviar enlace de recuperación">
             <div class="cancelar" @click="cancelForgotPassword">Cancelar</div>
         </form>
     </div>

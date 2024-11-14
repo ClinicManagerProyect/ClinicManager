@@ -5,7 +5,8 @@ new Vue({
         password: '',
         email: '', 
         userRole: null,
-        forgotPassword: false 
+        forgotPassword: false,
+        loading:false 
     },
     methods: {
         
@@ -76,6 +77,7 @@ new Vue({
         
         
         async sendRecoveryEmail() {
+            this.loading = true; // Mostrar indicador de carga
             try {
                 const response = await fetch('http://localhost:4000/forgot-password', {
                     method: 'POST',
@@ -84,7 +86,7 @@ new Vue({
                     },
                     body: JSON.stringify({ email: this.email })
                 });
-
+        
                 if (response.ok) {
                     const data = await response.json();
                     alert('Se ha enviado un enlace de recuperación a tu correo');
@@ -95,6 +97,9 @@ new Vue({
                 }
             } catch (error) {
                 console.error('Error al enviar el correo:', error);
+            } finally {
+               
+                this.loading = false;
             }
         }
     }
