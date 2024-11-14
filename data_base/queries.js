@@ -1,7 +1,7 @@
 const connection = require('../data_base/dataBase'); 
 
+
 const validateUser = (username, callback) => {
-   
     const query = 'SELECT id_usuario, tipo_usuario, contrasena FROM usuario WHERE id_usuario = ? AND ESTADO = "A"';
     connection.query(query, [username], (err, results) => {
         if (err) {
@@ -171,9 +171,25 @@ function obtenerTodosLosEmpleados(callback) {
         callback(null, results);
     });
 }
+function obtenerGerentes(callback){
+    const query ='SELECT id_usuario, id_persona FROM usuario WHERE tipo_usuario = "GER"'
+    connection.query(query,(err, results)=>{
+        if(err){
+            return callback(err);
+        }
+        callback(null,results);
+    });
+}
 
 function obtenerEmpleadoPorId(idEmpleado, callback) {
-    const query = 'SELECT * FROM empleado WHERE id_usuario = ? AND estado="A"';
+    const query = `
+        SELECT P.*, U.ID_USUARIO,U.TIPO_USUARIO, E.*, O.nombre_empleo
+        FROM PERSONA P 
+        JOIN USUARIO U ON P.ID_PERSONA = U.ID_PERSONA 
+        JOIN EMPLEADO E ON U.ID_USUARIO = E.ID_USUARIO 
+        JOIN EMPLEO O ON E.ID_EMPLEO = O.ID_EMPLEO 
+        WHERE U.ID_USUARIO = ?`; 
+    
     connection.query(query, [idEmpleado], (err, results) => {
         if (err) {
             return callback(err);
@@ -181,7 +197,6 @@ function obtenerEmpleadoPorId(idEmpleado, callback) {
         callback(null, results[0]);
     });
 }
-
 module.exports = {
     validateUser,
     insertPersona,
@@ -192,5 +207,6 @@ module.exports = {
     obtenerTodosLosEmpleados,
     validateUserByEmail,
     updatePasswordByEmail,
-    obtenerEmpleadoPorId
+    obtenerGerentes,
+    obtenerEmpleadoPorId,
 };

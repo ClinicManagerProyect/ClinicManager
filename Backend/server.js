@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
-const { updatePasswordByEmail,validateUserByEmail ,validateUser,deshabilitarEmpleado, obtenerTodosLosEmpleados, obtenerEmpleadoPorId,registrarEmpleadoCompleto } = require('../data_base/queries');
+const {obtenerGerentes,updatePasswordByEmail,validateUserByEmail ,validateUser,deshabilitarEmpleado, obtenerTodosLosEmpleados, obtenerEmpleadoPorId,registrarEmpleadoCompleto } = require('../data_base/queries');
 const app = express();
 const PORT = process.env.PORT;
 const bcrypt = require('bcryptjs');
@@ -153,7 +153,7 @@ app.post('/registro', async (req, res) => {
         registrarEmpleadoCompleto(persona, usuario, empleado, (err, result) => {
             if (err) {
                 console.error('Error al registrar:', err);
-                return res.status(500).json({ message: 'Error al registrar datos en la base de datos' });
+                return res.status(500).json({ message: 'Ya existe alguien con estas credenciales en la base de datos' });
             }
             res.status(200).json({ message: 'Registro exitoso' });
         });
@@ -187,8 +187,18 @@ app.get('/empleados', (req, res) => {
     });
 });
 
+app.get('/gerentes', (req, res) => {
+    obtenerGerentes((err,gerentes)=>{
+        if(err){
+            console.error('Error al obtener gerentes:', err);
+            return res.status(500).json({ message: 'Error al obtener gerentes' });
+        }
+        res.status(200).json(gerentes)
+    })
+  });
 
-app.get('/empleados/:idEmpleado', (req, res) => {
+
+app.get('/empleadoEspecifico/:idEmpleado', (req, res) => {
     const { idEmpleado } = req.params;
     obtenerEmpleadoPorId(idEmpleado, (err, empleado) => {
         if (err) {
@@ -198,7 +208,6 @@ app.get('/empleados/:idEmpleado', (req, res) => {
         res.status(200).json(empleado);
     });
 });
-
 
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);

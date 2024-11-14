@@ -80,9 +80,12 @@
                 <option value="7">Auxiliar de Enfermería</option>
                 <option value="8">Médico</option>                 
             </select><br><br>
-
             <label for="id_gerente">ID Gerente:</label>
-            <input type="text" id="id_gerente" v-model="empleado.id_gerente"><br><br>
+            <select v-model="empleado.id_gerente">
+              <option v-for="gerente in gerentes" :key="gerente.id_usuario" :value="gerente.id_usuario">
+                {{ gerente.id_usuario }} 
+              </option>
+            </select>
 
             <label for="fecha_contratacion">Fecha de Contratación:</label>
             <input type="date" id="fecha_contratacion" v-model="empleado.fecha_contratacion" required><br><br>

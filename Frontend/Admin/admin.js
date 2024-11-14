@@ -28,6 +28,7 @@ new Vue({
     },
     empleados: [],
     empleadoSeleccionado: null,
+    gerentes: []
   },
   methods: {
     async registrar() {
@@ -48,7 +49,7 @@ new Vue({
           const data = await response.json();
           console.log("Registro exitoso:", data);
           alert("Registro completado exitosamente.");
-          window.location.href = 'super-admin.html';
+          window.location.href = "super-admin.html";
         } else {
           const errorData = await response.json();
           alert(errorData.message);
@@ -76,8 +77,10 @@ new Vue({
         if (response.ok) {
           const data = await response.json();
           console.log("Empleado deshabilitado:", data);
-  
-          const empleado = this.empleados.find((emp) => emp.id_usuario === idUsuario);
+
+          const empleado = this.empleados.find(
+            (emp) => emp.id_usuario === idUsuario
+          );
           if (empleado) {
             empleado.estado = "Inactivo";
           }
@@ -117,31 +120,29 @@ new Vue({
       }
     },
 
-    async verEmpleado(idEmpleado) {
+    async verGerentes() {
       try {
-        const response = await fetch(
-          `http://localhost:4000/empleados/${idEmpleado}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        );
-
+        const response = await fetch("http://localhost:4000/gerentes", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+    
         if (response.ok) {
-          this.empleadoSeleccionado = await response.json();
-          console.log("Empleado obtenido:", this.empleadoSeleccionado);
+          this.gerentes = await response.json(); 
         } else {
           const errorData = await response.json();
-          alert(errorData.message);
+          alert("Error al obtener gerentes.");
         }
       } catch (error) {
-        console.error("Error al obtener el empleado:", error);
+        console.error("Error al obtener gerentes:", error);
+        alert("No se pudieron cargar los gerentes.");
       }
     },
   },
   mounted() {
     this.verEmpleados();
+    this.verGerentes();
   },
 });

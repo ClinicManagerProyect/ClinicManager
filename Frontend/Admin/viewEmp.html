@@ -117,7 +117,12 @@
                 <td>  
                  <button @click="DeshabilitarEmpleado(empleado.ID_USUARIO)">
                     Deshabilitar
-                  </button></td>
+                  </button>
+                </button>
+                <!-- Agregar el botón de editar -->
+                <button @click="editarEmpleado(empleado.ID_USUARIO)">
+                    Editar
+                </button></td>
               </tr>
             </tbody>
           </table>
