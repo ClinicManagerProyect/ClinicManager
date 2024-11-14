@@ -9,8 +9,12 @@
 </head>
 <body>
 <div id="app" class="login-container">
-    <div class="image-container">
+
+    <div class="image-container-desktop">
         <img src="../Frontend/img/logo.png" alt="">
+    </div>
+    <div class="image-container-mobile">
+        <img src="../Frontend/img/logo_mobil.png" alt="">
     </div>
     <div class="login">
         <h1>Iniciar Sesión</h1>
@@ -33,7 +37,7 @@
                 <label>Correo Electrónico</label>
             </div>
             <div v-if="loading" class="loading">
-                <span>Enviando...</span> 
+                <span>Enviando...</span>
             </div>
             <input v-if="!loading" type="submit" value="Enviar enlace de recuperación">
             <div class="cancelar" @click="cancelForgotPassword">Cancelar</div>

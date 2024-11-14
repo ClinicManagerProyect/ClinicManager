@@ -8,6 +8,7 @@ body {
     position: relative;
     width: 100%;
 }
+
 .header {
     height: 60px;
     width: 100%;
@@ -124,8 +125,7 @@ a {
     padding: 10px;
     border-radius: 10px;
 }
-.sidebar--items a:hover,
-.sidebar--bottom-items a:hover {
+.sidebar--items a:hover.sidebar--bottom-items a:hover {
     background-color: #5073fb;
     color: #fff;
 }
@@ -286,6 +286,18 @@ a {
     }
     .main--content.active {
         width: calc(100% - 85px);
+    }
+}
+@media screen and (max-width:480px) {
+    .sidebar {
+        position: relative;
+        width: 100%;
+        padding: 10px;
+        border-right: none;
+        border-bottom: 2px solid #f1f1f1;
+    }
+    .main {
+        padding-top: 60px;
     }
 }
 @media screen and (max-width:590px) {
