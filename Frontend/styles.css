@@ -3,11 +3,11 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
-    background-color: #f4f7fa;
-    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('./img/fondo_clinica.jpg') no-repeat center center fixed;
+    background-size: cover;
     color: #333;
+    height: 100vh;
 }
-
 
 /* Contenedor principal para la página de inicio de sesión */
 .login-container {
@@ -16,16 +16,24 @@ body {
     align-items: center;
     min-height: 100vh;
     padding: 0 20px;
-
+    background-color: rgba(255, 255, 255, 0.562); /* Fondo blanco translúcido */
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
 }
-
-
-.image-container-mobile {
-    display: none;
-}
-
 
 /* Contenedor para las imágenes */
+.image-container-desktop,
+.image-container-mobile {
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco translúcido */
+    border-radius: 15px; /* Bordes redondeados */
+    padding: 10px; /* Espaciado interno */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .image-container-desktop {
     flex: 1;
     text-align: center;
@@ -33,16 +41,16 @@ body {
     padding: 0;
 }
 
-
-/* Estilos para las imágenes dentro del contenedor */
 .image-container-desktop img {
-    width: 105%;
+    width: 100%;
     height: auto;
     border-radius: 15px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
     object-fit: cover;
 }
 
+.image-container-mobile {
+    display: none;
+}
 
 /* Contenedor del formulario de inicio de sesión */
 .login {
@@ -54,7 +62,6 @@ body {
     max-width: 400px;
 }
 
-
 /* Estilos para el título del formulario de inicio de sesión */
 .login h1 {
     text-align: center;
@@ -64,7 +71,6 @@ body {
     border-bottom: 3px solid #d9d9d9;
 }
 
-
 /* Estilos para el formulario de inicio de sesión */
 .login form {
     display: flex;
@@ -72,7 +78,6 @@ body {
     align-items: center;
     gap: 20px;
 }
-
 
 /* Contenedor para el campo de nombre de usuario */
 form .username {
@@ -93,13 +98,11 @@ form .username {
     transition: all 0.3s ease;
 }
 
-/* Estilos cuando el campo de nombre de usuario está en foco */
 .username input:focus {
     border-color: #0073e6;
     background-color: #ffffff;
 }
 
-/* Estilos para la etiqueta del nombre de usuario */
 .username label {
     position: absolute;
     top: -10px;
@@ -125,7 +128,6 @@ input[type="submit"] {
     outline: none;
 }
 
-/* Estilos cuando el botón de envío está en hover */
 input[type="submit"]:hover {
     background-color: #005bb5;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -171,7 +173,7 @@ input[type="submit"]:hover {
     text-align: center;
 }
 
-
+/* Estilos para la página de restablecimiento de contraseña */
 .reset-password-container {
     display: flex;
     justify-content: center;
@@ -184,7 +186,7 @@ input[type="submit"]:hover {
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     max-width: 400px;
     width: 100%;
@@ -236,11 +238,7 @@ input[type="submit"]:hover {
 
 /* Estilos para pantallas con ancho máximo de 768px */
 @media (max-width: 768px) {
-
-
-
     .login-container {
-        display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
@@ -269,11 +267,9 @@ input[type="submit"]:hover {
         box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
         padding: 30px;
     }
+
     .reset-password-container {
         padding: 20px;
         min-height: auto;
     }
 }
-
-
-
