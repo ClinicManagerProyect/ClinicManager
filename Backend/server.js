@@ -13,8 +13,11 @@ const {
     validateUser,
     deshabilitarEmpleado,
     obtenerTodosLosEmpleados,
-    obtenerEmpleadoPorId,
-    registrarEmpleadoCompleto 
+    obtenerEmpleadoEspecifico,
+    registrarEmpleadoCompleto,
+    actualizarEmpleadoC,
+    obtenerEmpleadosDes,
+    habilitarEmpleado
 } = require('../data_base/queries');
 
 const app = express();
@@ -174,6 +177,41 @@ app.post('/registro', async (req, res) => {
     }
 });
 
+app.put('/actualizarEmpleado', async (req, res) => {
+    const { persona, usuario, empleado } = req.body;
+    console.log("Datos recibidos en actualizar empleado:", { persona, usuario, empleado });
+
+    try {
+
+        actualizarEmpleadoC(persona, usuario, empleado, (err, result) => {
+            if (err) {
+                console.error('Error al actualizar:', err);
+                return res.status(500).json({ message: 'Error al actualizar en la BD' });
+            }
+            res.status(200).json({ message: 'Actualizacion exitosa' });
+            
+        });
+    } catch (error) {
+        console.error('Error al actualizar:', error);
+        res.status(500).json({ message: 'Error al actualizar datos en la base de datos' });
+    }
+});
+app.put('/habilitarEmpleado/:idEmpleado', (req, res) => {
+    const { idEmpleado } = req.params;  
+    
+
+        habilitarEmpleado(idEmpleado, (err, result) => {
+        if (err) {
+            console.error('Error al deshabilitar empleado:', err);
+            return res.status(500).json({ message: 'Error al habilitar empleado' });
+        }
+        
+       
+        res.status(200).json({ message: 'Empleado habilitado exitosamente' });
+    });
+});
+
+
 app.put('/deshabilitarEmpleado/:idEmpleado', (req, res) => {
     const { idEmpleado } = req.params;  
     
@@ -198,6 +236,16 @@ app.get('/empleados', (req, res) => {
     });
 });
 
+app.get('/empleadosDes', (req, res) => {
+    obtenerEmpleadosDes((err, empleados) => {
+        if (err) {
+            console.error('Error al obtener empleados:', err);
+            return res.status(500).json({ message: 'Error al obtener empleados' });
+        }
+        res.status(200).json(empleados);
+    });
+});
+
 app.get('/gerentes', (req, res) => {
     obtenerGerentes((err,gerentes)=>{
         if(err){
@@ -209,9 +257,9 @@ app.get('/gerentes', (req, res) => {
   });
 
 
-app.get('/empleadoEspecifico/:idEmpleado', (req, res) => {
+app.get('/obtenerEmpleado/:idEmpleado', (req, res) => {
     const { idEmpleado } = req.params;
-    obtenerEmpleadoPorId(idEmpleado, (err, empleado) => {
+    obtenerEmpleadoEspecifico(idEmpleado, (err, empleado) => {
         if (err) {
             console.error('Error al obtener el empleado:', err);
             return res.status(500).json({ message: 'Error al obtener el empleado' });

@@ -129,6 +129,131 @@ const registrarEmpleadoCompleto = (persona, usuario, empleado, callback) => {
     });
 };
 
+const actualizarP = (persona, callback) => {
+    const query = 'UPDATE PERSONA SET TIPO_IDENTIFICACION = ?, NOMBRES = ?, APELLIDOS = ?, GENERO = ?, CORREO = ?, DIRECCION = ?, TELEFONO = ? WHERE ID_PERSONA = ?';
+    connection.query(query, [
+        persona.tipo_identificacion,
+        persona.nombres,
+        persona.apellidos,
+        persona.genero,
+        persona.correo,
+        persona.direccion,
+        persona.telefono,
+        persona.id_persona
+    ], (err, results) => {
+        if (err) {
+            return callback(err, null);
+        }
+        callback(null, results);
+    });
+};
+
+const actualizarU = (usuario, callback) => {
+    const query = 'UPDATE USUARIO SET TIPO_USUARIO = ?, ESTADO = ? WHERE ID_USUARIO = ?';
+    connection.query(query, [
+        usuario.tipo_usuario,
+        usuario.estado,
+        usuario.id_usuario        
+    ], (err, results) => {
+        if (err) {
+            return callback(err, null);
+        }
+        callback(null, results);
+    });
+};
+
+const actualizarE=(empleado,Idusuario,callback)=>{
+    const query = 'UPDATE EMPLEADO SET ID_EMPLEO = ?, ID_GERENTE = ?, FECHA_CONTRATACION = ?, HORA_ENTRADA = ?, HORA_SALIDA = ? WHERE ID_USUARIO = ?';
+    connection.query(query,[
+        empleado.id_empleo,
+        empleado.id_gerente || null,
+        empleado.fecha_contratacion,
+        empleado.hora_entrada,
+        empleado.hora_salida,
+        Idusuario
+    ],(err, results)=>{
+        if(err){
+            return callback(err,null);
+        }
+        callback(null,results)
+    });
+};
+
+const actualizarEmpleadoC= (persona, usuario, empleado, callback) => {
+    connection.beginTransaction((err) => {
+        if (err) {
+            return callback(err, null);
+        }
+        actualizarP(persona, (err, personaResults) => {
+            if (err) {
+                return connection.rollback(() => {
+                    callback(err, null);
+                });
+            }
+
+    
+            actualizarU(usuario,(err, usuarioResults) => {
+                if (err) {
+                    return connection.rollback(() => {
+                        callback(err, null);
+                    });
+                }
+
+                
+                actualizarE(empleado,usuario.id_usuario, (err, empleadoResults) => {
+                    if (err) {
+                        return connection.rollback(() => {
+                            callback(err, null);
+                        });
+                    }
+
+                    
+                    connection.commit((err) => {
+                        if (err) {
+                            return connection.rollback(() => {
+                                callback(err, null);
+                            });
+                        }
+                        callback(null, empleadoResults);
+                    });
+                });
+            });
+        });
+    });
+};
+const habilitarEmpleado = (idEmpleado, callback) => {
+    connection.beginTransaction((err) => {
+        if (err) {
+            return callback(err, null);
+        }
+        const queryUsuario = 'UPDATE USUARIO SET ESTADO = "A" WHERE ID_USUARIO = ?';
+        connection.query(queryUsuario, [idEmpleado], (err, results) => {
+            if (err) {
+                return connection.rollback(() => {
+                    callback(err, null);
+                });
+            }
+            const queryEmpleado = 'UPDATE EMPLEADO SET ESTADO = "A" WHERE ID_USUARIO = ?';
+            connection.query(queryEmpleado, [idEmpleado], (err, results) => {
+                if (err) {
+                    return connection.rollback(() => {
+                        callback(err, null);
+                    });
+                }
+
+                connection.commit((err) => {
+                    if (err) {
+                        return connection.rollback(() => {
+                            callback(err, null);
+                        });
+                    }
+                    callback(null, results);
+                });
+            });
+        });
+    });
+};
+
 const deshabilitarEmpleado = (idEmpleado, callback) => {
     connection.beginTransaction((err) => {
         if (err) {
@@ -171,6 +296,16 @@ function obtenerTodosLosEmpleados(callback) {
         callback(null, results);
     });
 }
+
+function obtenerEmpleadosDes(callback) {
+    const query = 'SELECT   P.ID_PERSONA,CONCAT(P.NOMBRES, " ", P.APELLIDOS) AS NOMBRE_COMPLETO,U.ESTADO AS ESTADO_USUARIO,EM.NOMBRE_EMPLEO, U.ID_USUARIO FROM EMPLEADO E JOIN USUARIO U ON E.ID_USUARIO = U.ID_USUARIO JOIN PERSONA P ON U.ID_PERSONA = P.ID_PERSONA JOIN EMPLEO EM ON E.ID_EMPLEO = EM.ID_EMPLEO AND U.ESTADO="N";';
+    connection.query(query, (err, results) => {
+        if (err) {
+            return callback(err);
+        }
+        callback(null, results);
+    });
+}
 function obtenerGerentes(callback){
     const query ='SELECT id_usuario, id_persona FROM usuario WHERE tipo_usuario = "GER"'
     connection.query(query,(err, results)=>{
@@ -181,7 +316,7 @@ function obtenerGerentes(callback){
     });
 }
 
-function obtenerEmpleadoPorId(idEmpleado, callback) {
+function obtenerEmpleadoEspecifico(idEmpleado, callback) {
     const query = `
         SELECT P.*, U.ID_USUARIO,U.TIPO_USUARIO, E.*, O.nombre_empleo
         FROM PERSONA P 
@@ -208,5 +343,8 @@ module.exports = {
     validateUserByEmail,
     updatePasswordByEmail,
     obtenerGerentes,
-    obtenerEmpleadoPorId,
+    obtenerEmpleadoEspecifico,
+    actualizarEmpleadoC,
+    obtenerEmpleadosDes,
+    habilitarEmpleado
 };

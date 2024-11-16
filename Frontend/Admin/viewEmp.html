@@ -69,10 +69,6 @@
                 </a>
             </li>
             <li>
-                <a href="#">
-                    <span class="icon icon-2"><i class="ri-calendar-2-line"></i></span>
-                    <span class="sidebar--item">Horario</span>
-                </a>
             </li>
             <li>
                 <a href="viewEmp.html">
@@ -93,6 +89,8 @@
     </div>
     <div id="app">
         <div class="main--content">
+            <div class="toolbar">
+            </div>
           <h2 class="section--title">Lista de Empleados</h2>
           <table class="employees-table">
             <thead>
@@ -109,20 +107,20 @@
               <tr v-for="empleado in empleados" :key="empleado.ID_PERSONA">
                 <td>{{ empleado.ID_PERSONA }}</td>
                 <td>{{ empleado.NOMBRE_COMPLETO }}</td>
-                <td :class="empleado.ESTADO_USUARIO.toLowerCase()">
-                  {{ empleado.ESTADO_USUARIO === 'A' ? 'Activo' : 'Inactivo' }}
+                <td >{{ empleado.ESTADO_USUARIO === 'A' ? 'Activo' : 'Inactivo' }}
                 </td>
                 <td>{{ empleado.NOMBRE_EMPLEO }}</td>
                 <td>{{ empleado.ID_USUARIO }}</td>
-                <td>  
+                <td>
+ 
+                 <button @click="obtenerEmpleadoEspecifico(empleado.ID_USUARIO)">
+                    Editar
+                 </button>                    
                  <button @click="DeshabilitarEmpleado(empleado.ID_USUARIO)">
                     Deshabilitar
-                  </button>
                 </button>
-                <!-- Agregar el botón de editar -->
-                <button @click="editarEmpleado(empleado.ID_USUARIO)">
-                    Editar
-                </button></td>
+
+                 </td>
               </tr>
             </tbody>
           </table>
