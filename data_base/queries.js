@@ -297,6 +297,28 @@ function obtenerTodosLosEmpleados(callback) {
     });
 }
 
+function obtenerTodosLosEmpleadosG(id_gerente,callback) {
+    const query = `
+        SELECT E.ID_USUARIO AS ID_EMPLEADO,
+               CONCAT(P.NOMBRES, ' ', P.APELLIDOS) AS NOMBRE_COMPLETO, 
+               U.ESTADO AS ESTADO_USUARIO, 
+               EM.NOMBRE_EMPLEO AS "AREA ENCARGADA", 
+               CONCAT(E.HORA_ENTRADA, ' ', E.HORA_SALIDA) AS HORARIO
+        FROM EMPLEADO E
+        JOIN USUARIO U ON E.ID_USUARIO = U.ID_USUARIO 
+        JOIN PERSONA P ON U.ID_PERSONA = P.ID_PERSONA 
+        JOIN EMPLEO EM ON E.ID_EMPLEO = EM.ID_EMPLEO 
+        WHERE E.ID_GERENTE = ?
+          AND E.ESTADO = 'A';
+    `;
+    connection.query(query,[id_gerente], (err, results) => {
+        if (err) {
+            return callback(err);
+        }
+        callback(null, results);
+    });
+}
+
 function obtenerEmpleadosDes(callback) {
     const query = 'SELECT   P.ID_PERSONA,CONCAT(P.NOMBRES, " ", P.APELLIDOS) AS NOMBRE_COMPLETO,U.ESTADO AS ESTADO_USUARIO,EM.NOMBRE_EMPLEO, U.ID_USUARIO FROM EMPLEADO E JOIN USUARIO U ON E.ID_USUARIO = U.ID_USUARIO JOIN PERSONA P ON U.ID_PERSONA = P.ID_PERSONA JOIN EMPLEO EM ON E.ID_EMPLEO = EM.ID_EMPLEO AND U.ESTADO="N";';
     connection.query(query, (err, results) => {
@@ -332,6 +354,30 @@ function obtenerEmpleadoEspecifico(idEmpleado, callback) {
         callback(null, results[0]);
     });
 }
+
+const registrarTarea = (idTarea, idEmpleado, idHabitacion, nombreTarea, descripcion, prioridad, fechaVencimiento, estado, callback) => {
+    const query = `
+        INSERT INTO TAREA (ID_TAREA, ID_USUARIO, ID_HABITACION, NOMBRE, DESCRIPCION, PRIORIDAD, FECHA_VENCIMIENTO, ESTADO)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+    
+    connection.query(query, [
+        idTarea, 
+        idEmpleado, 
+        idHabitacion, 
+        nombreTarea, 
+        descripcion, 
+        prioridad, 
+        fechaVencimiento, 
+        estado
+    ], (err, results) => {
+        if (err) {
+            return callback(err, null);
+        }
+        callback(null, results);
+    });
+};
+
 module.exports = {
     validateUser,
     insertPersona,
@@ -340,11 +386,13 @@ module.exports = {
     registrarEmpleadoCompleto, 
     deshabilitarEmpleado,
     obtenerTodosLosEmpleados,
+    obtenerTodosLosEmpleadosG,
     validateUserByEmail,
     updatePasswordByEmail,
     obtenerGerentes,
     obtenerEmpleadoEspecifico,
     actualizarEmpleadoC,
     obtenerEmpleadosDes,
-    habilitarEmpleado
+    habilitarEmpleado,
+    registrarTarea
 };

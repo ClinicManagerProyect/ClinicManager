@@ -17,7 +17,9 @@ const {
     registrarEmpleadoCompleto,
     actualizarEmpleadoC,
     obtenerEmpleadosDes,
-    habilitarEmpleado
+    habilitarEmpleado,
+    obtenerTodosLosEmpleadosG,
+    registrarTarea
 } = require('../data_base/queries');
 
 const app = express();
@@ -266,6 +268,38 @@ app.get('/obtenerEmpleado/:idEmpleado', (req, res) => {
         }
         res.status(200).json(empleado);
     });
+});
+
+//endpoints gerentes
+
+app.get('/empleadosAsociados/:idGerente', (req, res) => {
+    const { idGerente } = req.params;
+    obtenerTodosLosEmpleadosG(idGerente,(err, empleados) => {
+        if (err) {
+            console.error('Error al obtener empleados:', err);
+            return res.status(500).json({ message: 'Error al obtener empleados' });
+        }
+        res.status(200).json(empleados);
+    });
+});
+
+
+app.post('/asignarTarea', async (req, res) => {
+    const { idEmpleado, nombreTarea, descripcion, prioridad, fechaVencimiento, estado, idHabitacion } = req.body;
+
+    const idTarea = Math.floor(Math.random() * 9000) + 1000; 
+    try {
+    registrarTarea( idTarea,idEmpleado,idHabitacion, nombreTarea, descripcion, prioridad, fechaVencimiento, estado, (err, result) => {
+        if (err) {
+            console.error('Error al registrar:', err);
+            return res.status(500).json({ message: 'Error al registrar la tarea' });
+        }
+        res.status(200).json({ message: 'Tarea asignada exitosamente' });
+    });
+} catch (error) {
+    console.error('Error al asignar tarea:', error);
+    res.status(500).json({ message: 'Error al asignar tarea en la base de datos' });
+}
 });
 
 app.listen(PORT, () => {

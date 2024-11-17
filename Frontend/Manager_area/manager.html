@@ -11,34 +11,49 @@
 </head>
 <body>
     <script>
-        window.onload = function() {
-            const token = localStorage.getItem('token'); 
-    
-            if (!token) {
-                alert('Debes iniciar sesión primero.');
-                window.location.href = '../index.html'; 
-                return;
-            }
-    
-           
-            const payload = JSON.parse(atob(token.split('.')[1])); 
-    
-            // Verificar la expiración del token
-            const currentTime = Math.floor(Date.now() / 1000); 
-            if (payload.exp < currentTime) {
-                alert('Token expirado. Debes iniciar sesión nuevamente.');
-                localStorage.removeItem('token'); 
-                window.location.href = '../index.html'; 
-                return;
-            }
-    
+window.onload = function () {
+    const token = localStorage.getItem('token');
 
-            if (payload.role !== 'GER') { 
-                alert('Acceso no autorizado.');
-                window.location.href = '../index.html'; 
-                return;
-            }
-        }</script>     
+    if (!token) {
+        alert('Debes iniciar sesión primero.');
+        window.location.href = '../index.html';
+        return;
+    }
+
+    const payload = JSON.parse(atob(token.split('.')[1])); 
+
+
+    const currentTime = Math.floor(Date.now() / 1000);
+    if (payload.exp < currentTime) {
+        alert('Token expirado. Debes iniciar sesión nuevamente.');
+        localStorage.removeItem('token');
+        localStorage.removeItem('idGerente'); 
+        window.location.href = '../index.html';
+        return;
+    }
+
+
+    if (payload.role !== 'GER') {
+        alert('Acceso no autorizado.');
+        localStorage.removeItem('idGerente'); 
+        window.location.href = '../index.html';
+        return;
+    }
+    const role = payload.role;
+    console.log('role', role);
+
+    const idGerente = payload.id;
+    const storedId = localStorage.getItem('idGerente');
+    const tokenenv=token
+ 
+    if (idGerente !== storedId) {
+        localStorage.setItem('idGerente', idGerente);
+        console.log('Recargando la página...');
+        location.reload();
+    }
+};
+</script> 
+<div id="app">     
 <section class="header">
     <div class="logo">
         <i class="ri-menu-line icon icon-0 menu"></i>
@@ -77,20 +92,20 @@
             </li>
 
         </ul>
-        <ul class="sidebar--bottom-items">
-            <li>
-                <a href="../index.html">
-                    <span class="icon icon-8"><i class="ri-logout-box-r-line"></i></span>
-                    <span class="sidebar--item">Logout</span>
-                </a>
-            </li>
-        </ul>
+        <li>
+            <a href="#" @click="logout">
+                <span class="icon icon-8"><i class="ri-logout-box-r-line"></i></span>
+                <span class="sidebar--item">Logout</span>
+                
+            </a>
+        </li>
     </div>
 
     <div class="main--content">
         <div class="overview">
             <div class="title">
                 <h2 class="section--title">Avances</h2>
+                <p>Usuario: {{ idGerente }}</p> 
                 <select name="date" id="date" class="dropdown">
                     <option value="today">Hoy</option>
                     <option value="lastweek">La semana pasada</option>
@@ -133,16 +148,71 @@
         </div>
         <div class="employees">
             <div class="title">
-                <h2 class="section--title">Empelados</h2>
-                <div class="employees--right--btns">
-                    <select name="date"  class="dropdown doctor--filter">
-                        <option >Filtrar </option>
-                        <option value="free">Libre</option>
-                        <option value="busy">Ocupado</option>
-                    </select>
-                    <button class="add"><i class="ri-add-line"></i>Asignar Tareas</button>
-                </div>
+                <h2 class="section--title">Empleados Asociados</h2>
             </div>
+            <!-- Tabla de empleados -->
+            <table v-if="empleados.length > 0">
+                <thead>
+                    <tr>
+                        <th>ID Empleado</th>
+                        <th>Nombre Completo</th>
+                        <th>Estado</th>
+                        <th>Área Encargada</th>
+                        <th>Horario</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="empleado in empleados" :key="empleado.ID_EMPLEADO">
+                        <td>{{ empleado.ID_EMPLEADO }}</td>
+                        <td>{{ empleado.NOMBRE_COMPLETO }}</td>
+                        <td>{{ empleado.ESTADO_USUARIO }}</td>
+                        <td>{{ empleado['AREA ENCARGADA'] }}</td>
+                        <td>{{ empleado.HORARIO }}</td>
+                        <td>
+                            <button @click="mostrarFormularioTarea(empleado.ID_EMPLEADO)">Asignar tarea</button> 
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        
+            <p v-else>No hay empleados asociados.</p>
+
+<div v-if="mostrarFormulario" class="formulario-tarea">
+    <h3>Asignar tarea al empleado</h3>
+    <p>ID del empleado: {{ idEmpleado }}</p>
+
+    <form @submit.prevent="asignarTarea">
+        <label for="tarea">Nombre Tarea:</label>
+        <input type="text" v-model="tarea" required>
+
+        <label for="descripcion">Descripción:</label>
+        <textarea v-model="descripcion" required></textarea>
+
+        <label for="prioridad">Prioridad:</label>
+        <select v-model="prioridad" required>
+            <option value="ALT">Alta</option>
+            <option value="MED">Media</option>
+            <option value="BAJ">Baja</option>
+        </select>
+
+        <label for="fechaVencimiento">Fecha de Vencimiento:</label>
+        <input type="datetime-local" v-model="fechaVencimiento" required>
+
+        <label for="idHabitacion">Habitación:</label>
+        <input type="number" v-model="idHabitacion" required>
+
+        <label for="estado">Estado:</label>
+        <select v-model="estado" required>
+            <option value="ASG">Asignada</option>
+            <option value="COM">Completada</option>
+            <option value="SCM">Sin completar</option>
+        </select>
+
+        <button type="submit">Asignar</button>
+    </form>
+</div>
+        </div>
             <div class="employees--cards">
                 <a href="#" class="doctor--card">
                     <div class="img--box--cover">
@@ -182,5 +252,7 @@
         </div>
     </div>
 </section>
+</div>
+<script src="managerG.js"></script>
 </body>
 </html>
