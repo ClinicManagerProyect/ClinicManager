@@ -377,7 +377,7 @@ a {
 }
 
 .employees-table td button {
-    background-color: #f15a5a;
+    background-color: #5af1f1;
     color: white;
     border: none;
     padding: 5px 10px;
@@ -398,14 +398,36 @@ a {
     border-radius: 5px;
 }
 
-button {
-    background-color: #ec7777;
-    color: white;
+.btn-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background-color: #5073fb;
+    color: #fff;
     border: none;
-    padding: 5px 10px;
+    border-radius: 50%;
+    font-size: 1.2rem;
     cursor: pointer;
-    border-radius: 5px;
+    transition: background-color 0.3s, box-shadow 0.3s;
 }
-button:hover {
-    background-color: #da8787;
+
+.btn-icon:hover {
+    background-color: #405bb5;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.btn-icon i {
+    pointer-events: none;
+}
+
+/* Estilo específico para botón de deshabilitar */
+.btn-icon.btn-icon-disable {
+    background-color: #e74c3c;
+}
+
+.btn-icon.btn-icon-disable:hover {
+    background-color: #c0392b;
 }

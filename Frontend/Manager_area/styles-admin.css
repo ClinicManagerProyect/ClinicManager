@@ -301,7 +301,157 @@ a {
 .busy {
     color: #fb5050;
 }
+/*Tabla de empleados asignados */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1rem;
+    margin: 20px 0;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
+thead {
+    background-color: #5073fb;
+    color: #fff;
+}
+
+thead th {
+    padding: 15px;
+    text-align: left;
+    font-weight: normal;
+}
+
+tbody tr {
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s;
+}
+
+tbody tr:nth-of-type(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+tbody td {
+    padding: 15px;
+}
+
+button {
+    background-color: #5073fb;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #405bb5;
+}
+/* Asignar la tarea  */
+.formulario-tarea {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    font-family: 'Roboto', sans-serif;
+}
+
+.formulario-tarea h3 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.formulario-tarea p {
+    margin-bottom: 20px;
+    color: #666;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* Contenedor del formulario para diseño horizontal */
+.formulario-horizontal {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Diseño de grupo horizontal de etiquetas e inputs */
+.form-group-horizontal {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.form-group-horizontal label {
+    flex: 1;
+    font-size: 1rem;
+    color: #333;
+    white-space: nowrap; /* Evitar que las etiquetas envuelvan texto */
+}
+
+.form-group-horizontal input[type="text"],
+.form-group-horizontal input[type="number"],
+.form-group-horizontal input[type="datetime-local"],
+.form-group-horizontal textarea,
+.form-group-horizontal select {
+    flex: 2;
+    padding: 10px;
+    margin-left: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px; /* Bordes redondeados */
+    box-sizing: border-box;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s;
+}
+
+.form-group-horizontal input[type="text"]:focus,
+.form-group-horizontal input[type="number"]:focus,
+.form-group-horizontal input[type="datetime-local"]:focus,
+.form-group-horizontal textarea:focus,
+.form-group-horizontal select:focus {
+    border-color: #5073fb;
+    outline: none;
+    background-color: #fff;
+}
+
+.formulario-tarea button.btn-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    background-color: #5073fb;
+    color: #fff;
+    border: none;
+    border-radius: 50%; /* Botón redondeado */
+    font-size: 1.5rem; /* Ajusta el tamaño del ícono */
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.formulario-tarea button.btn-icon:hover {
+    background-color: #405bb5;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.formulario-tarea button.btn-icon i {
+    pointer-events: none; /* Asegúrate de que el ícono no interfiere con el clic del botón */
+}
 /* responsive starts here */
 @media screen and (max-width:1350px) {
     .cards,

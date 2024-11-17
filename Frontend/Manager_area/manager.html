@@ -6,153 +6,154 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles-admin.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title></title>
 
 </head>
 <body>
-    <script>
-window.onload = function () {
-    const token = localStorage.getItem('token');
+<script>
+    window.onload = function () {
+        const token = localStorage.getItem('token');
 
-    if (!token) {
-        alert('Debes iniciar sesión primero.');
-        window.location.href = '../index.html';
-        return;
-    }
+        if (!token) {
+            alert('Debes iniciar sesión primero.');
+            window.location.href = '../index.html';
+            return;
+        }
 
-    const payload = JSON.parse(atob(token.split('.')[1])); 
-
-
-    const currentTime = Math.floor(Date.now() / 1000);
-    if (payload.exp < currentTime) {
-        alert('Token expirado. Debes iniciar sesión nuevamente.');
-        localStorage.removeItem('token');
-        localStorage.removeItem('idGerente'); 
-        window.location.href = '../index.html';
-        return;
-    }
+        const payload = JSON.parse(atob(token.split('.')[1]));
 
 
-    if (payload.role !== 'GER') {
-        alert('Acceso no autorizado.');
-        localStorage.removeItem('idGerente'); 
-        window.location.href = '../index.html';
-        return;
-    }
-    const role = payload.role;
-    console.log('role', role);
+        const currentTime = Math.floor(Date.now() / 1000);
+        if (payload.exp < currentTime) {
+            alert('Token expirado. Debes iniciar sesión nuevamente.');
+            localStorage.removeItem('token');
+            localStorage.removeItem('idGerente');
+            window.location.href = '../index.html';
+            return;
+        }
 
-    const idGerente = payload.id;
-    const storedId = localStorage.getItem('idGerente');
-    const tokenenv=token
- 
-    if (idGerente !== storedId) {
-        localStorage.setItem('idGerente', idGerente);
-        console.log('Recargando la página...');
-        location.reload();
-    }
-};
-</script> 
-<div id="app">     
-<section class="header">
-    <div class="logo">
-        <i class="ri-menu-line icon icon-0 menu"></i>
-        <h2>Hosp<span>Ital</span></h2>
-    </div>
-    <div class="search--notification--profile">
-        <div class="search">
-            <input type="text" placeholder="Search..">
-            <button><i class=""></i></button>
+
+        if (payload.role !== 'GER') {
+            alert('Acceso no autorizado.');
+            localStorage.removeItem('idGerente');
+            window.location.href = '../index.html';
+            return;
+        }
+        const role = payload.role;
+        console.log('role', role);
+
+        const idGerente = payload.id;
+        const storedId = localStorage.getItem('idGerente');
+        const tokenenv = token
+
+        if (idGerente !== storedId) {
+            localStorage.setItem('idGerente', idGerente);
+            console.log('Recargando la página...');
+            location.reload();
+        }
+    };
+</script>
+<div id="app">
+    <section class="header">
+        <div class="logo">
+            <i class="ri-menu-line icon icon-0 menu"></i>
+            <h2>Hosp<span>Ital</span></h2>
         </div>
-        <div class="notification--profile">
-            <div class="picon lock">
-                <img src="../img/notification.png" ></img>
+        <div class="search--notification--profile">
+            <div class="search">
+                <input type="text" placeholder="Search..">
+                <button><i class=""></i></button>
             </div>
-
-            <div class="picon profile">
-                <img src="../img/profile.png" >
-            </div>
-        </div>
-    </div>
-</section>
-<section class="main">
-    <div class="sidebar">
-        <ul class="sidebar--items">
-            <li>
-                <a href="#" id="active--link">
-                    <span class="icon icon-1"><i class="ri-layout-grid-line"></i></span>
-                    <span class="sidebar--item">Control</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="icon icon-2"><i class="ri-calendar-2-line"></i></span>
-                    <span class="sidebar--item">Horario</span>
-                </a>
-            </li>
-
-        </ul>
-        <li>
-            <a href="#" @click="logout">
-                <span class="icon icon-8"><i class="ri-logout-box-r-line"></i></span>
-                <span class="sidebar--item">Logout</span>
-                
-            </a>
-        </li>
-    </div>
-
-    <div class="main--content">
-        <div class="overview">
-            <div class="title">
-                <h2 class="section--title">Avances</h2>
-                <p>Usuario: {{ idGerente }}</p> 
-                <select name="date" id="date" class="dropdown">
-                    <option value="today">Hoy</option>
-                    <option value="lastweek">La semana pasada</option>
-                    <option value="lastmonth">El mes Pasado </option>
-                    <option value="lastyear">El año pasado</option>
-                    <option value="alltime">Todo el tiempo</option>
-                </select>
-            </div>
-            <div class="cards">
-                <div class="card card-1">
-                    <div class="card--data">
-                        <div class="card--content">
-                            <h5 class="card--title">Total Empleados</h5>
-                            <h1>4</h1>
-                        </div>
-                        <i class="ri-user-2-line card--icon--lg"></i>
-                    </div>
-                    <div class="card--stats">
-                        <span><i class="ri-bar-chart-fill card--icon stat--icon"></i>50%</span>
-                        <span><i class="ri-arrow-up-s-fill card--icon up--arrow"></i>2</span>
-                        <span><i class="ri-arrow-down-s-fill card--icon down--arrow"></i>2</span>
-                    </div>
-                </div>
-                <div class="card card-2">
-                    <div class="card--data">
-                        <div class="card--content">
-                            <h5 class="card--title">Total Tareas</h5>
-                            <h1>65</h1>
-                        </div>
-                        <i class="ri-user-line card--icon--lg"></i>
-                    </div>
-                    <div class="card--stats">
-                        <span><i class="ri-bar-chart-fill card--icon stat--icon"></i>60%</span>
-                        <span><i class="ri-arrow-up-s-fill card--icon up--arrow"></i>40</span>
-                        <span><i class="ri-arrow-down-s-fill card--icon down--arrow"></i>25</span>
-                    </div>
+            <div class="notification--profile">
+                <div class="picon lock">
+                    <img src="../img/notification.png"></img>
                 </div>
 
+                <div class="picon profile">
+                    <img src="../img/profile.png">
+                </div>
             </div>
         </div>
-        <div class="employees">
-            <div class="title">
-                <h2 class="section--title">Empleados Asociados</h2>
+    </section>
+    <section class="main">
+        <div class="sidebar">
+            <ul class="sidebar--items">
+                <li>
+                    <a href="#" id="active--link">
+                        <span class="icon icon-1"><i class="ri-layout-grid-line"></i></span>
+                        <span class="sidebar--item">Control</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon icon-2"><i class="ri-calendar-2-line"></i></span>
+                        <span class="sidebar--item">Horario</span>
+                    </a>
+                </li>
+
+            </ul>
+            <li>
+                <a href="#" @click="logout">
+                    <span class="icon icon-8"><i class="ri-logout-box-r-line"></i></span>
+                    <span class="sidebar--item">Logout</span>
+
+                </a>
+            </li>
+        </div>
+
+        <div class="main--content">
+            <div class="overview">
+                <div class="title">
+                    <h2 class="section--title">Avances</h2>
+                    <p>Usuario: {{ idGerente }}</p>
+                    <select name="date" id="date" class="dropdown">
+                        <option value="today">Hoy</option>
+                        <option value="lastweek">La semana pasada</option>
+                        <option value="lastmonth">El mes Pasado</option>
+                        <option value="lastyear">El año pasado</option>
+                        <option value="alltime">Todo el tiempo</option>
+                    </select>
+                </div>
+                <div class="cards">
+                    <div class="card card-1">
+                        <div class="card--data">
+                            <div class="card--content">
+                                <h5 class="card--title">Total Empleados</h5>
+                                <h1>4</h1>
+                            </div>
+                            <i class="ri-user-2-line card--icon--lg"></i>
+                        </div>
+                        <div class="card--stats">
+                            <span><i class="ri-bar-chart-fill card--icon stat--icon"></i>50%</span>
+                            <span><i class="ri-arrow-up-s-fill card--icon up--arrow"></i>2</span>
+                            <span><i class="ri-arrow-down-s-fill card--icon down--arrow"></i>2</span>
+                        </div>
+                    </div>
+                    <div class="card card-2">
+                        <div class="card--data">
+                            <div class="card--content">
+                                <h5 class="card--title">Total Tareas</h5>
+                                <h1>65</h1>
+                            </div>
+                            <i class="ri-user-line card--icon--lg"></i>
+                        </div>
+                        <div class="card--stats">
+                            <span><i class="ri-bar-chart-fill card--icon stat--icon"></i>60%</span>
+                            <span><i class="ri-arrow-up-s-fill card--icon up--arrow"></i>40</span>
+                            <span><i class="ri-arrow-down-s-fill card--icon down--arrow"></i>25</span>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-            <!-- Tabla de empleados -->
-            <table v-if="empleados.length > 0">
-                <thead>
+            <div class="employees">
+                <div class="title">
+                    <h2 class="section--title">Empleados Asociados</h2>
+                </div>
+                <!-- Tabla de empleados -->
+                <table v-if="empleados.length > 0">
+                    <thead>
                     <tr>
                         <th>ID Empleado</th>
                         <th>Nombre Completo</th>
@@ -161,8 +162,8 @@ window.onload = function () {
                         <th>Horario</th>
                         <th>Acciones</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     <tr v-for="empleado in empleados" :key="empleado.ID_EMPLEADO">
                         <td>{{ empleado.ID_EMPLEADO }}</td>
                         <td>{{ empleado.NOMBRE_COMPLETO }}</td>
@@ -170,87 +171,65 @@ window.onload = function () {
                         <td>{{ empleado['AREA ENCARGADA'] }}</td>
                         <td>{{ empleado.HORARIO }}</td>
                         <td>
-                            <button @click="mostrarFormularioTarea(empleado.ID_EMPLEADO)">Asignar tarea</button> 
+                            <button @click="mostrarFormularioTarea(empleado.ID_EMPLEADO)"
+                                    class="btn-icon"><i class="fas fa-tasks"></i></button>
                         </td>
                     </tr>
-                </tbody>
-            </table>
-        
-            <p v-else>No hay empleados asociados.</p>
+                    </tbody>
+                </table>
 
-<div v-if="mostrarFormulario" class="formulario-tarea">
-    <h3>Asignar tarea al empleado</h3>
-    <p>ID del empleado: {{ idEmpleado }}</p>
+                <p v-else>No hay empleados asociados.</p>
 
-    <form @submit.prevent="asignarTarea">
-        <label for="tarea">Nombre Tarea:</label>
-        <input type="text" v-model="tarea" required>
+                <div v-if="mostrarFormulario" class="formulario-tarea">
+                    <h3>Asignar tarea al empleado</h3>
+                    <p>ID del empleado: {{ idEmpleado }}</p>
 
-        <label for="descripcion">Descripción:</label>
-        <textarea v-model="descripcion" required></textarea>
-
-        <label for="prioridad">Prioridad:</label>
-        <select v-model="prioridad" required>
-            <option value="ALT">Alta</option>
-            <option value="MED">Media</option>
-            <option value="BAJ">Baja</option>
-        </select>
-
-        <label for="fechaVencimiento">Fecha de Vencimiento:</label>
-        <input type="datetime-local" v-model="fechaVencimiento" required>
-
-        <label for="idHabitacion">Habitación:</label>
-        <input type="number" v-model="idHabitacion" required>
-
-        <label for="estado">Estado:</label>
-        <select v-model="estado" required>
-            <option value="ASG">Asignada</option>
-            <option value="COM">Completada</option>
-            <option value="SCM">Sin completar</option>
-        </select>
-
-        <button type="submit">Asignar</button>
-    </form>
-</div>
-        </div>
-            <div class="employees--cards">
-                <a href="#" class="doctor--card">
-                    <div class="img--box--cover">
-                        <div class="img--box">
-                            <img src="../img/People.png" alt="">
+                    <form @submit.prevent="asignarTarea" class="formulario-horizontal">
+                        <div class="form-group-horizontal">
+                            <label for="tarea">Nombre Tarea:</label>
+                            <input type="text" v-model="tarea" required>
                         </div>
-                    </div>
-                    <p class="free">Libre</p>
-                </a>
-                <a href="#" class="doctor--card">
-                    <div class="img--box--cover">
-                        <div class="img--box">
-                            <img src="../img/People.png" alt="">
-                        </div>
-                    </div>
-                    <p class="busy">Ocupado</p>
-                </a>
-                <a href="#" class="doctor--card">
-                    <div class="img--box--cover">
-                        <div class="img--box">
-                            <img src="../img/People.png" alt="">
-                        </div>
-                    </div>
-                    <p class="busy">Ocupado</p>
-                </a>
-                <a href="#" class="doctor--card">
-                    <div class="img--box--cover">
-                        <div class="img--box">
-                            <img src="../img/People.png" alt="">
-                        </div>
-                    </div>
-                    <p class="free">Libre</p>
-                </a>
 
+                        <div class="form-group-horizontal">
+                            <label for="descripcion">Descripción:</label>
+                            <textarea v-model="descripcion" required></textarea>
+                        </div>
 
+                        <div class="form-group-horizontal">
+                            <label for="prioridad">Prioridad:</label>
+                            <select v-model="prioridad" required>
+                                <option value="ALT">Alta</option>
+                                <option value="MED">Media</option>
+                                <option value="BAJ">Baja</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group-horizontal">
+                            <label for="fechaVencimiento">Fecha de Vencimiento:</label>
+                            <input type="datetime-local" v-model="fechaVencimiento" required>
+                        </div>
+
+                        <div class="form-group-horizontal">
+                            <label for="idHabitacion">Habitación:</label>
+                            <input type="number" v-model="idHabitacion" required>
+                        </div>
+
+                        <div class="form-group-horizontal">
+                            <label for="estado">Estado:</label>
+                            <select v-model="estado" required>
+                                <option value="ASG">Asignada</option>
+                                <option value="COM">Completada</option>
+                                <option value="SCM">Sin completar</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn-icon">
+                            <i class="fas fa-check"></i></button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
+</div>
 </section>
 </div>
 <script src="managerG.js"></script>
