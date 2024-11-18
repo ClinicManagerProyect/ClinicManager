@@ -46,9 +46,7 @@
         <h2>Hosp<span>Ital</span></h2>
     </div>
     <div class="search--notification--profile">
-        <div class="search">
-            <input type="text" placeholder="Search..">
-        </div>
+
         <div class="notification--profile">
             <div class="picon lock">
                 <img src="../img/notification.png" ></img>
@@ -93,10 +91,10 @@
             <div class="toolbar">
             </div>
           <h2 class="section--title">Lista de Empleados</h2>
+
             <label>
                 <select name="date"  class="dropdown doctor--filter" @change="filtrarEmpleados">
-                    <option value="all">Todos</option>
-                    <option value="free">Activos</option>
+                    <option value="all">Activos</option>
                     <option value="busy">Inactivos</option>
                 </select>
             </label>
@@ -120,12 +118,23 @@
                 <td>{{ empleado.NOMBRE_EMPLEO }}</td>
                 <td>{{ empleado.ID_USUARIO }}</td>
                 <td>
-                    <button @click="obtenerEmpleadoEspecifico(empleado.ID_USUARIO)"
-                            class="btn-icon"><i class="fas fa-edit"></i></button>
-                    <button @click="DeshabilitarEmpleado(empleado.ID_USUARIO)"
-                            class="btn-icon btn-icon-disable"><i class="fas fa-times"></i></button>
 
-                 </td>
+                    <button @click="obtenerEmpleadoEspecifico(empleado.ID_USUARIO)" class="btn-icon">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    
+                    <button v-if="empleado.ESTADO_USUARIO === 'N'" 
+                            @click="habilitarEmpleado(empleado.ID_USUARIO)"
+                            class="btn-icon btn-icon-enable">
+                        <i class="fas fa-check"></i> Habilitar
+                    </button>
+                
+                    <button v-if="empleado.ESTADO_USUARIO === 'A'" 
+                            @click="DeshabilitarEmpleado(empleado.ID_USUARIO)"
+                            class="btn-icon btn-icon-disable">
+                        <i class="fas fa-times"></i> Deshabilitar
+                    </button>
+                </td>
               </tr>
             </tbody>
           </table>

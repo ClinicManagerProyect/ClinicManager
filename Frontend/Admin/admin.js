@@ -27,12 +27,11 @@ new Vue({
             hora_salida: "",
         },
         empleados: [],
-        estadoFiltro: 'all',  // Estado inicial del filtro
-        empleadosFiltrados: [],  // Lista de empleados filtrados
+        estadoFiltro: 'all',  
+        empleadosFiltrados: [],  
         empleadoSeleccionado: null,
         gerentes: [],
         viendoDeshabilitados: false,
-
     },
     methods: {
         async registrar() {
@@ -94,7 +93,7 @@ new Vue({
                     return;
                 }
 
-                // Validación de datos mínimos
+          
                 if (!this.empleadoSeleccionado.ID_PERSONA || !this.empleadoSeleccionado.NOMBRES) {
                     alert("Por favor, complete todos los campos requeridos.");
                     return;
@@ -235,7 +234,7 @@ new Vue({
                     if (!Array.isArray(this.empleados)) {
                         throw new Error("Formato de respuesta no válido.");
                     }
-                    // Filtrar empleados inicialmente
+                   
                     this.filtrarEmpleados();
                 } else {
                     const errorData = await response.json();
@@ -293,16 +292,15 @@ new Vue({
             }
         },
 
-        filtrarEmpleados(event) {
-            if (event) {
-                this.estadoFiltro = event.target.value;
-            }
-            if (this.estadoFiltro === 'all') {
-                this.empleadosFiltrados = this.empleados;
-            } else if (this.estadoFiltro === 'free') {
-                this.empleadosFiltrados = this.empleados.filter(emp => emp.ESTADO_USUARIO === 'A');
-            } else if (this.estadoFiltro === 'busy') {
-                this.empleadosFiltrados = this.empleados.filter(emp => emp.ESTADO_USUARIO === 'N');
+        async filtrarEmpleados(event) {
+            const filtro = event.target.value;
+    
+            if (filtro === 'all') {
+                
+                await this.verEmpleados();
+            } else if (filtro === 'busy') {
+               
+                await this.verEmpleadosDes();
             }
         },
     },
