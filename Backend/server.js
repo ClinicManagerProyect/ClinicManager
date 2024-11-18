@@ -19,7 +19,8 @@ const {
     obtenerEmpleadosDes,
     habilitarEmpleado,
     obtenerTodosLosEmpleadosG,
-    registrarTarea
+    registrarTarea,
+    obtenerTarea
 } = require('../data_base/queries');
 
 const app = express();
@@ -280,6 +281,18 @@ app.get('/empleadosAsociados/:idGerente', (req, res) => {
             return res.status(500).json({ message: 'Error al obtener empleados' });
         }
         res.status(200).json(empleados);
+    });
+});
+
+app.get('/verTarea/:idEmpleado', (req, res) => {
+    const { idEmpleado } = req.params;
+    obtenerTarea(idEmpleado,(err, tareas) => {
+        if (err) {
+            console.error('Error al obtener tarea:', err);
+            return res.status(500).json({ message: 'Error al obtener tareas' });
+        }
+        console.log("Tareas obtenidas:", tareas);
+        res.status(200).json(tareas);
     });
 });
 

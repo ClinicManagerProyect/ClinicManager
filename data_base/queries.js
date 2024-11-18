@@ -374,9 +374,21 @@ const registrarTarea = (idTarea, idEmpleado, idHabitacion, nombreTarea, descripc
         if (err) {
             return callback(err, null);
         }
-        callback(null, results);
+        callback(null, results[0]);
     });
 };
+
+function obtenerTarea(idEmpleado, callback) {
+    const query = `select * from tarea where id_usuario=?`; 
+    
+    connection.query(query, [idEmpleado], (err, results) => {
+        if (err) {
+            return callback(err);
+        }
+        
+        callback(null, results); 
+    });
+}
 
 module.exports = {
     validateUser,
@@ -394,5 +406,6 @@ module.exports = {
     actualizarEmpleadoC,
     obtenerEmpleadosDes,
     habilitarEmpleado,
-    registrarTarea
+    registrarTarea,
+    obtenerTarea
 };

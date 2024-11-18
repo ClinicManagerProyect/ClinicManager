@@ -7,10 +7,11 @@ new Vue({
     idEmpleado:null,
     tarea:"",
     descripcion: "",
-    prioridad: "", // Valor por defecto
+    prioridad: "", 
     fechaVencimiento: "",
-    idHabitacion: "", // Asumiendo que es un campo adicional
-    estado: "" // 
+    idHabitacion: "", 
+    estado: "", 
+    verTareasU:[]
   },
 
   methods: {
@@ -41,6 +42,32 @@ new Vue({
         alert("No se pudieron cargar los empleados.");
       } 
     },
+    async verTareas(idEmpleado) {
+      try {
+        const response = await fetch(
+          `http://localhost:4000/verTarea/${idEmpleado}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (response.ok) {
+          this.verTareasU= await response.json();
+          console.log(this.verTareasU)
+          
+        } else {
+          const errorData = await response.json();
+          throw new Error(errorData.message || "Error desconocido.");
+        }
+      } catch (error) {
+        console.error("Error al obtener las tareas:", error);
+        alert("No se pudieron cargar las tareas.");
+      }
+    },
+
     logout() {
       localStorage.removeItem('idGerente'); 
       this.idGerente = null; 
@@ -48,8 +75,8 @@ new Vue({
       window.location.href = '../index.html'; 
     },
     mostrarFormularioTarea(idEmpleado) {
-      this.idEmpleado = idEmpleado; // Guardar el ID del empleado seleccionado
-      this.mostrarFormulario = true; // Mostrar el formulario de asignación de tarea
+      this.idEmpleado = idEmpleado; 
+      this.mostrarFormulario = true; 
     },
     async asignarTarea() {
       try {
@@ -78,6 +105,8 @@ new Vue({
           this.idHabitacion = "";
           this.prioridad="";
           this.estado="";
+          
+          location.reload()
         } else {
           const errorData = await response.json();
           alert(errorData.message || "Error al asignar tarea.");
