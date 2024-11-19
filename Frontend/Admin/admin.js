@@ -32,8 +32,12 @@ new Vue({
         empleadoSeleccionado: null,
         gerentes: [],
         viendoDeshabilitados: false,
+        searchQuery: ""
     },
     methods: {
+
+
+
         async registrar() {
             try {
                 const response = await fetch("http://localhost:4000/registro", {
@@ -234,8 +238,9 @@ new Vue({
                     if (!Array.isArray(this.empleados)) {
                         throw new Error("Formato de respuesta no válido.");
                     }
-                   
+                    this.filterEmpleadosPorNombre();
                     this.filtrarEmpleados();
+
                 } else {
                     const errorData = await response.json();
                     throw new Error(errorData.message || "Error desconocido.");
@@ -260,6 +265,7 @@ new Vue({
                     if (!Array.isArray(this.empleados)) {
                         throw new Error("Formato de respuesta no válido.");
                     }
+                    this.filterEmpleadosPorNombre();
                     this.filtrarEmpleados();
                 } else {
                     const errorData = await response.json();
@@ -303,6 +309,21 @@ new Vue({
                 await this.verEmpleadosDes();
             }
         },
+        filterEmpleadosPorNombre() {
+            if (this.searchQuery) {
+                const searchQueryLower = this.searchQuery.toLowerCase();
+                this.empleadosFiltrados = this.empleados.filter(empleado => {
+                    return empleado.NOMBRE_COMPLETO.toLowerCase().includes(searchQueryLower);
+                });
+            } else {
+                this.empleadosFiltrados = this.empleados;
+            }
+        },
+    },
+    watch: {
+        searchQuery() {
+            this.filterEmpleadosPorNombre();
+        }
     },
     mounted() {
         this.verEmpleados();

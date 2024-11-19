@@ -98,6 +98,10 @@
                     <option value="busy">Inactivos</option>
                 </select>
             </label>
+
+            <div class="search">
+                <input type="text" placeholder="Search.." v-model="searchQuery">
+            </div>
           <table class="employees-table">
             <thead>
               <tr>
@@ -110,7 +114,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="empleado in empleados" :key="empleado.ID_PERSONA">
+              <tr v-for="empleado in empleadosFiltrados" :key="empleado.ID_PERSONA">
                 <td>{{ empleado.ID_PERSONA }}</td>
                 <td>{{ empleado.NOMBRE_COMPLETO }}</td>
                 <td >{{ empleado.ESTADO_USUARIO === 'A' ? 'Activo' : 'Inactivo' }}
@@ -126,13 +130,13 @@
                     <button v-if="empleado.ESTADO_USUARIO === 'N'" 
                             @click="habilitarEmpleado(empleado.ID_USUARIO)"
                             class="btn-icon btn-icon-enable">
-                        <i class="fas fa-check"></i> Habilitar
+                        <i class="fas fa-check"></i>
                     </button>
                 
                     <button v-if="empleado.ESTADO_USUARIO === 'A'" 
                             @click="DeshabilitarEmpleado(empleado.ID_USUARIO)"
                             class="btn-icon btn-icon-disable">
-                        <i class="fas fa-times"></i> Deshabilitar
+                        <i class="fas fa-times"></i>
                     </button>
                 </td>
               </tr>

@@ -452,6 +452,8 @@ button:hover {
 .formulario-tarea button.btn-icon i {
     pointer-events: none; /* Asegúrate de que el ícono no interfiere con el clic del botón */
 }
+
+
 /* responsive starts here */
 @media screen and (max-width:1350px) {
     .cards,
