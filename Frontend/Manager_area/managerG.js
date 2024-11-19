@@ -14,6 +14,12 @@ new Vue({
         verTareasU: []
     },
 
+    watch: {
+        verTareasU(newVal) {
+            console.log("Actualización en verTareasU:", newVal);
+        }
+    },
+
     methods: {
         async verEmpleadosAsociados() {
             try {
@@ -43,7 +49,8 @@ new Vue({
             }
         },
 
-        verTareas(idEmpleado) {
+        async verTareas(idEmpleado) {
+            console.log("el id a enviar es", idEmpleado)
             window.location.href = `viewTasks.html?idEmpleado=${idEmpleado}`;
         },
 
