@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles-super-admin.css">
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
     <title></title>
 
 </head>
@@ -41,23 +43,15 @@
         }</script> 
 <section class="header">
     <div class="logo">
-
         <i class="ri-menu-line icon icon-0 menu"></i>
         <h2>Hosp<span>Ital</span></h2>
     </div>
     <div class="search--notification--profile">
-        <div class="search">
-            <input type="text" placeholder="Search..">
-        </div>
-        <div class="notification--profile">
-            <div class="picon lock">
-                <img src="../img/notification.png" ></img>
+        <button class="button--notification--profile">
+            <div class="picon lock" title="Notificaciones">
+                <i class="fa fa-bell"></i>
             </div>
-
-            <div class="picon profile">
-                <img src="../img/super_admi.png" >
-            </div>
-        </div>
+        </button>
     </div>
 </section>
 <section class="main">

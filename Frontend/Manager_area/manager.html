@@ -61,19 +61,11 @@
             <h2>Hosp<span>Ital</span></h2>
         </div>
         <div class="search--notification--profile">
-            <div class="search">
-                <input type="text" placeholder="Search..">
-                <button><i class=""></i></button>
-            </div>
-            <div class="notification--profile">
-                <div class="picon lock">
-                    <img src="../img/notification.png"></img>
+            <button class="button--notification--profile">
+                <div class="picon lock" title="Notificaciones">
+                    <i class="fa fa-bell"></i>
                 </div>
-
-                <div class="picon profile">
-                    <img src="../img/profile.png">
-                </div>
-            </div>
+            </button>
         </div>
     </section>
     <section class="main">
@@ -106,7 +98,7 @@
             <div class="overview">
                 <div class="title">
                     <h2 class="section--title">Avances</h2>
-                    <p>Usuario: {{ idGerente }}</p>
+                    <p class="user">{{ idGerente }}</p>
                     <select name="date" id="date" class="dropdown">
                         <option value="today">Hoy</option>
                         <option value="lastweek">La semana pasada</option>
@@ -157,13 +149,13 @@
                         <td>{{ empleado['AREA ENCARGADA'] }}</td>
                         <td>{{ empleado.HORARIO }}</td>
                         <td>
-                            <button @click="mostrarFormularioTarea(empleado.ID_EMPLEADO)"
-                                    class="btn-icon"><i class="fas fa-tasks"></i></button>
-                            <a>
-                                <button @click="verTareas(empleado.ID_EMPLEADO)"
-                                        class="btn-icon"><i class="fas fa-eye "></i>
-                                </button>
-                            </a>
+                            <button @click="mostrarFormularioTarea(empleado.ID_EMPLEADO) "
+                                    class="btn-icon1" title="Asignar Tarea"><i class="fas fa-tasks"></i></button>
+
+                            <button @click="verTareas(empleado.ID_EMPLEADO)"
+                                    class="btn-icon2" title="Ver Tarea"><i class="fas fa-eye "></i>
+                            </button>
+
 
                         </td>
                     </tr>
@@ -222,7 +214,7 @@
                 </div>
             </div>
         </div>
-</section>
+    </section>
 </div>
 <script src="managerG.js"></script>
 </body>
