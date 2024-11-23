@@ -389,6 +389,41 @@ function obtenerTarea(idEmpleado, callback) {
         callback(null, results); 
     });
 }
+function obtenerTareaE(idEmpleado, callback) {
+    const query = `select * from tarea where id_usuario=? and estado IN ('ASG','SCM')`; 
+    
+    connection.query(query, [idEmpleado], (err, results) => {
+        if (err) {
+            return callback(err);
+        }
+        
+        callback(null, results); 
+    });
+}
+
+function actualizarTarea(idEmpleado, idTarea, estado,callback){
+    const query =` update tarea set estado =? where id_USUARIO=? AND ID_TAREA=?`
+
+    connection.query(query, [estado,idEmpleado,idTarea], (err, results) => {
+        if (err) {
+            return callback(err);
+        }
+        
+        callback(null, results); 
+    });
+}
+
+function obtenerTareasC(idEmpleado, callback){
+    const query = `select * from tarea where id_usuario=? and estado='COM'`; 
+    
+    connection.query(query, [idEmpleado], (err, results) => {
+        if (err) {
+            return callback(err);
+        }
+        
+        callback(null, results); 
+    });
+}
 
 module.exports = {
     validateUser,
@@ -407,5 +442,8 @@ module.exports = {
     obtenerEmpleadosDes,
     habilitarEmpleado,
     registrarTarea,
-    obtenerTarea
+    obtenerTarea,
+    actualizarTarea,
+    obtenerTareasC,
+    obtenerTareaE
 };

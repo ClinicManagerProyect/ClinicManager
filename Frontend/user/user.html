@@ -94,92 +94,48 @@
                     <option value="alltime">Todo el tiempo</option>
                 </select>
             </div>
-            <div class="cards">
-                <div class="card card-1">
-                    <div class="card--data">
-                        <div class="card--content">
-                            <h5 class="card--title">Tareas Pendientes</h5>
-                            <h1>2</h1>
-                        </div>
-                    </div>
-                    <div class="card--stats">
-                        <span><i class="ri-bar-chart-fill card--icon stat--icon"></i>50%</span>
-                        <span><i class="ri-arrow-up-s-fill card--icon up--arrow"></i>2</span>
-                    </div>
-                </div>
-                <div class="card card-2">
-                    <div class="card--data">
-                        <div class="card--content">
-                            <h5 class="card--title">Tareas Completas</h5>
-                            <h1>2</h1>
-                        </div>
-                        <i class="ri-user-line card--icon--lg"></i>
-                    </div>
-                    <div class="card--stats">
-                        <span><i class="ri-bar-chart-fill card--icon stat--icon"></i>50%</span>
-                        <span><i class="ri-arrow-up-s-fill card--icon up--arrow"></i>2</span>
-                    </div>
-                </div>
 
-            </div>
         </div>
+        <div id="app">
+            <div class="card card-1">
+                <div class="card--data">
+                    <div class="card--content">
+                        <h5 class="card--title">Tareas Pendientes</h5>
+                        <h1>{{verTareasU.length}}</h1>
+                    </div>
+                </div>
 
-        <div class="tasks">
-            <div class="title">
-                <h2 class="section--title">Tareas Asignadas</h2>
             </div>
-            <div class="task-cards">
-                <!-- Tarjeta de Tarea -->
-                <div class="task-card">
-                    <div class="task-header">
-                        <h3>Ronda</h3>
-                        <span class="task-status pending">Pendiente</span>
+            <div class="main--content">
+                <div class="overview">
+                    <div class="title">
+                        <h2 class="section--title">Tareas Asignadas</h2>
                     </div>
-                    <p class="task-function">Hacer listado de pacientes Habitacion 300-350</p>
-                    <div class="task-time">
-                        <span><strong>Inicio:</strong> 05/12/2024 09:00</span>
-                        <span><strong>Fin:</strong> 05/12/2024 15:00</span>
-                    </div>
-                    <div class="task-actions">
-                        <i class="ri-edit-line edit"></i>
-                        <i class="ri-delete-bin-line delete"></i>
-                    </div>
-                </div>
-        
-                <!-- Repite la estructura de la tarjeta de tarea para cada tarea -->
-                <div class="task-card">
-                    <div class="task-header">
-                        <h3>Preparación de quirófano</h3>
-                        <span class="task-status in_progress">En progreso</span>
-                    </div>
-                    <p class="task-function">Verificar equipo médico</p>
-                    <div class="task-time">
-                        <span><strong>Inicio:</strong> 07/12/2024 14:00</span>
-                        <span><strong>Fin:</strong> 07/12/2024 15:00</span>
-                    </div>
-                    <div class="task-actions">
-                        <i class="ri-edit-line edit"></i>
-                        <i class="ri-delete-bin-line delete"></i>
+                    <div class="task-cards">
+                        <div class="task-card" v-for="tarea in verTareasU" :key="tarea.ID_TAREA">
+                            <div class="task-header">
+                                <h3>{{ tarea.NOMBRE }}</h3>
+                                <span class="task-status">
+                                    <select v-model="tarea.ESTADO" @change="updateTaskStatus(tarea.ID_TAREA, tarea.ESTADO)">
+                                        <option value="ASG">Asignada </option>
+                                        <option value="SCM">En Progreso</option>
+                                        <option value="COM">Completada</option>
+                                    </select>
+                                </span>
+                            </div>
+                            <p class="task-function">{{ tarea.DESCRIPCION }}</p>
+                            <div class="task-time">
+                                <span><strong>Habitación:</strong> {{ tarea.ID_HABITACION }}</span>
+                                <span><strong>Vence:</strong> {{ formatFecha(tarea.FECHA_VENCIMIENTO) }}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="task-card">
-                    <div class="task-header">
-                        <h3>Visita Paciente Habitacion 305A</h3>
-                        <span class="task-status confirmed">Completada</span>
-                    </div>
-                    <p class="task-function">Pasr ronda de visita paciente, verificar estado de salud e inquietudes con los medicos de turno</p>
-                    <div class="task-time">
-                        <span><strong>Inicio:</strong> 07/12/2024 15:30</span>
-                        <span><strong>Fin:</strong> 07/12/2024 16:00</span>
-                    </div>
-                    <div class="task-actions">
-                        <i class="ri-edit-line edit"></i>
-                        <i class="ri-delete-bin-line delete"></i>
-                    </div>
-                </div>        
             </div>
         </div>
     </div>
 </section>
+<script src="employee.js">
+</script>
 </body>
 </html>

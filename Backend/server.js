@@ -20,7 +20,10 @@ const {
     habilitarEmpleado,
     obtenerTodosLosEmpleadosG,
     registrarTarea,
-    obtenerTarea
+    obtenerTarea,
+    actualizarTarea,
+    obtenerTareasC,
+    obtenerTareaE
 } = require('../data_base/queries');
 
 const app = express();
@@ -295,6 +298,17 @@ app.get('/verTarea/:idEmpleado', (req, res) => {
         res.status(200).json(tareas);
     });
 });
+app.get('/verTareaE/:idEmpleado', (req, res) => {
+    const { idEmpleado } = req.params;
+    obtenerTareaE(idEmpleado,(err, tareas) => {
+        if (err) {
+            console.error('Error al obtener tarea:', err);
+            return res.status(500).json({ message: 'Error al obtener tareas' });
+        }
+        console.log("Tareas obtenidas:", tareas);
+        res.status(200).json(tareas);
+    });
+});
 
 
 app.post('/asignarTarea', async (req, res) => {
@@ -313,6 +327,38 @@ app.post('/asignarTarea', async (req, res) => {
     console.error('Error al asignar tarea:', error);
     res.status(500).json({ message: 'Error al asignar tarea en la base de datos' });
 }
+});
+
+app.put('/actualizarTarea', async (req, res) => {
+    const { idEmpleado, idTarea, estado } = req.body;
+    console.log("Datos recibidos en actualizar tarea:", {idEmpleado, idTarea, estado});
+    try {
+
+        actualizarTarea( idEmpleado, idTarea, estado, (err, result) => {
+            if (err) {
+                console.error('Error al actualizar:', err);
+                return res.status(500).json({ message: 'Error al actualizar tarea en la BD' });
+            }
+            res.status(200).json({ message: 'Actualizacion exitosa' });
+            
+        });
+    } catch (error) {
+        console.error('Error al actualizar:', error);
+        res.status(500).json({ message: 'Error al actualizar datos en la base de datos' });
+    }
+});
+
+
+app.get('/verTareasCompletas/:idEmpleado', (req, res) => {
+    const { idEmpleado } = req.params;
+    obtenerTareasC(idEmpleado,(err, tareas) => {
+        if (err) {
+            console.error('Error al obtener tareas completas:', err);
+            return res.status(500).json({ message: 'Error al obtener tareas' });
+        }
+        console.log("Tareas completas obtenidas:", tareas);
+        res.status(200).json(tareas);
+    });
 });
 
 app.listen(PORT, () => {

@@ -13,13 +13,11 @@ new Vue({
         estado: "",
         verTareasU: []
     },
-
     watch: {
         verTareasU(newVal) {
             console.log("Actualización en verTareasU:", newVal);
         }
     },
-
     methods: {
         async verEmpleadosAsociados() {
             try {
@@ -48,13 +46,10 @@ new Vue({
                 alert("No se pudieron cargar los empleados.");
             }
         },
-
         async verTareas(idEmpleado) {
             console.log("el id a enviar es", idEmpleado)
             window.location.href = `viewTasks.html?idEmpleado=${idEmpleado}`;
         },
-
-
         logout() {
             localStorage.removeItem('idGerente');
             this.idGerente = null;
@@ -82,7 +77,6 @@ new Vue({
                         idHabitacion: this.idHabitacion
                     })
                 });
-
                 if (response.ok) {
                     alert("Tarea asignada correctamente");
                     this.mostrarFormulario = false;

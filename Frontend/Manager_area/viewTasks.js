@@ -32,8 +32,9 @@ new Vue({
                 console.error("Error al obtener las tareas:", error);
                 alert("No se pudieron cargar las tareas.");
             }
-        }
+        },
     },
+
     mounted() {
         const urlParams = new URLSearchParams(window.location.search);
         this.idEmpleado = urlParams.get('idEmpleado');
