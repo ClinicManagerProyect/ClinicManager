@@ -128,7 +128,7 @@ new Vue({
   },
 
   mounted() {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const payload = JSON.parse(atob(token.split(".")[1]));
     const idEmpleado = payload.id;
     this.viewTasks(idEmpleado);

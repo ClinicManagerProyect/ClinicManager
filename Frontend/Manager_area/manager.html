@@ -13,7 +13,7 @@
 <body>
 <script>
     window.onload = function () {
-        const token = localStorage.getItem('token');
+        const token = sessionStorage.getItem('token');
 
         if (!token) {
             alert('Debes iniciar sesión primero.');
@@ -27,8 +27,8 @@
         const currentTime = Math.floor(Date.now() / 1000);
         if (payload.exp < currentTime) {
             alert('Token expirado. Debes iniciar sesión nuevamente.');
-            localStorage.removeItem('token');
-            localStorage.removeItem('idGerente');
+            sessionStorage.removeItem('token');
+            sessionStorage.removeItem('idGerente');
             window.location.href = '../index.html';
             return;
         }
@@ -36,7 +36,7 @@
 
         if (payload.role !== 'GER') {
             alert('Acceso no autorizado.');
-            localStorage.removeItem('idGerente');
+            sessionStorage.removeItem('idGerente');
             window.location.href = '../index.html';
             return;
         }

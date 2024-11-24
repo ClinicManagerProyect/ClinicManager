@@ -27,7 +27,7 @@ new Vue({
           const data = await response.json();
           console.log("Respuesta del servidor:", data);
           this.userRole = data.user.role;
-          localStorage.setItem("token", data.token);
+          sessionStorage.setItem("token", data.token);
           this.redirectUser();
         } else {
           const errorData = await response.json();
@@ -39,7 +39,7 @@ new Vue({
     },
 
     redirectUser() {
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
 
       if (!token) {
         alert("Debes iniciar sesión primero.");
