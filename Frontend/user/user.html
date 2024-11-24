@@ -11,37 +11,37 @@
 
 </head>
 <body>
-    <script>
-        window.onload = function() {
-            const token = localStorage.getItem('token'); 
-    
-            if (!token) {
-                alert('Debes iniciar sesión primero.');
-                window.location.href = '../index.html';
-                return;
-            }
-    
-     
-            const payload = JSON.parse(atob(token.split('.')[1])); 
-    
-            const currentTime = Math.floor(Date.now() / 1000); 
-            if (payload.exp < currentTime) {
-                alert('Token expirado. Debes iniciar sesión nuevamente.');
-                localStorage.removeItem('token'); 
-                window.location.href = '../index.html';
-                return;
-            }
-    
-     
-            if (payload.role !== 'EMP') { 
-                alert('Acceso no autorizado.');
-                window.location.href = '../index.html'; 
-                return;
-            }
-    
-           
+<script>
+    window.onload = function () {
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            alert('Debes iniciar sesión primero.');
+            window.location.href = '../index.html';
+            return;
         }
-    </script>
+
+
+        const payload = JSON.parse(atob(token.split('.')[1]));
+
+        const currentTime = Math.floor(Date.now() / 1000);
+        if (payload.exp < currentTime) {
+            alert('Token expirado. Debes iniciar sesión nuevamente.');
+            localStorage.removeItem('token');
+            window.location.href = '../index.html';
+            return;
+        }
+
+
+        if (payload.role !== 'EMP') {
+            alert('Acceso no autorizado.');
+            window.location.href = '../index.html';
+            return;
+        }
+
+
+    }
+</script>
 <section class="header">
     <div class="logo">
         <i class="ri-menu-line icon icon-0 menu"></i>
@@ -89,7 +89,7 @@
                 <select name="date" id="date" class="dropdown">
                     <option value="today">Hoy</option>
                     <option value="lastweek">La semana pasada</option>
-                    <option value="lastmonth">El mes Pasado </option>
+                    <option value="lastmonth">El mes Pasado</option>
                     <option value="lastyear">El año pasado</option>
                     <option value="alltime">Todo el tiempo</option>
                 </select>
@@ -97,16 +97,15 @@
 
         </div>
         <div id="app">
-            <div class="card card-1">
-                <div class="card--data">
-                    <div class="card--content">
-                        <h5 class="card--title">Tareas Pendientes</h5>
-                        <h1>{{verTareasU.length}}</h1>
+            <div class="parent-container">
+                <div class="card card-1">
+                    <div class="card--data">
+                        <div class="card--content">
+                            <h5 class="card--title">Tareas Pendientes</h5>
+                            <h1>{{verTareasU.length}}</h1>
+                        </div>
                     </div>
                 </div>
-
-            </div>
-            <div class="main--content">
                 <div class="overview">
                     <div class="title">
                         <h2 class="section--title">Tareas Asignadas</h2>
@@ -116,10 +115,12 @@
                             <div class="task-header">
                                 <h3>{{ tarea.NOMBRE }}</h3>
                                 <span class="task-status">
-                                    <select v-model="tarea.ESTADO" @change="updateTaskStatus(tarea.ID_TAREA, tarea.ESTADO)">
-                                        <option value="ASG">Asignada </option>
-                                        <option value="SCM">En Progreso</option>
-                                        <option value="COM">Completada</option>
+                                    <select v-model="tarea.ESTADO" class="estado-select"
+                                            :data-task-id="tarea.ID_TAREA"
+                                            @change="updateTaskStatus(tarea.ID_TAREA, tarea.ESTADO)">
+                                        <option value="ASG" class="asignada">Asignada </option>
+                                        <option value="SCM" class="progreso">En Progreso</option>
+                                        <option value="COM" class="completada">Completada</option>
                                     </select>
                                 </span>
                             </div>
@@ -133,6 +134,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </section>
 <script src="employee.js">

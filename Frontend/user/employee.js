@@ -4,6 +4,8 @@ new Vue({
     verTareasU: [],
     tareasComp:[]
   },
+
+
   methods: {
     async viewTasks(idEmpleado) {
       try {
@@ -57,6 +59,15 @@ new Vue({
               (tarea) => tarea.ID_TAREA !== taskId
             );
           }
+          /*Para cambiar el fondo de color */
+          const selectElement = document.querySelector(`.estado-select[data-task-id="${taskId}"]`);
+          if (selectElement) {
+            selectElement.classList.remove('asignada', 'progreso', 'completada');
+            selectElement.classList.add(newStatus.toLowerCase());
+          }
+          /*Finalisa aqui */
+
+
         } else {
           const errorData = await response.json();
           console.error("Error del servidor:", errorData);
@@ -115,6 +126,7 @@ new Vue({
       });
     },
   },
+
   mounted() {
     const token = localStorage.getItem("token");
     const payload = JSON.parse(atob(token.split(".")[1]));
