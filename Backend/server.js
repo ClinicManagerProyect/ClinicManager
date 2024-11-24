@@ -23,7 +23,9 @@ const {
     obtenerTarea,
     actualizarTarea,
     obtenerTareasC,
-    obtenerTareaE
+    obtenerTareaE,
+    editarTareaG,
+    deleteTask
 } = require('../data_base/queries');
 
 const app = express();
@@ -348,6 +350,26 @@ app.put('/actualizarTarea', async (req, res) => {
     }
 });
 
+app.put('/editarTarea/:idTarea', async (req, res) => {
+    
+    const idTarea = req.params.idTarea;
+    const { ID_HABITACION, NOMBRE, DESCRIPCION, PRIORIDAD, FECHA_VENCIMIENTO, ESTADO } = req.body;
+
+    console.log("Datos recibidos en editar tarea:", {idTarea,ID_HABITACION, NOMBRE, DESCRIPCION, PRIORIDAD, FECHA_VENCIMIENTO, ESTADO});
+    try {
+        editarTareaG( idTarea,ID_HABITACION, NOMBRE, DESCRIPCION, PRIORIDAD, FECHA_VENCIMIENTO, ESTADO, (err, result) => {
+            if (err) {
+                console.error('Error al editar:', err);
+                return res.status(500).json({ message: 'Error al editar tarea en la BD' });
+            }
+            res.status(200).json({ message: 'Se edito la tarea exitosamente' });
+            
+        });
+    } catch (error) {
+        console.error('Error al editar tarea:', error);
+        res.status(500).json({ message: 'Error al editar datos de la tarea  en la base de datos' });
+    }
+});
 
 app.get('/verTareasCompletas/:idEmpleado', (req, res) => {
     const { idEmpleado } = req.params;
@@ -358,6 +380,19 @@ app.get('/verTareasCompletas/:idEmpleado', (req, res) => {
         }
         console.log("Tareas completas obtenidas:", tareas);
         res.status(200).json(tareas);
+    });
+});
+
+app.delete('/eliminarTarea/:idTareaD', (req, res) => {
+    const idTareaD = req.params.idTareaD;
+    console.log("datos recibidos", idTareaD )
+    deleteTask(idTareaD,(err, result) => {
+        if (err) {
+            console.error('Error elimonar tarea:', err);
+            return res.status(500).json({ message: 'Error elimonar tarea' });
+        }
+        console.log("Tarea eliminada exitosamente:");
+        res.status(200).json({ message: 'Se elimino la tarea exitosamente' });
     });
 });
 

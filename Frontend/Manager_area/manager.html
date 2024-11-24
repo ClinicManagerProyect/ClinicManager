@@ -80,13 +80,6 @@
                         <span class="sidebar--item">Empleados</span>
                     </a>
                 </li>
-                <li>
-                    <a href="viewTasks.html">
-                        <span class="icon icon-2"><i class="ri-calendar-2-line"></i></span>
-                        <span class="sidebar--item">Tareas</span>
-                    </a>
-                </li>
-
             </ul>
             <li>
                 <a href="#" @click="logout">
@@ -205,7 +198,7 @@
                             <select v-model="estado" required>
                                 <option value="ASG">Asignada</option>
                                 <option value="COM">Completada</option>
-                                <option value="SCM">Sin completar</option>
+                                <option value="SCM">En progreso</option>
                             </select>
                         </div>
 

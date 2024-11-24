@@ -33,17 +33,13 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <span class="icon icon-2"><i class="ri-calendar-2-line"></i></span>
-                        <span class="sidebar--item">Tareas</span>
-                    </a>
                 </li>
             </ul>
         </div>
         <div class="main--content">
-            <h2>Tareas del Empleado: {{ idEmpleado }}</h2>
+            <h2>Tareas Asignadas al empleado: {{ idEmpleado }}</h2>
             <div v-if="verTareasU.length > 0">
-                <h3>Tareas del empleado</h3>
+                
                 <table>
                     <thead>
                     <tr>
@@ -52,6 +48,7 @@
                         <th>Fecha de Vencimiento</th>
                         <th>Habitación</th>
                         <th>Prioridad</th>
+                        <th>Acciones</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -61,11 +58,52 @@
                         <td>{{ new Date(tarea.FECHA_VENCIMIENTO).toLocaleString() }}</td>
                         <td>{{ tarea.ID_HABITACION }}</td>
                         <td>{{ tarea.PRIORIDAD }}</td>
+                        <td>
+                            <button @click="abrirModal(tarea)">Editar tarea</button>
+                        </td>
+                        <td>
+                            <button @click="eliminarTarea(tarea.ID_TAREA)">Eliminar tarea</button>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
             <p v-else>selecciona un  empleado.</p>
+        </div>
+        <div v-if="modalVisible" class="modal">
+            <div class="modal-content">
+                <span class="close" @click="cerrarModal">&times;</span>
+                <h2>Editar Tarea</h2>
+                <form @submit.prevent="editarTarea">
+                    <label for="idHabitacion">Habitación:</label>
+                    <input v-model="tareaSeleccionada.ID_HABITACION" id="idHabitacion" type="number" required>
+        
+                    <label for="nombre">Nombre:</label>
+                    <input v-model="tareaSeleccionada.NOMBRE" id="nombre" type="text" maxlength="30" required>
+        
+                    <label for="descripcion">Descripción:</label>
+                    <textarea v-model="tareaSeleccionada.DESCRIPCION" id="descripcion" maxlength="100" required></textarea>
+        
+                    <label for="prioridad">Prioridad:</label>
+                    <select v-model="tareaSeleccionada.PRIORIDAD" id="prioridad" required>
+                        <option value="ALT">Alta</option>
+                        <option value="MED">Media</option>
+                        <option value="BAJ">Baja</option>
+                    </select>
+        
+                    <label for="fechaVencimiento">Fecha de Vencimiento:</label>
+                    <input v-model="tareaSeleccionada.FECHA_VENCIMIENTO" id="fechaVencimiento" type="datetime-local" required>
+        
+                    <label for="estado">Estado:</label>
+                    <select v-model="tareaSeleccionada.ESTADO" id="estado" required>
+                        <option value="ASG">Asignada</option>
+                        <option value="COM">Completada</option>
+                        <option value="SCM">En progreso</option>
+                    </select>
+        
+                    <button type="submit">Guardar Cambios</button>
+                </form>
+            </div>
         </div>
     </section>
 </div>
