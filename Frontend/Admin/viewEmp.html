@@ -13,7 +13,7 @@
 <body>
 <script>
     window.onload = function () {
-        const token = localStorage.getItem('token');
+        const token = sessionStorage.getItem('token');
 
         if (!token) {
             alert('Debes iniciar sesión primero.');
@@ -28,7 +28,7 @@
         const currentTime = Math.floor(Date.now() / 1000);
         if (payload.exp < currentTime) {
             alert('Token expirado. Debes iniciar sesión nuevamente.');
-            localStorage.removeItem('token');
+            sessionStorage.removeItem('token');
             window.location.href = '../index.html';
             return;
         }
