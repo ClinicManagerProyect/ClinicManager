@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles-admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Ver Tareas</title>
+</head>
+<body>
+<div id="app">
+    <section class="header">
+        <div class="logo">
+            <i class="ri-menu-line icon icon-0 menu"></i>
+            <h2>Hosp<span>Ital</span></h2>
+        </div>
+        <div class="search--notification--profile">
+            <button class="button--notification--profile">
+                <div class="picon lock">
+                    <i class="fa fa-bell"></i>
+                </div>
+            </button>
+        </div>
+    </section>
+    <section class="main">
+        <div class="sidebar">
+            <ul class="sidebar--items">
+                <li>
+                    <a href="manager.html">
+                        <span class="icon icon-1"><i class="ri-layout-grid-line"></i></span>
+                        <span class="sidebar--item">Empleados</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon icon-2"><i class="ri-calendar-2-line"></i></span>
+                        <span class="sidebar--item">Tareas</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="main--content">
+            <h2>Tareas del Empleado: {{ idEmpleado }}</h2>
+            <div v-if="verTareasU.length > 0">
+                <h3>Tareas del empleado</h3>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Descripción</th>
+                        <th>Estado</th>
+                        <th>Fecha de Vencimiento</th>
+                        <th>Habitación</th>
+                        <th>Prioridad</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="tarea in verTareasU" :key="tarea.ID_TAREA">
+                        <td>{{ tarea.DESCRIPCION }}</td>
+                        <td>{{ tarea.ESTADO }}</td>
+                        <td>{{ new Date(tarea.FECHA_VENCIMIENTO).toLocaleString() }}</td>
+                        <td>{{ tarea.ID_HABITACION }}</td>
+                        <td>{{ tarea.PRIORIDAD }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p v-else>selecciona un  empleado.</p>
+        </div>
+    </section>
+</div>
+<script src="viewTasks.js">
+</script>
+</body>
+</html>

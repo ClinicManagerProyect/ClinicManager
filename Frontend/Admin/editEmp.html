@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulario de Edición de Empleado</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <link rel="stylesheet" href="styles-edit-emp.css">
+
+  </head>
+  <body>
+    <div id="app">
+      <h2>Formulario de Edición de Empleado</h2>
+      <div v-if="empleadoSeleccionado">
+      <form @submit.prevent="actualizarEmpleado">
+        <h3>Persona</h3>
+        <label for="id_persona">ID Persona:</label>
+        <input
+          type="number"
+          id="id_persona"
+          v-model="empleadoSeleccionado.ID_PERSONA"
+          disabled
+        /><br /><br />
+
+        <label for="tipo_identificacion">Tipo de Identificación:</label>
+        <select
+          id="tipo_identificacion"
+          v-model="empleadoSeleccionado.TIPO_IDENTIFICACION"
+          required
+        >
+          <option value="CC">Cédula de Ciudadanía</option>
+          <option value="CE">Cédula de Extranjería</option>
+          <option value="PA">Pasaporte</option></select
+        ><br /><br />
+
+        <label for="nombres">Nombres:</label>
+        <input
+          type="text"
+          id="nombres"
+          v-model="empleadoSeleccionado.NOMBRES"
+          required
+        /><br /><br />
+
+        <label for="apellidos">Apellidos:</label>
+        <input
+          type="text"
+          id="apellidos"
+          v-model="empleadoSeleccionado.APELLIDOS"
+          required
+        /><br /><br />
+
+        <label for="genero">Género:</label>
+        <select id="genero" v-model="empleadoSeleccionado.GENERO" required>
+          <option value="M">Masculino</option>
+          <option value="F">Femenino</option>
+          <option value="O">Otro</option></select
+        ><br /><br />        
+
+        <label for="correo">Correo Electrónico:</label>
+        <input
+          type="email"
+          id="correo"
+          v-model="empleadoSeleccionado.CORREO"
+          required
+        /><br /><br />
+
+        <label for="direccion">Dirección:</label>
+        <input
+          type="text"
+          id="direccion"
+          v-model="empleadoSeleccionado.DIRECCION"
+          required
+        /><br /><br />
+
+        <label for="telefono">Teléfono:</label>
+        <input
+          type="number"
+          id="telefono"
+          v-model="empleadoSeleccionado.TELEFONO"
+          required
+        /><br /><br />        
+
+        <h3>Usuario</h3>
+        <label for="id_usuario">Usuario:</label>
+        <input
+          type="text"
+          id="id_usuario"
+          v-model="empleadoSeleccionado.ID_USUARIO"
+          disabled
+        /><br /><br />
+
+        <label for="tipo_usuario">Tipo de Usuario:</label>
+        <select id="tipo_usuario" v-model="empleadoSeleccionado.TIPO_USUARIO" required>
+          <option value="ADM">Administrador</option>
+          <option value="GER">Gerente de Área</option>
+          <option value="EMP">Empleado</option></select
+        ><br /><br />
+
+        <label for="estado">Estado:</label>
+        <select id="estado" v-model="empleadoSeleccionado.ESTADO" required>
+          <option value="A">Activo</option>
+          <option value="N">No Activo</option></select
+        ><br /><br />
+
+        <h3>Empleado</h3>
+        <label for="id_empleo">Empleo:</label>
+        <select
+          id="id_empleo"
+          v-model="empleadoSeleccionado.ID_EMPLEO"
+          required
+        >
+          <option value="1">Administrador</option>
+          <option value="2">Gerente de Mantenimiento</option>
+          <option value="3">Gerente de Auxiliares de Enfermería</option>
+          <option value="4">Gerente de Médicos</option>
+          <option value="5">Limpieza</option>
+          <option value="6">Técnico de Mantenimiento</option>
+          <option value="7">Auxiliar de Enfermería</option>
+          <option value="8">Médico</option></select
+        ><br /><br />
+        
+        <label for="id_gerente">ID Gerente</label>
+        <select v-model="empleado.id_gerente">
+          <option
+            v-for="gerente in gerentes"
+            :key="gerente.id_usuario"
+            :value="gerente.id_usuario"
+          >
+            {{ gerente.id_usuario }}
+          </option>
+        </select><br /><br />
+
+        <label for="fecha_contratacion">Fecha de Contratación:</label>
+        <input
+          type="date"
+          id="fecha_contratacion"
+          v-model="empleadoSeleccionado.FECHA_CONTRATACION"
+          required
+        /><br /><br />
+
+        <label for="hora_entrada">Hora de Entrada:</label>
+        <input
+          type="time"
+          id="hora_entrada"
+          v-model="empleadoSeleccionado.HORA_ENTRADA"
+          required
+        /><br /><br />
+
+        <label for="hora_salida">Hora de Salida:</label>
+        <input
+          type="time"
+          id="hora_salida"
+          v-model="empleadoSeleccionado.HORA_SALIDA"
+          required
+        /><br /><br />
+
+        <button type="submit">Actualizar Empleado</button>
+        <a href="super-admin.html">
+          <span>Cancelar</span>
+        </a>
+      </form>
+    </div>
+    <div v-else>
+        <p>Cargando datos del empleado...</p>
+    <script src="admin.js"></script>
+  </body>
+</html>

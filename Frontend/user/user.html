@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles-user.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <title></title>
+
+</head>
+<body>
+    <script>
+        window.onload = function() {
+            const token = localStorage.getItem('token'); 
+    
+            if (!token) {
+                alert('Debes iniciar sesión primero.');
+                window.location.href = '../index.html';
+                return;
+            }
+    
+     
+            const payload = JSON.parse(atob(token.split('.')[1])); 
+    
+            const currentTime = Math.floor(Date.now() / 1000); 
+            if (payload.exp < currentTime) {
+                alert('Token expirado. Debes iniciar sesión nuevamente.');
+                localStorage.removeItem('token'); 
+                window.location.href = '../index.html';
+                return;
+            }
+    
+     
+            if (payload.role !== 'EMP') { 
+                alert('Acceso no autorizado.');
+                window.location.href = '../index.html'; 
+                return;
+            }
+    
+           
+        }
+    </script>
+<section class="header">
+    <div class="logo">
+        <i class="ri-menu-line icon icon-0 menu"></i>
+        <h2>Hosp<span>Ital</span></h2>
+    </div>
+    <div class="search--notification--profile">
+        <button class="button--notification--profile">
+            <div class="picon lock" title="Notificaciones">
+                <i class="fa fa-bell"></i>
+            </div>
+        </button>
+    </div>
+</section>
+<section class="main">
+    <div class="sidebar">
+        <ul class="sidebar--items">
+            <li>
+                <a href="#" id="active--link">
+                    <span class="icon icon-1"><i class="ri-layout-grid-line"></i></span>
+                    <span class="sidebar--item">Control</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="icon icon-2"><i class="ri-calendar-2-line"></i></span>
+                    <span class="sidebar--item">Horario</span>
+                </a>
+            </li>
+
+        </ul>
+        <ul class="sidebar--bottom-items">
+            <li>
+                <a href="../index.html">
+                    <span class="icon icon-8"><i class="ri-logout-box-r-line"></i></span>
+                    <span class="sidebar--item">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main--content">
+        <div class="overview">
+            <div class="title">
+                <h2 class="section--title">Avances</h2>
+                <select name="date" id="date" class="dropdown">
+                    <option value="today">Hoy</option>
+                    <option value="lastweek">La semana pasada</option>
+                    <option value="lastmonth">El mes Pasado </option>
+                    <option value="lastyear">El año pasado</option>
+                    <option value="alltime">Todo el tiempo</option>
+                </select>
+            </div>
+
+        </div>
+        <div id="app">
+            <div class="card card-1">
+                <div class="card--data">
+                    <div class="card--content">
+                        <h5 class="card--title">Tareas Pendientes</h5>
+                        <h1>{{verTareasU.length}}</h1>
+                    </div>
+                </div>
+
+            </div>
+            <div class="main--content">
+                <div class="overview">
+                    <div class="title">
+                        <h2 class="section--title">Tareas Asignadas</h2>
+                    </div>
+                    <div class="task-cards">
+                        <div class="task-card" v-for="tarea in verTareasU" :key="tarea.ID_TAREA">
+                            <div class="task-header">
+                                <h3>{{ tarea.NOMBRE }}</h3>
+                                <span class="task-status">
+                                    <select v-model="tarea.ESTADO" @change="updateTaskStatus(tarea.ID_TAREA, tarea.ESTADO)">
+                                        <option value="ASG">Asignada </option>
+                                        <option value="SCM">En Progreso</option>
+                                        <option value="COM">Completada</option>
+                                    </select>
+                                </span>
+                            </div>
+                            <p class="task-function">{{ tarea.DESCRIPCION }}</p>
+                            <div class="task-time">
+                                <span><strong>Habitación:</strong> {{ tarea.ID_HABITACION }}</span>
+                                <span><strong>Vence:</strong> {{ formatFecha(tarea.FECHA_VENCIMIENTO) }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="employee.js">
+</script>
+</body>
+</html>

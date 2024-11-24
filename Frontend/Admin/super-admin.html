@@ -1,0 +1,183 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles-super-admin.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <title></title>
+
+</head>
+<body>
+    <script>
+        window.onload = function() {
+            const token = localStorage.getItem('token'); 
+    
+            if (!token) {
+                alert('Debes iniciar sesión primero.');
+                window.location.href = '../index.html'; 
+                return;
+            }
+    
+           
+            const payload = JSON.parse(atob(token.split('.')[1])); 
+    
+            // Verificar la expiración del token
+            const currentTime = Math.floor(Date.now() / 1000); 
+            if (payload.exp < currentTime) {
+                alert('Token expirado. Debes iniciar sesión nuevamente.');
+                localStorage.removeItem('token'); 
+                window.location.href = '../index.html'; 
+                return;
+            }
+    
+
+            if (payload.role !== 'ADM') { 
+                alert('Acceso no autorizado.');
+                window.location.href = '../index.html'; 
+                return;
+            }
+        }</script> 
+<section class="header">
+    <div class="logo">
+        <i class="ri-menu-line icon icon-0 menu"></i>
+        <h2>Hosp<span>Ital</span></h2>
+    </div>
+    <div class="search--notification--profile">
+        <button class="button--notification--profile">
+            <div class="picon lock" title="Notificaciones">
+                <i class="fa fa-bell"></i>
+            </div>
+        </button>
+    </div>
+</section>
+<section class="main">
+  <div class="mobile-sidebar"></div>
+  <div class="sidebar"></div>
+    <div class="sidebar">
+        <ul class="sidebar--items">
+            <li>
+                <a href="#" id="active--link">
+                    <span class="icon icon-1"><i class="ri-layout-grid-line"></i></span>
+                    <span class="sidebar--item">Control</span>
+                </a>
+            </li>
+            <li>
+
+            </li>
+            <li>
+                <a href="viewEmp.html">
+                    <span class="icon icon-2"><i class="ri-calendar-2-line"></i></span>
+                    <span class="sidebar--item">Ver Lista Empleados </span>
+                </a>
+            </li>
+        </ul>
+        <ul class="sidebar--bottom-items">
+            <li>
+                <a href="../index.html">
+                    <span class="icon icon-8"><i class="ri-logout-box-r-line"></i></span>
+                    <span class="sidebar--item">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main--content">
+        <div class="employees">
+            <div class="title">
+                <h2 class="section--title">Gerentes de Area  </h2>
+                <div class="employees--right--btns">
+                    <label>
+                        <select name="date"  class="dropdown doctor--filter">
+                            <option >Filtrar </option>
+                            <option value="free">Libre</option>
+                            <option value="busy">Ocupado</option>
+                        </select>
+                    </label>
+                    <a href="createEmp.html">
+                        <button  class="add"><i  class="ri-add-line"></i>Añadir Empleado</button>
+                    </a>
+                </div>
+            </div>
+            <div class="employees--cards">
+                <a href="#" class="employees--card">
+                    <div class="img--box--cover">
+                        <div class="img--box">
+                            <img src="../img/Main.png" alt="">
+                        </div>
+                    </div>
+                    <p class="free">Libre</p>
+                </a>
+                <a href="#" class="employees--card">
+                    <div class="img--box--cover">
+                        <div class="img--box">
+                            <img src="../img/employ1.png" alt="">
+                        </div>
+                    </div>
+                    <p class="busy">Ocupado</p>
+                </a>
+                <a href="#" class="employees--card">
+                    <div class="img--box--cover">
+                        <div class="img--box">
+                            <img src="../img/Doc3.png" alt="">
+                        </div>
+                    </div>
+                    <p class="busy">Ocupado</p>
+                </a>
+            </div>
+        </div>
+        <div class="employees">
+            <div class="title">
+                <h2 class="section--title">Empleados</h2>
+                <div class="employees--right--btns">
+                    <label>
+                        <select name="date"  class="dropdown doctor--filter">
+                            <option >Filtrar </option>
+                            <option value="free">Libre</option>
+                            <option value="busy">Ocupado</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+            <div class="employees--cards">
+                <a href="#" class="employees--card">
+                    <div class="img--box--cover">
+                        <div class="img--box">
+                            <img src="../img/People.png" alt="">
+                        </div>
+                    </div>
+                    <p class="free">Libre</p>
+                </a>
+                <a href="#" class="employees--card">
+                    <div class="img--box--cover">
+                        <div class="img--box">
+                            <img src="../img/People.png" alt="">
+                        </div>
+                    </div>
+                    <p class="busy">Ocupado</p>
+                </a>
+                <a href="#" class="employees--card">
+                    <div class="img--box--cover">
+                        <div class="img--box">
+                            <img src="../img/People.png" alt="">
+                        </div>
+                    </div>
+                    <p class="busy">Ocupado</p>
+                </a>
+                <a href="#" class="employees--card">
+                    <div class="img--box--cover">
+                        <div class="img--box">
+                            <img src="../img/People.png" alt="">
+                        </div>
+                    </div>
+                    <p class="free">Libre</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

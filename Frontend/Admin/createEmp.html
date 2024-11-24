@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formulario de Registro</title>
+    <link rel="stylesheet" href="styles-add-emp.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h2>Formulario de Registro de Usuario Completo</h2>
+
+      <form @submit.prevent="registrar">
+        <h3>Persona</h3>
+        <label for="id_persona">ID Persona:</label>
+        <input
+          type="number"
+          id="id_persona"
+          v-model="persona.id_persona"
+          required
+        /><br /><br />
+
+        <label for="tipo_identificacion">Tipo de Identificación:</label>
+        <select
+          id="tipo_identificacion"
+          v-model="persona.tipo_identificacion"
+          required
+        >
+          <option value="CC">Cédula de Ciudadanía</option>
+          <option value="CE">Cédula de Extranjería</option>
+          <option value="PA">Pasaporte</option></select
+        ><br /><br />
+
+        <label for="nombres">Nombres:</label>
+        <input
+          type="text"
+          id="nombres"
+          v-model="persona.nombres"
+          required
+        /><br /><br />
+
+        <label for="apellidos">Apellidos:</label>
+        <input
+          type="text"
+          id="apellidos"
+          v-model="persona.apellidos"
+          required
+        /><br /><br />
+
+        <label for="genero">Género:</label>
+        <select id="genero" v-model="persona.genero" required>
+          <option value="M">Masculino</option>
+          <option value="F">Femenino</option>
+          <option value="O">Otro</option></select
+        ><br /><br />
+
+        <label for="correo">Correo Electrónico:</label>
+        <input
+          type="email"
+          id="correo"
+          v-model="persona.correo"
+          required
+        /><br /><br />
+
+        <label for="direccion">Dirección:</label>
+        <input
+          type="text"
+          id="direccion"
+          v-model="persona.direccion"
+          required
+        /><br /><br />
+
+        <label for="telefono">Teléfono:</label>
+        <input
+          type="number"
+          id="telefono"
+          v-model="persona.telefono"
+          required
+        /><br /><br />
+
+        <!-- Usuario -->
+        <h3>Usuario</h3>
+        <label for="id_usuario">Usuario:</label>
+        <input
+          type="text"
+          id="id_usuario"
+          v-model="usuario.id_usuario"
+          required
+        /><br /><br />
+
+        <label for="contrasena">Contraseña:</label>
+        <input
+          type="password"
+          id="contrasena"
+          v-model="usuario.contrasena"
+          required
+        /><br /><br />
+
+        <label for="tipo_usuario">Tipo de Usuario:</label>
+        <select id="tipo_usuario" v-model="usuario.tipo_usuario" required>
+          <option value="ADM">Administrador</option>
+          <option value="GER">Gerente de Área</option>
+          <option value="EMP">Empleado</option></select
+        ><br /><br />
+
+        <label for="estado">Estado:</label>
+        <select id="estado" v-model="usuario.estado" required>
+          <option value="A">Activo</option>
+          <option value="N">No Activo</option></select
+        ><br /><br />
+
+        <!-- Empleado -->
+        <h3>Empleado</h3>
+        <label for="id_empleo">Empleo:</label>
+        <select id="id_empleo" v-model="empleado.id_empleo" required>
+          <option value="1">Administrador</option>
+          <option value="2">Gerente de Mantenimiento</option>
+          <option value="3">Gerente de Auxiliares de Enfermería</option>
+          <option value="4">Gerente de Médicos</option>
+          <option value="5">Limpieza</option>
+          <option value="6">Técnico de Mantenimiento</option>
+          <option value="7">Auxiliar de Enfermería</option>
+          <option value="8">Médico</option></select
+        ><br /><br />
+        <label for="id_gerente">ID Gerente:</label>
+        <select v-model="empleado.id_gerente">
+          <option
+            v-for="gerente in gerentes"
+            :key="gerente.id_usuario"
+            :value="gerente.id_usuario"
+          >
+            {{ gerente.id_usuario }}
+          </option>
+        </select>
+
+        <label for="fecha_contratacion">Fecha de Contratación:</label>
+        <input
+          type="date"
+          id="fecha_contratacion"
+          v-model="empleado.fecha_contratacion"
+          required
+        /><br /><br />
+
+        <label for="hora_entrada">Hora de Entrada:</label>
+        <input
+          type="time"
+          id="hora_entrada"
+          v-model="empleado.hora_entrada"
+          required
+        /><br /><br />
+
+        <label for="hora_salida">Hora de Salida:</label>
+        <input
+          type="time"
+          id="hora_salida"
+          v-model="empleado.hora_salida"
+          required
+        /><br /><br />
+
+        <button type="submit">Registrar Usuario</button>
+        <a href="super-admin.html">
+          <span class="bottom">Cancelar</span>
+        </a>
+      </form>
+    </div>
+    <script src="admin.js"></script>
+  </body>
+</html>

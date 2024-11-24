@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
     "mysql2": "^3.11.3"
   },
   "description": ""

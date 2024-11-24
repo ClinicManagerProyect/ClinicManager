@@ -3,27 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
+    <title>Iniciar Sesión</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 </head>
 <body>
-<div class="login">
-    <h1> Iniciar Sesion</h1>
-    <form method="post">
-        <div class="username">
-            <input type="text" required>
-            <label>Usuario</label>
-        </div>
-        <div class="username">
-            <input type="password" required>
-            <label>Contraseña</label>
-        </div>
-        <div class="recordar">Olvide mi contraseña</div>
-        <input type="submit" value="Iniciar">
-        <div class="registro">
-            Quiero <a href="#">Registrarme</a>
-        </div>
-    </form>
+<div id="app" class="login-container">
+
+    <div class="image-container-desktop">
+        <img src="./img/logo.png" alt="">
+    </div>
+    <div class="image-container-mobile">
+        <img src="./img/logo_mobil.png" alt="">
+    </div>
+    <div class="login">
+        <h1>Iniciar Sesión</h1>
+        <form v-if="!forgotPassword" @submit.prevent="login">
+            <div class="username">
+                <input type="text" v-model="username" required>
+                <label>Usuario</label>
+            </div>
+            <div class="username">
+                <input type="password" v-model="password" required>
+                <label>Contraseña</label>
+            </div>
+            <div class="recordar" @click="showForgotPassword">Olvidé mi contraseña</div>
+            <input type="submit" value="Iniciar">
+        </form>
+
+        <form v-if="forgotPassword" @submit.prevent="sendRecoveryEmail">
+            <div class="username">
+                <input type="email" v-model="email" required>
+                <label>Correo Electrónico</label>
+            </div>
+            <div v-if="loading" class="loading">
+                <span>Enviando...</span>
+            </div>
+            <input v-if="!loading" type="submit" value="Enviar enlace de recuperación">
+            <div class="cancelar" @click="cancelForgotPassword">Cancelar</div>
+        </form>
+    </div>
 </div>
+<script src="client.js"></script>
 </body>
 </html>
