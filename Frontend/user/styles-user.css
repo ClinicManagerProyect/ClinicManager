@@ -66,6 +66,20 @@ body {
     overflow: hidden;
 }
 
+.header-user {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: calc(100% - 300px);
+    padding: 0 40px;
+}
+
+.user {
+    display: flex;
+    text-align: center;
+}
+
+
 .main {
     display: flex;
     position: relative;

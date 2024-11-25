@@ -33,28 +33,21 @@
         }
 
 
+
         if (payload.role !== 'EMP') {
             alert('Acceso no autorizado.');
             window.location.href = '../index.html';
             return;
         }
 
-
     }
 </script>
 <section class="header">
-
-    <div class="button--bar--profile">
-        <button class="button--bar--profile">
-            <div class="picon lock">
-                <i class="fa fa-bars"></i>
-            </div>
-        </button>
-    </div>
     <div class="logo">
         <i class="ri-menu-line icon icon-0 menu"></i>
         <h2>Hosp<span>Ital</span></h2>
     </div>
+
     <div class="search--notification--profile">
         <button class="button--notification--profile">
             <div class="picon lock" title="Notificaciones">
@@ -67,15 +60,15 @@
     <div class="sidebar">
         <ul class="sidebar--items">
             <li>
-                <a href="user.html" id="active--link">
+                <a href="user.html"  id="active--link"  >
                     <span class="icon icon-1"><i class="ri-layout-grid-line"></i></span>
                     <span class="sidebar--item">Tareas asignadas </span>
                 </a>
             </li>
             <li>
-                <a href="user-complete-tasks.html" id="active--link1" >
+                <a href= "#" >
                     <span class="icon icon-2"><i class="ri-calendar-2-line"></i></span>
-                    <span class="sidebar--item">Tareas Completas </span>
+                    <span class="sidebar--item">Tareas Completas</span>
                 </a>
             </li>
 
