@@ -1,58 +1,51 @@
 new Vue({
-        el: "#app",
-        data: {
-            idEmpleado: null,
-            verTareasU: [],
-            tareasFiltradas: [],
-            prioridadSeleccionada: "",
-            modalVisible: false,
-            tareaSeleccionada: {
-                ID_HABITACION: null,
-                NOMBRE: "",
-                DESCRIPCION: "",
-                PRIORIDAD: "",
-                FECHA_VENCIMIENTO: "",
-                ESTADO: "",
-            },
+    el: "#app",
+    data: {
+        idEmpleado: null,
+        verTareasU: [],
+        tareasFiltradas: [],
+        prioridadSeleccionada: "",
+        modalVisible: false,
+        tareaSeleccionada: {
+            ID_HABITACION: null,
+            NOMBRE: "",
+            DESCRIPCION: "",
+            PRIORIDAD: "",
+            FECHA_VENCIMIENTO: "",
+            ESTADO: "",
         },
-
-        methods: {
-            async verTareas() {
-                try {
-                    const response = await fetch(
-                        `http://localhost:4000/verTarea/${this.idEmpleado}`,
-                        {
-                            method: "GET",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                        }
-                    );
-
-                    if (response.ok) {
-                        this.verTareasU = await response.json();
-                        this.tareasFiltradas = this.verTareasU;
-                    } else {
-                        const errorData = await response.json();
-                        console.error("Error del servidor:", errorData);
-                        throw new Error(errorData.message || "Error desconocido.");
+    },
+    watch: {
+        verTareasU(newVal) {
+            console.log("Actualización en verTareasU:", newVal);
+        },
+    },
+    methods: {
+        async verTareas() {
+            try {
+                const response = await fetch(
+                    `http://localhost:4000/verTarea/${this.idEmpleado}`,
+                    {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
                     }
-                } catch (error) {
-                    console.error("Error al obtener las tareas:", error);
-                    alert("No se pudieron cargar las tareas.");
-                }
-            },
+                );
 
-            filtrarPorPrioridad(prioridad) {
-                this.prioridadSeleccionada = prioridad; // Actualiza la prioridad seleccionada
-                if (prioridad) {
-                    this.tareasFiltradas = this.verTareasU.filter(
-                        (tarea) => tarea.PRIORIDAD === prioridad
-                    );
+                if (response.ok) {
+                    this.verTareasU = await response.json();
+                    console.log("Tareas obtenidas:", this.verTareasU);
+                    this.tareasFiltradas = this.verTareasU;
                 } else {
-                    this.tareasFiltradas = this.verTareasU; // Muestra todas si no hay filtro
+                    const errorData = await response.json();
+                    console.error("Error del servidor:", errorData);
+                    throw new Error(errorData.message || "Error desconocido.");
                 }
-            },
+            } catch (error) {
+                console.error("Error al obtener las tareas:", error);
+                alert("No se pudieron cargar las tareas.");
+            }
         },
         abrirModal(tarea) {
             this.modalVisible = true;
@@ -63,6 +56,18 @@ new Vue({
             this.modalVisible = false;
             this.tareaSeleccionada = {};
         },
+        filtrarPorPrioridad(prioridad) {
+            this.prioridadSeleccionada = prioridad; // Actualiza la prioridad seleccionada
+            if (prioridad) {
+                this.tareasFiltradas = this.verTareasU.filter(
+                    (tarea) => tarea.PRIORIDAD === prioridad
+                );
+            } else {
+                this.tareasFiltradas = this.verTareasU; // Muestra todas si no hay filtro
+            }
+        },
+
+
         async editarTarea() {
             try {
                 const response = await fetch(
@@ -109,11 +114,13 @@ new Vue({
                 }
             }
         },
+    },
     mounted() {
-    const urlParams = new URLSearchParams(window.location.search);
-    this.idEmpleado = urlParams.get("idEmpleado");
-    if (this.idEmpleado) {
-        this.verTareas();
-    }
-},
+        const urlParams = new URLSearchParams(window.location.search);
+        this.idEmpleado = urlParams.get("idEmpleado");
+        console.log("ID del empleado en mounted:", this.idEmpleado);
+        if (this.idEmpleado) {
+            this.verTareas();
+        }
+    },
 });
