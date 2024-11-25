@@ -9,6 +9,7 @@ body {
     position: relative;
     width: 100%;
 }
+
 .header {
     height: 60px;
     width: 100%;
@@ -35,16 +36,16 @@ body {
     width: calc(100% - 300px);
     padding: 0 40px;
 }
+
 .notification--profile {
     display: flex;
     align-items: center;
 }
 
-.button--notification--profile{
+.button--notification--profile {
     background: transparent;
     font-size: x-large;
 }
-
 
 
 .profile {
@@ -54,17 +55,20 @@ body {
     border-radius: 50%;
     overflow: hidden;
 }
-.header-user{
+
+.header-user {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     width: calc(100% - 300px);
     padding: 0 40px;
 }
-.user{
+
+.user {
     display: flex;
     text-align: center;
 }
+
 .main {
     position: relative;
     width: 100%;
@@ -330,42 +334,104 @@ a {
 .busy {
     color: #fb5050;
 }
-.user{
+
+.user {
 
 }
-/* Asegúrate de incluir esto en styles-admin.css */
+
+/*Estilo del de editar tarea */
 .modal {
-    position: fixed; /* Fija el modal en la pantalla */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fefefe;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    z-index: 1000;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    position: relative;
+}
+
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: #ff5e57;
+}
+
+h2 {
+    margin: 0 0 10px;
+    font-size: 1.5rem;
+    color: #333;
+    text-align: center;
+}
+
+label {
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
+    display: block;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 8px;
+    background: #f4f4f4;
+    font-size: 1rem;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease;
+}
+
+input:focus, textarea:focus, select:focus {
+    background: #fff;
+    outline: none;
+    box-shadow: 0 0 4px #0078d7;
+}
+
+button[type="submit"] {
+    align-self: flex-end;
+    background: #0078d7;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background: #005fa3;
+}
+
+.modal::backdrop {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; /* Asegura que esté por encima del resto */
-}
-
-.modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 80%;
-    max-width: 500px; /* Define un ancho máximo */
-    z-index: 1010; /* Asegura que el contenido esté visible */
-    position: relative;
-}
-
-.modal .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 24px;
-    color: black;
-    cursor: pointer;
-    z-index: 1020;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 999;
 }
 
 /*Tabla de empleados asignados */
@@ -414,11 +480,23 @@ button {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-.btn-icon1{
+
+/*Estilo de lo botones de agregar tarea y ver tarea */
+.btn-icon1 {
     background-color: #41a7a9;
 }
-.btn-icon2{
+
+.btn-icon2 {
     background-color: #99d593;
+}
+
+/*Estilo de lo botones de editar tarea y eliminar  tarea */
+.btn-icon3 {
+    background-color: #3ea25f;
+}
+
+.btn-icon4 {
+    background-color: #bd4949;
 }
 
 button:hover {
@@ -530,114 +608,118 @@ button:hover {
 
 .formulario-tarea .button-container button.btn-icon:hover {
     background-color: #405bb5;
+}
 
 
-    .formulario-tarea button.btn-icon:hover {
-        background-color: #405bb5;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+.formulario-tarea button.btn-icon:hover {
+    background-color: #405bb5;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.formulario-tarea button.btn-icon i {
+    pointer-events: none; /* Asegúrate de que el ícono no interfiere con el clic del botón */
+}
+
+
+/* responsive starts here */
+@media screen and (max-width: 1350px) {
+    .cards,
+    .employees--cards {
+        overflow-x: scroll;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    table {
+        min-width: 600px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .logo {
+        padding-left: 30px;
+        width: fit-content;
     }
 
-    .formulario-tarea button.btn-icon i {
-        pointer-events: none; /* Asegúrate de que el ícono no interfiere con el clic del botón */
+    .search--notification--profile {
+        padding: 0 20px;
+        margin-left: auto;
     }
 
-
-    /* responsive starts here */
-    @media screen and (max-width: 1350px) {
-        .cards,
-        .employees--cards {
-            overflow-x: scroll;
-        }
+    .main--content {
+        padding: 0 20px;
     }
-    @media screen and (max-width: 1024px) {
-        table {
-            min-width: 600px;
-        }
+
+    .sidebar {
+        padding: 20px;
     }
-    @media screen and (max-width: 768px) {
-        .logo {
-            padding-left: 30px;
-            width: fit-content;
-        }
 
-        .search--notification--profile {
-            padding: 0 20px;
-            margin-left: auto;
-        }
-
-        .main--content {
-            padding: 0 20px;
-        }
-
-        .sidebar {
-            padding: 20px;
-        }
-
-        .sidebar.active {
-            width: 85px;
-        }
-
-        .main--content.active {
-            width: calc(100% - 85px);
-        }
+    .sidebar.active {
+        width: 85px;
     }
-    @media screen and (max-width: 590px) {
-        .search,
-        .lock,
-        .chat {
-            display: none;
-        }
 
-        .notification--profile {
-            margin-left: auto;
-        }
-
-        .search--notification--profile {
-            width: fit-content;
-        }
-
-        .sidebar {
-            transform: translateX(-100%);
-            z-index: 10;
-            background-color: #fff;
-        }
-
-        .sidebar.active {
-            transform: translateX(0);
-            width: 300px;
-        }
-
-        .sidebar.active .sidebar--item {
-            display: block;
-        }
-
-        .main--content {
-            width: calc(100% - 0px);
-        }
-
-        .main--content.active {
-            width: calc(100% - 0px);
-        }
+    .main--content.active {
+        width: calc(100% - 85px);
     }
-    @media screen and (max-width: 450px) {
-        .doctor--filter {
-            display: none;
-        }
+}
 
-        .main--content {
-            padding: 0 10px;
-        }
+@media screen and (max-width: 590px) {
+    .search,
+    .lock,
+    .chat {
+        display: none;
+    }
 
-        .logo {
-            padding-left: 10px;
-        }
+    .notification--profile {
+        margin-left: auto;
+    }
 
-        .search--notification--profile {
-            padding: 0 10px;
-        }
+    .search--notification--profile {
+        width: fit-content;
+    }
 
-        .sidebar {
-            padding: 10px;
-        }
+    .sidebar {
+        transform: translateX(-100%);
+        z-index: 10;
+        background-color: #fff;
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+        width: 300px;
+    }
+
+    .sidebar.active .sidebar--item {
+        display: block;
+    }
+
+    .main--content {
+        width: calc(100% - 0px);
+    }
+
+    .main--content.active {
+        width: calc(100% - 0px);
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .doctor--filter {
+        display: none;
+    }
+
+    .main--content {
+        padding: 0 10px;
+    }
+
+    .logo {
+        padding-left: 10px;
+    }
+
+    .search--notification--profile {
+        padding: 0 10px;
+    }
+
+    .sidebar {
+        padding: 10px;
     }
 }

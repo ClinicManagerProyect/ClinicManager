@@ -32,8 +32,6 @@
                         <span class="sidebar--item">Empleados</span>
                     </a>
                 </li>
-                <li>
-                </li>
             </ul>
         </div>
         <div class="main--content">
@@ -59,10 +57,8 @@
                         <td>{{ tarea.ID_HABITACION }}</td>
                         <td>{{ tarea.PRIORIDAD }}</td>
                         <td>
-                            <button @click="abrirModal(tarea)">Editar tarea</button>
-                        </td>
-                        <td>
-                            <button @click="eliminarTarea(tarea.ID_TAREA)">Eliminar tarea</button>
+                            <button @click="abrirModal(tarea)"   class="btn-icon3" title="Editar"><i class="fa fa-edit"></i></button>
+                            <button @click="eliminarTarea(tarea.ID_TAREA)"  class="btn-icon4" title="Elimianr" > <i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
                     </tbody>
@@ -101,7 +97,7 @@
                         <option value="SCM">En progreso</option>
                     </select>
         
-                    <button type="submit">Guardar Cambios</button>
+                    <button type="submit"><i class="fas fa-check"></i></button>
                 </form>
             </div>
         </div>

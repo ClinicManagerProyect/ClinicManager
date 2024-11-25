@@ -2,7 +2,8 @@ new Vue({
   el: "#app",
   data: {
     verTareasU: [],
-    tareasComp:[]
+    tareasComp:[],
+    showCompletedTasks: false
   },
 
 
@@ -60,11 +61,7 @@ new Vue({
             );
           }
           /*Para cambiar el fondo de color */
-          const selectElement = document.querySelector(`.estado-select[data-task-id="${taskId}"]`);
-          if (selectElement) {
-            selectElement.classList.remove('asignada', 'progreso', 'completada');
-            selectElement.classList.add(newStatus.toLowerCase());
-          }
+
           /*Finalisa aqui */
 
 
@@ -80,29 +77,9 @@ new Vue({
     },
 
     async viewTasksCompletes(idEmpleado) {
-        try {
-          const response = await fetch(
-            `http://localhost:4000/verTareasCompletas/${idEmpleado}`,
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-              },
-            }
-          );
-          if (response.ok) {
-            this.tareasComp = await response.json();
-            console.log("Tareas obtenidas:", this.verTareasU);
-          } else {
-            const errorData = await response.json();
-            console.error("Error del servidor:", errorData);
-            throw new Error(errorData.message || "Error desconocido.");
-          }
-        } catch (error) {
-          console.error("Error al obtener las tareas:", error);
-          alert("No se pudieron cargar las tareas.");
-        }
-      },
+      window.location.href = `user-complete-tasks.html?idEmpleado=${idEmpleado}`;
+    },
+
     estadoTexto(estado) {
       switch (estado) {
         case "ASG":

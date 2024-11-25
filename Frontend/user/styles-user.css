@@ -4,10 +4,12 @@
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
 }
+
 body {
     position: relative;
     width: 100%;
 }
+
 .header {
     height: 60px;
     width: 100%;
@@ -34,12 +36,13 @@ body {
     width: calc(100% - 300px);
     padding: 0 40px;
 }
+
 .notification--profile {
     display: flex;
     align-items: center;
 }
 
-.button--notification--profile{
+.button--notification--profile {
     background: transparent;
     font-size: x-large;
 }
@@ -82,19 +85,24 @@ img {
     border-right: 2px solid #f1f1f1;
     transition: .3s;
 }
+
 .sidebar.active {
     width: 103px;
     overflow: hidden;
 }
+
 .sidebar.active .sidebar--item {
     display: none;
 }
+
 li {
     list-style: none;
 }
+
 a {
     text-decoration: none;
 }
+
 .sidebar--items a,
 .sidebar--bottom-items a {
     display: flex;
@@ -105,18 +113,22 @@ a {
     padding: 10px;
     border-radius: 10px;
 }
+
 .sidebar--items a:hover,
 .sidebar--bottom-items a:hover {
     background-color: #5073fb;
     color: #fff;
 }
+
 #active--link {
     background-color: #5073fb;
     color: #fff;
 }
+
 .sidebar--bottom-items li:last-child a {
     margin-bottom: 0;
 }
+
 .icon {
     position: relative;
     display: flex;
@@ -125,12 +137,15 @@ a {
     margin-right: 20px;
     font-size: 1.3rem;
 }
+
 .icon-0 {
     color: #5073fb;
 }
+
 .icon-1 {
     color: #c5bc58;
 }
+
 .icon-2 {
     color: #a280e9;
 }
@@ -141,6 +156,7 @@ a {
     display: flex;
     flex-direction: column;
 }
+
 .main--content {
     position: absolute;
     top: 0;
@@ -151,9 +167,11 @@ a {
     overflow-y: scroll;
     transition: .3s;
 }
+
 .main--content.active {
     width: calc(100% - 103px);
 }
+
 .title {
     display: flex;
     align-items: center;
@@ -161,9 +179,11 @@ a {
     margin-bottom: 10px;
     margin-top: 30px;
 }
+
 .section--title {
     font-weight: 400;
 }
+
 .dropdown {
     outline: none;
     border: none;
@@ -172,24 +192,29 @@ a {
     width: 150px;
     padding: 5px;
 }
+
 .cards {
     display: flex;
     gap: 20px;
 }
+
 .card {
     padding: 20px;
     border-radius: 20px;
     transition: .3s;
     width: fit-content;
 }
+
 .card:hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
+
 .card--data {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
 }
+
 .card h1 {
     font-size: 30px;
     margin-top: 10px;
@@ -202,6 +227,7 @@ a {
     margin-top: 5px;
 
 }
+
 .card--stats span {
     display: flex;
     align-items: center;
@@ -211,6 +237,7 @@ a {
 .card-1 {
     background-color: rgba(251, 80, 217, 0.1);
 }
+
 .card-1 .card--title {
     color: rgb(236, 64, 64);
 }
@@ -221,12 +248,30 @@ a {
     flex-wrap: wrap;
     gap: 20px;
 }
+.asignada-bg {
+    background-color: #fffbea; /* Amarillo claro */
+    border-left: 4px solid #ffc107; /* Amarillo */
+}
 
+/* Fondo para el estado "En Progreso" */
+.progreso-bg {
+    background-color: #e0f7fa; /* Azul claro */
+    border-left: 4px solid #00bcd4; /* Azul */
+}
+
+/* Fondo para el estado "Completada" */
+.completada-bg {
+    background-color: #e8f5e9; /* Verde claro */
+    border-left: 4px solid #4caf50; /* Verde */
+}
+
+/* Estilo común para las tarjetas */
 .task-card {
     border-radius: 8px;
     padding: 16px;
     width: calc(50% - 20px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, border-left 0.3s ease;
 }
 
 .task-header {
@@ -295,12 +340,15 @@ a {
 .estado-select.asignada {
     background-color: #d9534f;
 }
+
 .estado-select.progreso {
     background-color: #f0ad4e;
 }
+
 .estado-select.completada {
     background-color: #5cb85c;
 }
+
 /*Estilo del boton Añadir*/
 .add {
     display: flex;
@@ -314,9 +362,11 @@ a {
     cursor: pointer;
     transition: .3s;
 }
+
 .add:hover {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
+
 .add i {
     margin-right: 10px;
     padding: 5px;
@@ -325,84 +375,177 @@ a {
     color: #000;
 }
 
+/*Estilo del de editar tarea */
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 80%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+
+}
+
+/* Estilos adicionales para los elementos del formulario */
+.modal-content label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.modal-content input,
+.modal-content textarea,
+.modal-content select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.modal-content button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.modal-content button:hover {
+    opacity:  0.8;
+}
+
+
 /* responsive starts here */
-@media screen and (max-width:1350px) {
+@media screen and (max-width: 1350px) {
     .cards,
     .employees--cards {
         overflow-x: scroll;
     }
 }
-@media screen and (max-width:1024px) {
+
+@media screen and (max-width: 1024px) {
     table {
         min-width: 600px;
     }
 }
-@media screen and (max-width:768px) {
+
+@media screen and (max-width: 768px) {
     .logo {
         padding-left: 30px;
         width: fit-content;
     }
+
     .search--notification--profile {
         padding: 0 20px;
         margin-left: auto;
     }
+
     .main--content {
         padding: 0 20px;
     }
+
     .sidebar {
         padding: 20px;
     }
+
     .sidebar.active {
         width: 85px;
     }
+
     .main--content.active {
         width: calc(100% - 85px);
     }
 }
-@media screen and (max-width:590px) {
+
+@media screen and (max-width: 590px) {
     .search,
     .lock,
     .chat {
         display: none;
     }
+
     .notification--profile {
         margin-left: auto;
     }
+
     .search--notification--profile {
         width: fit-content;
     }
+
     .sidebar {
         transform: translateX(-100%);
         z-index: 10;
         background-color: #fff;
     }
+
     .sidebar.active {
         transform: translateX(0);
         width: 300px;
     }
+
     .sidebar.active .sidebar--item {
         display: block;
     }
+
     .main--content {
         width: calc(100% - 0px);
     }
+
     .main--content.active {
         width: calc(100% - 0px);
     }
 }
-@media screen and (max-width:450px) {
+
+@media screen and (max-width: 450px) {
     .doctor--filter {
         display: none;
     }
+
     .main--content {
         padding: 0 10px;
     }
+
     .logo {
         padding-left: 10px;
     }
+
     .search--notification--profile {
         padding: 0 10px;
     }
+
     .sidebar {
         padding: 10px;
     }
