@@ -37,6 +37,17 @@ body {
     padding: 0 40px;
 }
 
+.bar--profile {
+    display: flex;
+    align-items: center;
+}
+
+
+.button--bar--profile {
+    background: transparent;
+    font-size: x-large;
+}
+
 .notification--profile {
     display: flex;
     align-items: center;
@@ -56,6 +67,7 @@ body {
 }
 
 .main {
+    display: flex;
     position: relative;
     width: 100%;
     min-height: calc(100vh - 60px);
@@ -322,6 +334,8 @@ a {
 .task-actions i:hover {
     color: #333;
 }
+
+
 
 /*Estilo del selec */
 

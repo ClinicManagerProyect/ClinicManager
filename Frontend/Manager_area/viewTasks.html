@@ -11,6 +11,13 @@
 <body>
 <div id="app">
     <section class="header">
+        <div class="button--bar--profile">
+            <button class="button--bar--profile">
+                <div class="picon lock">
+                    <i class="fa fa-bars"></i>
+                </div>
+            </button>
+        </div>
         <div class="logo">
             <i class="ri-menu-line icon icon-0 menu"></i>
             <h2>Hosp<span>Ital</span></h2>
@@ -36,8 +43,16 @@
         </div>
         <div class="main--content">
             <h2>Tareas Asignadas al empleado: {{ idEmpleado }}</h2>
+            <label class="filters">
+                <select name="date" class="dropdown doctor--filter" @change="filtrarPorPrioridad($event.target.value)">
+                    <option value="">All</option>
+                    <option value="ALT">Alta</option>
+                    <option value="MED">Media</option>
+                    <option value="BAJ">Baja</option>
+                </select>
+            </label>
+
             <div v-if="verTareasU.length > 0">
-                
                 <table>
                     <thead>
                     <tr>
@@ -50,7 +65,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="tarea in verTareasU" :key="tarea.ID_TAREA">
+                    <tr v-for="tarea in tareasFiltradas" :key="tarea.ID_TAREA">
                         <td>{{ tarea.DESCRIPCION }}</td>
                         <td>{{ tarea.ESTADO }}</td>
                         <td>{{ new Date(tarea.FECHA_VENCIMIENTO).toLocaleString() }}</td>

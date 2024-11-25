@@ -34,6 +34,18 @@ body {
     width: calc(100% - 300px);
     padding: 0 40px;
 }
+
+.bar--profile {
+    display: flex;
+    align-items: center;
+}
+
+
+.button--bar--profile {
+    background: transparent;
+    font-size: x-large;
+}
+
 .notification--profile {
     display: flex;
     align-items: center;

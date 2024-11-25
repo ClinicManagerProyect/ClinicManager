@@ -43,6 +43,14 @@
     }
 </script>
 <section class="header">
+
+    <div class="button--bar--profile">
+        <button class="button--bar--profile">
+            <div class="picon lock">
+                <i class="fa fa-bars"></i>
+            </div>
+        </button>
+    </div>
     <div class="logo">
         <i class="ri-menu-line icon icon-0 menu"></i>
         <h2>Hosp<span>Ital</span></h2>
@@ -65,7 +73,7 @@
                 </a>
             </li>
             <li>
-                <a @click="viewTasksCompletes">
+                <a href="user-complete-tasks.html" id="active--link1" >
                     <span class="icon icon-2"><i class="ri-calendar-2-line"></i></span>
                     <span class="sidebar--item">Tareas Completas </span>
                 </a>
@@ -134,7 +142,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </section>
 <script src="employee.js">

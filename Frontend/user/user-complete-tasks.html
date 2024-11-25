@@ -43,6 +43,14 @@
     }
 </script>
 <section class="header">
+
+    <div class="button--bar--profile">
+        <button class="button--bar--profile">
+            <div class="picon lock">
+                <i class="fa fa-bars"></i>
+            </div>
+        </button>
+    </div>
     <div class="logo">
         <i class="ri-menu-line icon icon-0 menu"></i>
         <h2>Hosp<span>Ital</span></h2>
@@ -65,7 +73,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" >
+                <a href="user-complete-tasks.html">
                     <span class="icon icon-2"><i class="ri-calendar-2-line"></i></span>
                     <span class="sidebar--item">Tareas Completas </span>
                 </a>
@@ -81,24 +89,36 @@
             </li>
         </ul>
     </div>
-    <div class="overview">
-        <div class="title">
-            <h2 class="section--title">Tareas Asignadas</h2>
-        </div>
-        <div class="task-cards">
-            <div class="task-card" v-for="tarea in viewTasksCompletes" :key="tarea.ID_TAREA">
-                <div class="task-header">
-                    <h3>{{ tarea.NOMBRE }}</h3>
-                <p class="task-function">{{ tarea.DESCRIPCION }}</p>
-                <div class="task-time">
-                    <span><strong>Habitación:</strong> {{ tarea.ID_HABITACION }}</span>
-                    <span><strong>Vence:</strong> {{ formatFecha(tarea.FECHA_VENCIMIENTO) }}</span>
+    <div class="main--content">
+        <div id="app">
+                <div class="overview">
+                    <div class="title">
+                        <h2 class="section--title">Tareas Completas</h2>
+                    </div>
+                    <div class="task-cards">
+                        <div class="task-card" v-for="tarea in tareasComp" :key="tarea.ID_TAREA">
+                            <div class="task-header">
+                                <h3>{{ tarea.NOMBRE }}</h3>
+                                <span class="task-status">
+                                    <select v-model="tarea.ESTADO" class="estado-select"
+                                            :data-task-id="tarea.ID_TAREA"
+                                            @change="viewTasksCompletes">
+                                        <option value="COM" class="completada">Completada</option>
+                                    </select>
+                                </span>
+                            </div>
+                            <p class="task-function">{{ tarea.DESCRIPCION }}</p>
+                            <div class="task-time">
+                                <span><strong>Habitación:</strong> {{ tarea.ID_HABITACION }}</span>
+                                <span><strong>Vence:</strong> {{ formatFecha(tarea.FECHA_VENCIMIENTO) }}</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
 </section>
-<script src="viewTask.js"></script>
+<script src="employee.js"></script>
 </body>
 </html>
