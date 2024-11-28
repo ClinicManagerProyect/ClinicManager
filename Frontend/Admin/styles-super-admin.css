@@ -352,6 +352,42 @@ a {
     background-color: #c0392b;
 }
 
+
+/* Estilo De paso d epagina */
+
+.pagination-controls {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente el contenido */
+    align-items: center; /* Alinea verticalmente el contenido */
+    gap: 15px; /* Espacio entre los botones y el texto */
+    margin: 20px 0; /* Espacio superior e inferior */
+}
+
+.pagination-controls button {
+    padding: 10px 15px;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #007bff; /* Color azul para los botones */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagination-controls button:disabled {
+    background-color: #cccccc; /* Color gris para botones deshabilitados */
+    cursor: not-allowed;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+    background-color: #0056b3; /* Azul más oscuro al pasar el mouse */
+}
+
+.pagination-controls span {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333; /* Color del texto */
+}
 /* responsive starts here */
 @media screen and (max-width:1350px) {
     .cards,
