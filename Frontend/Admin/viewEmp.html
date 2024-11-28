@@ -89,10 +89,10 @@
 
             <label class="filters">
                 <div class="search">
-                    <input type="text" placeholder="Buscar Empleado..." v-model="searchQuery">
+                    <input type="text" placeholder="Buscar Empleado..." v-model="searchQuery" @input="aplicarFiltros">
                 </div>
                 <select name="date" class="dropdown doctor--filter" @change="filtrarEmpleados">
-                    <option value="all">Activos</option>
+                    <option value="active">Activos</option>
                     <option value="busy">Inactivos</option>
                 </select>
 
@@ -109,25 +109,21 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="empleado in empleadosFiltrados" :key="empleado.ID_PERSONA">
+                <tr v-for="empleado in empleadosPaginados" :key="empleado.ID_PERSONA">
                     <td>{{ empleado.ID_PERSONA }}</td>
                     <td>{{ empleado.NOMBRE_COMPLETO }}</td>
-                    <td>{{ empleado.ESTADO_USUARIO === 'A' ? 'Activo' : 'Inactivo' }}
-                    </td>
+                    <td>{{ empleado.ESTADO_USUARIO === 'A' ? 'Activo' : 'Inactivo' }}</td>
                     <td>{{ empleado.NOMBRE_EMPLEO }}</td>
                     <td>{{ empleado.ID_USUARIO }}</td>
                     <td>
-
                         <button @click="obtenerEmpleadoEspecifico(empleado.ID_USUARIO)" class="btn-icon" title="Editar">
-                            <i class="fas fa-edit" ></i>
+                            <i class="fas fa-edit"></i>
                         </button>
-
                         <button v-if="empleado.ESTADO_USUARIO === 'N'"
                                 @click="habilitarEmpleado(empleado.ID_USUARIO)"
                                 class="btn-icon btn-icon-enable" title="Habilitar">
                             <i class="fas fa-check"></i>
                         </button>
-
                         <button v-if="empleado.ESTADO_USUARIO === 'A'"
                                 @click="DeshabilitarEmpleado(empleado.ID_USUARIO)"
                                 class="btn-icon btn-icon-disable" title="Deshabilitar">
@@ -137,6 +133,16 @@
                 </tr>
                 </tbody>
             </table>
+            <div class="pagination-controls">
+                <button @click="paginaActual > 1 && cambiarPagina(paginaActual - 1)" :disabled="paginaActual === 1">
+                    <i class="fa fa-arrow-left"></i>
+                </button>
+                <span>Página {{ paginaActual }} de {{ totalPaginas }}</span>
+                <button @click="paginaActual < totalPaginas && cambiarPagina(paginaActual + 1)"
+                        :disabled="paginaActual === totalPaginas">
+                     <i class="fa fa-arrow-right"></i>
+                </button>
+            </div>
         </div>
     </div>
     </div>

@@ -15,7 +15,6 @@ body {
     width: 100%;
     display: flex;
     align-items: center;
-    border-bottom: 2px solid #f1f1f1;
 }
 
 .logo {
@@ -461,8 +460,9 @@ table {
 }
 
 thead {
-    background-color: #5073fb;
+    background-color: #2F6690;
     color: #fff;
+
 }
 
 thead th {
@@ -498,16 +498,16 @@ button {
 
 /*Estilo de lo botones de agregar tarea y ver tarea */
 .btn-icon1 {
-    background-color: #41a7a9;
+    background-color: #3A7CA5;
 }
 
 .btn-icon2 {
-    background-color: #99d593;
+    background-color: #81C3D7;
 }
 
 /*Estilo de lo botones de editar tarea y eliminar  tarea */
 .btn-icon3 {
-    background-color: #3ea25f;
+    background-color:#3A7CA5;
 }
 
 .btn-icon4 {
