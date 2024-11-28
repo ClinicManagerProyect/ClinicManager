@@ -511,6 +511,51 @@ function deleteTask( idTarea,callback) {
       callback(null, results);
     });
   }
+
+  function obtenerEmpleadoTareas( idGerente,callback) {
+
+    const query = `SELECT 
+    g.ID_USUARIO AS ID_GERENTE,
+    CONCAT(p_g.NOMBRES, ' ', p_g.APELLIDOS) AS NOMBRE_GERENTE,
+    e.ID_USUARIO AS ID_EMPLEADO,
+    CONCAT(p_e.NOMBRES, ' ', p_e.APELLIDOS) AS NOMBRE_EMPLEADO,
+    t.ID_TAREA,
+    t.NOMBRE AS NOMBRE_TAREA,
+    t.DESCRIPCION AS DESCRIPCION_TAREA,
+    t.PRIORIDAD,
+    t.ESTADO AS ESTADO_TAREA,
+    t.FECHA_VENCIMIENTO,
+    h.NOMBRE AS NOMBRE_HABITACION
+FROM 
+    EMPLEADO g
+INNER JOIN 
+    EMPLEADO e ON g.ID_USUARIO = e.ID_GERENTE
+INNER JOIN 
+    USUARIO u_g ON g.ID_USUARIO = u_g.ID_USUARIO
+INNER JOIN 
+    PERSONA p_g ON u_g.ID_PERSONA = p_g.ID_PERSONA
+INNER JOIN 
+    USUARIO u_e ON e.ID_USUARIO = u_e.ID_USUARIO
+INNER JOIN 
+    PERSONA p_e ON u_e.ID_PERSONA = p_e.ID_PERSONA
+LEFT JOIN 
+    TAREA t ON e.ID_USUARIO = t.ID_USUARIO
+LEFT JOIN 
+    HABITACION h ON t.ID_HABITACION = h.ID_HABITACION
+WHERE 
+    g.ID_USUARIO = ? 
+AND t.ID_TAREA IS NOT NULL
+ORDER BY 
+    e.ID_USUARIO, t.FECHA_VENCIMIENTO;`;
+  
+    connection.query(query, [idGerente], (err, results) => {
+      if (err) {
+        return callback(err);
+      }
+  
+      callback(null, results);
+    });
+  }
   
 module.exports = {
   validateUser,
@@ -534,5 +579,6 @@ module.exports = {
   obtenerTareasC,
   obtenerTareaE,
   editarTareaG,
-  deleteTask
+  deleteTask,
+  obtenerEmpleadoTareas
 };

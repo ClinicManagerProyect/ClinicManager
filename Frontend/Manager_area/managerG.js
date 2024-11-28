@@ -96,7 +96,36 @@ new Vue({
                 console.error("Error al asignar tarea:", error);
                 alert("No se pudo asignar la tarea.");
             }
-        }
+        },
+        async generarInforme() {
+            try {
+                const response = await fetch(`http://localhost:4000/generarInforme/${this.idGerente}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+    
+                if (response.ok) {
+                    
+                    const blob = await response.blob();
+    
+                    const url = window.URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', 'informe_empleados.pdf'); // Nombre del archivo
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                } else {
+                    const errorData = await response.json();
+                    alert(errorData.message || "Error al generar el informe.");
+                }
+            } catch (error) {
+                console.error("Error al generar informe:", error);
+                alert("No se pudo generar el informe.");
+            }
+        }       
     },
     mounted() {
         if (this.idGerente) {

@@ -25,7 +25,8 @@ const {
     obtenerTareasC,
     obtenerTareaE,
     editarTareaG,
-    deleteTask
+    deleteTask,
+    obtenerEmpleadoTareas
 } = require('../data_base/queries');
 
 const app = express();
@@ -393,6 +394,103 @@ app.delete('/eliminarTarea/:idTareaD', (req, res) => {
         }
         console.log("Tarea eliminada exitosamente:");
         res.status(200).json({ message: 'Se elimino la tarea exitosamente' });
+    });
+});
+
+const PDFDocument = require('pdfkit');
+const fs = require('fs');
+
+app.get('/generarInforme/:idGerente', async (req, res) => {
+    const { idGerente } = req.params;
+
+    // Consulta los empleados y tareas del gerente
+    obtenerEmpleadoTareas(idGerente, (err, empleadosTareas) => {
+        if (err) {
+            console.error('Error al obtener datos de los empleados:', err);
+            return res.status(500).json({ message: 'Error al obtener datos de los empleados' });
+        }
+
+        if (!empleadosTareas || empleadosTareas.length === 0) {
+            return res.status(404).json({ message: 'Gerente no encontrado o sin empleados asignados' });
+        }
+
+        // Crear un nuevo documento PDF
+        const doc = new PDFDocument();
+        const filePath = `informe_gerente_${idGerente}.pdf`;
+        const writeStream = fs.createWriteStream(filePath);
+
+        doc.pipe(writeStream);
+
+        // Título del documento
+        doc.fontSize(20).text('Informe de Empleados', { align: 'center' });
+        doc.moveDown();
+
+        // Información del gerente
+        doc.fontSize(14).text(`ID Gerente: ${idGerente}`);
+        doc.text(`Nombre Gerente: ${empleadosTareas[0].NOMBRE_GERENTE}`); // Usamos el nombre del gerente desde los datos
+        doc.moveDown();
+
+        // Información de los empleados
+        doc.fontSize(16).text('Empleados Asignados:', { underline: true });
+
+        // Agrupar tareas por empleado
+        const empleadosAgrupados = empleadosTareas.reduce((acc, empleado) => {
+            // Si el empleado no está en el acumulador, lo agregamos
+            if (!acc[empleado.ID_EMPLEADO]) {
+                acc[empleado.ID_EMPLEADO] = {
+                    nombre: empleado.NOMBRE_EMPLEADO,
+                    tareas: []
+                };
+            }
+            // Añadir tarea al empleado correspondiente
+            acc[empleado.ID_EMPLEADO].tareas.push({
+                nombre: empleado.NOMBRE_TAREA,
+                descripcion: empleado.DESCRIPCION_TAREA,
+                prioridad: empleado.PRIORIDAD,
+                estado: empleado.ESTADO_TAREA || 'Sin asignar', // Aseguramos que tenga un estado
+                fechaVencimiento: empleado.FECHA_VENCIMIENTO,
+                habitacion: empleado.NOMBRE_HABITACION
+            });
+            return acc;
+        }, {});
+
+        // Recorrer los empleados agrupados
+        Object.keys(empleadosAgrupados).forEach((idEmpleado, index) => {
+            const empleado = empleadosAgrupados[idEmpleado];
+
+            doc.moveDown();
+            doc.fontSize(14).text(`Empleado ${index + 1}:`);
+            doc.text(`Nombre: ${empleado.nombre}`);
+            doc.text(`ID Empleado: ${idEmpleado}`);
+            doc.moveDown();
+
+            // Tareas Asignadas al empleado
+            doc.fontSize(14).text(`Tareas Asignadas:`);
+            empleado.tareas.forEach((tarea, tareaIndex) => {
+                doc.moveDown();
+                doc.fontSize(12).text(`Tarea ${tareaIndex + 1}:`);
+                doc.text(`Nombre: ${tarea.nombre}`);
+                doc.text(`Descripción: ${tarea.descripcion}`);
+                doc.text(`Prioridad: ${tarea.prioridad}`);
+                doc.text(`Estado: ${tarea.estado}`);
+                doc.text(`Fecha de Vencimiento: ${tarea.fechaVencimiento}`);
+                doc.text(`Habitación: ${tarea.habitacion}`);
+            });
+        });
+
+        doc.end();
+
+        // Cuando termine de escribir el archivo, envíalo como respuesta
+        writeStream.on('finish', () => {
+            res.download(filePath, (err) => {
+                if (err) {
+                    console.error('Error al enviar el archivo PDF:', err);
+                }
+
+                // Elimina el archivo después de enviarlo
+                fs.unlinkSync(filePath);
+            });
+        });
     });
 });
 
