@@ -27,15 +27,39 @@ new Vue({
             hora_salida: "",
         },
         empleados: [],
+        empleadosFiltrados: [],
+        searchQuery: '',
+        paginaActual: 1,
+        empleadosPorPagina: 5,
         estadoFiltro: 'all',  
         empleadosFiltrados: [],  
         empleadoSeleccionado: null,
         gerentes: [],
         viendoDeshabilitados: false,
-        searchQuery: "",
         employees:[]
     },
+
+    watch: {
+        searchQuery() {
+            this.filterEmpleadosPorNombre();
+        }
+    },
+
+    computed: {
+        empleadosPaginados() {
+            const inicio = (this.paginaActual - 1) * this.empleadosPorPagina;
+            const fin = inicio + this.empleadosPorPagina;
+            return this.empleadosFiltrados.slice(inicio, fin);
+        },
+        totalPaginas() {
+            return Math.ceil(this.empleadosFiltrados.length / this.empleadosPorPagina);
+        },
+    },
     methods: {
+
+        cambiarPagina(nuevaPagina) {
+            this.paginaActual = nuevaPagina;
+        },
 
         async registrar() {
             try {
@@ -228,26 +252,15 @@ new Vue({
             try {
                 const response = await fetch("http://localhost:4000/empleados", {
                     method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
+                    headers: { "Content-Type": "application/json" },
                 });
-
                 if (response.ok) {
                     this.empleados = await response.json();
-                    if (!Array.isArray(this.empleados)) {
-                        throw new Error("Formato de respuesta no válido.");
-                    }
-                    this.filterEmpleadosPorNombre();
-                    this.filtrarEmpleados();
-
-                } else {
-                    const errorData = await response.json();
-                    throw new Error(errorData.message || "Error desconocido.");
+                    this.empleadosFiltrados = this.empleados; // Inicializa con todos los empleados
+                    this.aplicarFiltros(); // Aplica filtros si es necesario
                 }
             } catch (error) {
                 console.error("Error al obtener empleados:", error);
-                alert("No se pudieron cargar los empleados.");
             }
         },
 
@@ -262,18 +275,13 @@ new Vue({
 
                 if (response.ok) {
                     this.empleados = await response.json();
-                    if (!Array.isArray(this.empleados)) {
-                        throw new Error("Formato de respuesta no válido.");
-                    }
-                    this.filterEmpleadosPorNombre();
-                    this.filtrarEmpleados();
+                    this.empleadosFiltrados = this.empleados; // Inicializa con empleados inactivos
+                    this.aplicarFiltros(); // Aplica filtros si es necesario
                 } else {
-                    const errorData = await response.json();
-                    throw new Error(errorData.message || "Error desconocido.");
+                    console.error("Error al obtener empleados inactivos");
                 }
             } catch (error) {
-                console.error("Error al obtener empleados Deshabilidatos:", error);
-                alert("No se pudieron cargar los empleados deshabilitados.");
+                console.error("Error al obtener empleados inactivos:", error);
             }
         },
 
@@ -298,6 +306,30 @@ new Vue({
             }
         },
 
+        aplicarFiltros() {
+            let empleadosFiltrados = this.empleados;
+
+            // Filtrar por estado
+            if (this.estadoFiltro !== 'all') {
+                const estado = this.estadoFiltro === 'busy' ? 'N' : 'A';
+                empleadosFiltrados = empleadosFiltrados.filter(
+                    (empleado) => empleado.ESTADO_USUARIO === estado
+                );
+            }
+
+            // Filtrar por nombre
+            if (this.searchQuery) {
+                const query = this.searchQuery.toLowerCase();
+                empleadosFiltrados = empleadosFiltrados.filter((empleado) =>
+                    empleado.NOMBRE_COMPLETO.toLowerCase().includes(query)
+                );
+                this.searchQuery()
+            }
+
+            this.empleadosFiltrados = empleadosFiltrados;
+            this.paginaActual = 1; // Reinicia la paginación
+        },
+
         async verEmpleadosSG() {
             try {
                 const response = await fetch("http://localhost:4000/verEmpleadosSG", {
@@ -318,20 +350,21 @@ new Vue({
             }
         },
         async filtrarEmpleados(event) {
-            if (!event || !event.target) {
-                console.error("El evento o su target no están definidos aun.");
-                return;
-            }
-            const filtro = event.target.value;
-    
-            if (filtro === 'all') {
-                
-                await this.verEmpleados();
-            } else if (filtro === 'busy') {
-               
-                await this.verEmpleadosDes();
+            this.estadoFiltro = event.target.value;
+
+            if (this.estadoFiltro === 'all') {
+                await this.verEmpleados(); // Obtén todos los empleados
+            } else if (this.estadoFiltro === 'busy') {
+                await this.verEmpleadosDes(); // Obtén empleados inactivos
+            } else {
+                this.aplicarFiltros(); // Aplica filtros locales
             }
         },
+
+        cambiarPagina(nuevaPagina) {
+            this.paginaActual = nuevaPagina;
+        },
+
         filterEmpleadosPorNombre() {
             if (this.searchQuery) {
                 const searchQueryLower = this.searchQuery.toLowerCase();
@@ -343,11 +376,7 @@ new Vue({
             }
         },
     },
-    watch: {
-        searchQuery() {
-            this.filterEmpleadosPorNombre();
-        }
-    },
+
     mounted() {
         this.verEmpleadosSG();
         this.verEmpleados();
