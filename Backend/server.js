@@ -26,12 +26,16 @@ const {
     obtenerTareaE,
     editarTareaG,
     deleteTask,
-    obtenerEmpleadoTareas
+    obtenerEmpleadoTareas,
+    obtenerTodosLosEmpleadosSG
 } = require('../data_base/queries');
 
 const app = express();
 const PORT = process.env.PORT;
 const SECRET_KEY = process.env.KEY_JSW;
+const PDFDocument = require('pdfkit');
+const fs = require('fs');
+
 
 app.use(express.static(path.join(__dirname, '../frontend')));
 app.use(cors());
@@ -264,8 +268,15 @@ app.get('/gerentes', (req, res) => {
         res.status(200).json(gerentes)
     })
   });
-
-
+  app.get('/verEmpleadosSG', (req, res) => {
+    obtenerTodosLosEmpleadosSG((err,empleados)=>{
+        if(err){
+            console.error('Error al obtener empleados:', err);
+            return res.status(500).json({ message: 'Error al obtener empleados' });
+        }
+        res.status(200).json(empleados)
+    })
+  });
 app.get('/obtenerEmpleado/:idEmpleado', (req, res) => {
     const { idEmpleado } = req.params;
     obtenerEmpleadoEspecifico(idEmpleado, (err, empleado) => {
@@ -397,13 +408,10 @@ app.delete('/eliminarTarea/:idTareaD', (req, res) => {
     });
 });
 
-const PDFDocument = require('pdfkit');
-const fs = require('fs');
-
 app.get('/generarInforme/:idGerente', async (req, res) => {
     const { idGerente } = req.params;
 
-    // Consulta los empleados y tareas del gerente
+   
     obtenerEmpleadoTareas(idGerente, (err, empleadosTareas) => {
         if (err) {
             console.error('Error al obtener datos de los empleados:', err);
@@ -414,7 +422,6 @@ app.get('/generarInforme/:idGerente', async (req, res) => {
             return res.status(404).json({ message: 'Gerente no encontrado o sin empleados asignados' });
         }
 
-        // Crear un nuevo documento PDF
         const doc = new PDFDocument();
         const filePath = `informe_gerente_${idGerente}.pdf`;
         const writeStream = fs.createWriteStream(filePath);
@@ -480,14 +487,14 @@ app.get('/generarInforme/:idGerente', async (req, res) => {
 
         doc.end();
 
-        // Cuando termine de escribir el archivo, envíalo como respuesta
+        
         writeStream.on('finish', () => {
             res.download(filePath, (err) => {
                 if (err) {
                     console.error('Error al enviar el archivo PDF:', err);
                 }
 
-                // Elimina el archivo después de enviarlo
+            
                 fs.unlinkSync(filePath);
             });
         });

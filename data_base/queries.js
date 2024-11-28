@@ -323,6 +323,16 @@ function obtenerTodosLosEmpleados(callback) {
     callback(null, results);
   });
 }
+function obtenerTodosLosEmpleadosSG(callback) {
+  const query =
+    'SELECT P.ID_PERSONA,CONCAT(P.NOMBRES, " ", P.APELLIDOS) AS NOMBRE_COMPLETO,P.GENERO,P.CORREO,P.DIRECCION,P.TELEFONO,U.ESTADO AS ESTADO_USUARIO,EM.NOMBRE_EMPLEO, U.ID_USUARIO FROM EMPLEADO E JOIN USUARIO U ON E.ID_USUARIO = U.ID_USUARIO JOIN PERSONA P ON U.ID_PERSONA = P.ID_PERSONA JOIN EMPLEO EM ON E.ID_EMPLEO = EM.ID_EMPLEO WHERE U.ESTADO="A" AND U.TIPO_USUARIO="EMP";';
+  connection.query(query, (err, results) => {
+    if (err) {
+      return callback(err);
+    }
+    callback(null, results);
+  });
+}
 
 function obtenerTodosLosEmpleadosG(id_gerente, callback) {
   const query = `
@@ -356,9 +366,23 @@ function obtenerEmpleadosDes(callback) {
     callback(null, results);
   });
 }
+
 function obtenerGerentes(callback) {
   const query =
-    'SELECT id_usuario, id_persona FROM usuario WHERE tipo_usuario = "GER"';
+    `SELECT   
+P.ID_PERSONA,
+P.GENERO,
+P.CORREO,
+P.DIRECCION,
+P.TELEFONO,
+CONCAT(P.NOMBRES, " ", P.APELLIDOS) AS NOMBRE_COMPLETO,
+U.ESTADO AS ESTADO_USUARIO,
+EM.NOMBRE_EMPLEO, U.ID_USUARIO 
+FROM EMPLEADO E JOIN USUARIO U ON E.ID_USUARIO = U.ID_USUARIO 
+JOIN PERSONA P ON U.ID_PERSONA = P.ID_PERSONA 
+JOIN EMPLEO EM ON E.ID_EMPLEO = EM.ID_EMPLEO 
+WHERE U.ESTADO="A" AND U.TIPO_USUARIO="GER"`;
+
   connection.query(query, (err, results) => {
     if (err) {
       return callback(err);
@@ -580,5 +604,6 @@ module.exports = {
   obtenerTareaE,
   editarTareaG,
   deleteTask,
-  obtenerEmpleadoTareas
+  obtenerEmpleadoTareas,
+  obtenerTodosLosEmpleadosSG
 };

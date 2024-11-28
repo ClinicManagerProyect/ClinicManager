@@ -19,6 +19,20 @@ new Vue({
         }
     },
     methods: {
+        mostrarFormularioTarea(idEmpleado) {
+            this.idEmpleado = idEmpleado;
+            this.mostrarFormulario = true;
+        },
+
+        cerrarFormularioTarea() {
+            this.mostrarFormulario = false;
+            this.tarea = "";
+            this.descripcion = "";
+            this.prioridad = "";
+            this.fechaVencimiento = "";
+            this.idHabitacion = "";
+            this.estado = "";
+        },        
         async verEmpleadosAsociados() {
             try {
                 this.empleados = [];
@@ -79,15 +93,8 @@ new Vue({
                 });
                 if (response.ok) {
                     alert("Tarea asignada correctamente");
-                    this.mostrarFormulario = false;
-                    this.tarea = "";
-                    this.descripcion = "";
-                    this.fechaVencimiento = "";
-                    this.idHabitacion = "";
-                    this.prioridad = "";
-                    this.estado = "";
-
-                    location.reload()
+                    this.cerrarFormularioTarea();
+                    location.reload();
                 } else {
                     const errorData = await response.json();
                     alert(errorData.message || "Error al asignar tarea.");

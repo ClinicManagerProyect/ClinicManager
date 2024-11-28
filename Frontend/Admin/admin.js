@@ -15,7 +15,7 @@ new Vue({
             id_usuario: "",
             contrasena: "",
             tipo_usuario: "",
-            estado: "",
+            estado: "A",
             id_persona: "",
         },
         empleado: {
@@ -32,12 +32,14 @@ new Vue({
         empleadoSeleccionado: null,
         gerentes: [],
         viendoDeshabilitados: false,
-        searchQuery: ""
+        searchQuery: "",
+        employees:[]
     },
     methods: {
 
         async registrar() {
             try {
+                this.usuario.contrasena = this.persona.id_persona;
                 const response = await fetch("http://localhost:4000/registro", {
                     method: "POST",
                     headers: {
@@ -288,7 +290,7 @@ new Vue({
                     this.gerentes = await response.json();
                 } else {
                     const errorData = await response.json();
-                    alert("Error al obtener gerentes.");
+                    alert("Error al obtener gerentes.",errorData);
                 }
             } catch (error) {
                 console.error("Error al obtener gerentes:", error);
@@ -296,7 +298,30 @@ new Vue({
             }
         },
 
+        async verEmpleadosSG() {
+            try {
+                const response = await fetch("http://localhost:4000/verEmpleadosSG", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+                if (response.ok) {
+                    this.employees = await response.json();
+                } else {
+                    const errorData = await response.json();
+                    alert("Error al obtener empleados.", errorData);
+                }
+            } catch (error) {
+                console.error("Error al obtener los empleados del server:", error);
+                alert("No se pudieron cargar los empleados.");
+            }
+        },
         async filtrarEmpleados(event) {
+            if (!event || !event.target) {
+                console.error("El evento o su target no están definidos aun.");
+                return;
+            }
             const filtro = event.target.value;
     
             if (filtro === 'all') {
@@ -324,6 +349,7 @@ new Vue({
         }
     },
     mounted() {
+        this.verEmpleadosSG();
         this.verEmpleados();
         this.verGerentes();
         const empleadoEnStorage = localStorage.getItem('empleadoSeleccionado');

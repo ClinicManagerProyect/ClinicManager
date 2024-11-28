@@ -94,9 +94,10 @@
           type="password"
           id="contrasena"
           v-model="usuario.contrasena"
-          required
+          placeholder="Por defecto se toma el ID de la persona"
+          disabled
         /><br /><br />
-
+        
         <label for="tipo_usuario">Tipo de Usuario:</label>
         <select id="tipo_usuario" v-model="usuario.tipo_usuario" required>
           <option value="ADM">Administrador</option>
@@ -105,10 +106,10 @@
         ><br /><br />
 
         <label for="estado">Estado:</label>
-        <select id="estado" v-model="usuario.estado" required>
+        <select id="estado" v-model="usuario.estado" disabled>
           <option value="A">Activo</option>
-          <option value="N">No Activo</option></select
-        ><br /><br />
+          <option value="N">No Activo</option>
+        </select><br /><br />
 
         <!-- Empleado -->
         <h3>Empleado</h3>
@@ -130,7 +131,7 @@
             :key="gerente.id_usuario"
             :value="gerente.id_usuario"
           >
-            {{ gerente.id_usuario }}
+            {{ gerente.ID_USUARIO }}
           </option>
         </select>
 

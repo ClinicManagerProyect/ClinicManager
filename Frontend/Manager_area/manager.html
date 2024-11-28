@@ -99,29 +99,17 @@
         <div class="main--content">
             <div class="overview">
                 <div class="title">
-                    <h2 class="section--title">Avances</h2>
-                    <select name="date" id="date" class="dropdown">
-                        <option value="today">Hoy</option>
-                        <option value="lastweek">La semana pasada</option>
-                        <option value="lastmonth">El mes Pasado</option>
-                        <option value="lastyear">El año pasado</option>
-                        <option value="alltime">Todo el tiempo</option>
-                    </select>
                 </div>
                 <div class="cards">
                     <div class="card card-1">
                         <div class="card--data">
                             <div class="card--content">
-                                <h5 class="card--title">Total Empleados</h5>
+                                <h5 class="card--title">Total Empleados Asignados</h5>
                                 <h1>{{empleados.length}}</h1>
                             </div>
                             <i class="ri-user-2-line card--icon--lg"></i>
                         </div>
-                        <div class="card--stats">
-                            <span><i class="ri-bar-chart-fill card--icon stat--icon"></i>50%</span>
-                            <span><i class="ri-arrow-up-s-fill card--icon up--arrow"></i>2</span>
-                            <span><i class="ri-arrow-down-s-fill card--icon down--arrow"></i>2</span>
-                        </div>
+
                     </div>
 
                 </div>
@@ -163,53 +151,54 @@
 
                 <p v-else>No hay empleados asociados.</p>
 
-                <div v-if="mostrarFormulario" class="formulario-tarea">
-                    <h3>Asignar tarea al empleado</h3>
-                    <p>ID del empleado: {{ idEmpleado }}</p>
-
-                    <form @submit.prevent="asignarTarea" class="formulario-horizontal">
-                        <div class="form-group-horizontal">
-                            <label for="tarea">Nombre Tarea:</label>
-                            <input type="text" v-model="tarea" required>
-                        </div>
-
-                        <div class="form-group-horizontal">
-                            <label for="descripcion">Descripción:</label>
-                            <textarea v-model="descripcion" required></textarea>
-                        </div>
-
-                        <div class="form-group-horizontal">
-                            <label for="prioridad">Prioridad:</label>
-                            <select v-model="prioridad" required>
-                                <option value="ALT">Alta</option>
-                                <option value="MED">Media</option>
-                                <option value="BAJ">Baja</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group-horizontal">
-                            <label for="fechaVencimiento">Fecha de Vencimiento:</label>
-                            <input type="datetime-local" v-model="fechaVencimiento" required>
-                        </div>
-
-                        <div class="form-group-horizontal">
-                            <label for="idHabitacion">Habitación:</label>
-                            <input type="number" v-model="idHabitacion" required>
-                        </div>
-
-                        <div class="form-group-horizontal">
-                            <label for="estado">Estado:</label>
-                            <select v-model="estado" required>
-                                <option value="ASG">Asignada</option>
-                                <option value="COM">Completada</option>
-                                <option value="SCM">En progreso</option>
-                            </select>
-                        </div>
-
-                        <button type="submit" class="btn-icon">
-                            <i class="fas fa-check"></i>
-                        </button>
-                    </form>
+                <div v-if="mostrarFormulario" class="modal-overlay">
+                    <div class="modal-content">
+                        <span class="close-button" @click="cerrarFormularioTarea">&times;</span>
+                        <h3>Asignar tarea al empleado</h3>
+                        <p>ID del empleado: {{ idEmpleado }}</p>
+                
+                        <form @submit.prevent="asignarTarea" class="formulario-horizontal">
+                            <div class="form-group-horizontal">
+                                <label for="tarea">Nombre Tarea:</label>
+                                <input type="text" v-model="tarea" required>
+                            </div>
+                
+                            <div class="form-group-horizontal">
+                                <label for="descripcion">Descripción:</label>
+                                <textarea v-model="descripcion" required></textarea>
+                            </div>
+                
+                            <div class="form-group-horizontal">
+                                <label for="prioridad">Prioridad:</label>
+                                <select v-model="prioridad" required>
+                                    <option value="ALT">Alta</option>
+                                    <option value="MED">Media</option>
+                                    <option value="BAJ">Baja</option>
+                                </select>
+                            </div>
+                
+                            <div class="form-group-horizontal">
+                                <label for="fechaVencimiento">Fecha de Vencimiento:</label>
+                                <input type="datetime-local" v-model="fechaVencimiento" required>
+                            </div>
+                
+                            <div class="form-group-horizontal">
+                                <label for="idHabitacion">Habitación:</label>
+                                <input type="number" v-model="idHabitacion" >
+                            </div>
+                
+                            <div class="form-group-horizontal">
+                                <label for="estado">Estado:</label>
+                                <select v-model="estado" required>
+                                    <option value="ASG">Asignada</option>
+                                    <option value="COM">Completada</option>
+                                    <option value="SCM">En progreso</option>
+                                </select>
+                            </div>
+                
+                            <button type="submit" class="btn-submit">Asignar</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
