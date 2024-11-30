@@ -9,45 +9,48 @@
     <title></title>
 </head>
 <body>
-    <script>
-        window.onload = function() {
-            const token = sessionStorage.getItem('token'); 
-    
-            if (!token) {
-                alert('Debes iniciar sesión primero.');
-                window.location.href = '../index.html'; 
-                return;
-            }
-    
-            const payload = JSON.parse(atob(token.split('.')[1])); 
-    
-            // Verificar la expiración del token
-            const currentTime = Math.floor(Date.now() / 1000); 
-            if (payload.exp < currentTime) {
-                alert('Token expirado. Debes iniciar sesión nuevamente.');
-                sessionStorage.removeItem('token'); 
-                window.location.href = '../index.html'; 
-                return;
-            }
-    
-            if (payload.role !== 'ADM') { 
-                alert('Acceso no autorizado.');
-                window.location.href = '../index.html'; 
-                return;
-            }
+<script>
+    window.onload = function () {
+        const token = sessionStorage.getItem('token');
+
+        if (!token) {
+            alert('Debes iniciar sesión primero.');
+            window.location.href = '../index.html';
+            return;
         }
-    </script>
+
+        const payload = JSON.parse(atob(token.split('.')[1]));
+
+        // Verificar la expiración del token
+        const currentTime = Math.floor(Date.now() / 1000);
+        if (payload.exp < currentTime) {
+            alert('Token expirado. Debes iniciar sesión nuevamente.');
+            sessionStorage.removeItem('token');
+            window.location.href = '../index.html';
+            return;
+        }
+
+        if (payload.role !== 'ADM') {
+            alert('Acceso no autorizado.');
+            window.location.href = '../index.html';
+            return;
+        }
+    }
+</script>
 <div id="app">
     <section class="header">
         <div class="logo">
             <i class="ri-menu-line icon icon-0 menu"></i>
             <h2>Hosp<span>Ital</span></h2>
         </div>
+        <div class="header-user">
+            <p class="user"></p>
+        </div>
 
-        <div class="search--notification--profile">
-            <button class="button--notification--profile">
-                <div class="picon lock" title="Notificaciones">
-                    <i class="fa fa-bell"></i>
+        <div class="search--user--profile">
+            <button class="button--user--profile">
+                <div class="picon lock" >
+                    <i class="fa fa-user"></i>
                 </div>
             </button>
         </div>
@@ -107,19 +110,18 @@
                                     <i class="ri-user-2-line card--icon--lg"></i>
                                 </div>
                             </div>
-        
+
                         </div>
                     </div>
-                    <h2 class="section--title">Gerentes de Area</h2>
                     <div class="employees--right--btns">
- 
                         <a href="createEmp.html">
-                            <button class="add"><i class="ri-add-line"></i>Añadir Empleado</button>
+                            <button class="add">
+                                <i class="fa fa-add"></i> Empleado</button>
                         </a>
                     </div>
                 </div>
+                <h2 class="section--title">Gerentes de Area</h2>
                 <div class="employees--cards" id="gerentes-list">
-
                     <a href="#" class="employees--card" v-for="gerente in gerentes" :key="gerente.id_usuario">
                         <div class="img--box--cover">
                             <div class="img--box">
@@ -129,8 +131,8 @@
                         <p class="gerente.id_usuario">{{gerente.NOMBRE_COMPLETO}}</p>
                     </a>
                 </div>
-            </div>
 
+            </div>
             <div class="employees">
                 <div class="title">
 
@@ -138,8 +140,8 @@
                     <div class="employees--right--btns">
 
                     </div>
-                </div>         
-                 <div class="employees--cards" id="employees-list">
+                </div>
+                <div class="employees--cards" id="employees-list" @click="verEmpleadosSG">
                     <a href="#" class="employees--card" v-for="employee in employees" :key="employee.id_usuario">
                         <div class="img--box--cover">
                             <div class="img--box">
@@ -149,10 +151,31 @@
                         <p class="employee.id_usuario">{{employee.NOMBRE_COMPLETO}}</p>
                     </a>
                 </div>
+
+                <div v-if="showModal" class="modal-overlay">
+                    <div class="modal">
+                        <button @click="closeModal" class="close-btn">&times;</button>
+                        <!-- Mostrar detalles del empleado -->
+                        <div v-if="empleadoSeleccionado">
+                            <p><strong>ID Persona:</strong> {{ employee.ID_PERSONA }}</p>
+                            <p><strong>Nombre:</strong> {{ employee.NOMBRES }} {{ employee.APELLIDOS }}</p>
+                            <p><strong>Identificación:</strong> {{ employee.TIPO_IDENTIFICACION }} - {{ obtenerEmpleadoEspecifico.ID_PERSONA }}</p>
+                            <p><strong>Género:</strong> {{ employee.GENERO }}</p>
+                            <p><strong>Correo:</strong> {{ employee.CORREO }}</p>
+                            <p><strong>Dirección:</strong> {{ employee.DIRECCION }}</p>
+                            <p><strong>Teléfono:</strong> {{ employee.TELEFONO }}</p>
+                            <p><strong>Estado de usuario:</strong> {{ employee.ESTADO }}</p>
+                            <p><strong>Fecha de contratación:</strong> {{ employee.FECHA_CONTRATACION }}</p>
+                            <p><strong>Hora de entrada:</strong> {{ employee.HORA_ENTRADA }}</p>
+                            <p><strong>Hora de salida:</strong> {{ employee.HORA_SALIDA }}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
     </section>
 </div>
-    <script src="admin.js"></script>
+<script src="admin.js"></script>
 </body>
 </html>

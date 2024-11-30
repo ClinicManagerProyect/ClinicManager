@@ -9,16 +9,62 @@
     <title>Ver Tareas</title>
 </head>
 <body>
+<script>
+    window.onload = function () {
+        const token = sessionStorage.getItem('token');
+
+        if (!token) {
+            alert('Debes iniciar sesión primero.');
+            window.location.href = '../index.html';
+            return;
+        }
+
+        const payload = JSON.parse(atob(token.split('.')[1]));
+
+
+        const currentTime = Math.floor(Date.now() / 1000);
+        if (payload.exp < currentTime) {
+            alert('Token expirado. Debes iniciar sesión nuevamente.');
+            sessionStorage.removeItem('token');
+            sessionStorage.removeItem('idGerente');
+            window.location.href = '../index.html';
+            return;
+        }
+
+
+        if (payload.role !== 'GER') {
+            alert('Acceso no autorizado.');
+            sessionStorage.removeItem('idGerente');
+            window.location.href = '../index.html';
+            return;
+        }
+        const role = payload.role;
+        console.log('role', role);
+
+        const idGerente = payload.id;
+        const storedId = localStorage.getItem('idGerente');
+        const tokenenv = token
+
+        if (idGerente !== storedId) {
+            localStorage.setItem('idGerente', idGerente);
+            console.log('Recargando la página...');
+            location.reload();
+        }
+    };
+</script>
 <div id="app">
     <section class="header">
         <div class="logo">
             <i class="ri-menu-line icon icon-0 menu"></i>
             <h2>Hosp<span>Ital</span></h2>
         </div>
+        <div class="header-user">
+            <p class="user">{{ idGerente }}</p>
+        </div>
         <div class="search--notification--profile">
             <button class="button--notification--profile">
-                <div class="picon lock">
-                    <i class="fa fa-bell"></i>
+                <div class="picon lock" >
+                    <i class="fa fa-user"></i>
                 </div>
             </button>
         </div>
@@ -33,7 +79,14 @@
                     </a>
                 </li>
             </ul>
+            <li>
+                <a href="#" @click="logout">
+                    <span class="icon icon-8"><i class="ri-logout-box-r-line"></i></span>
+                    <span class="sidebar--item">Logout</span>
+                </a>
+            </li>
         </div>
+
         <div class="main--content">
             <h2>Tareas Asignadas al empleado: {{ idEmpleado }}</h2>
             <label class="filters">

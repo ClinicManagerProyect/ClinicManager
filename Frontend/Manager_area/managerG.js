@@ -24,6 +24,11 @@ new Vue({
             this.mostrarFormulario = true;
         },
 
+        mostrarFormularioTarea(idEmpleado) {
+            this.idEmpleado = idEmpleado;
+            this.mostrarFormulario = true;
+        },
+
         cerrarFormularioTarea() {
             this.mostrarFormulario = false;
             this.tarea = "";
@@ -70,10 +75,7 @@ new Vue({
             this.empleados = [];
             window.location.href = '../index.html';
         },
-        mostrarFormularioTarea(idEmpleado) {
-            this.idEmpleado = idEmpleado;
-            this.mostrarFormulario = true;
-        },
+
         async asignarTarea() {
             try {
                 const response = await fetch('http://localhost:4000/asignarTarea', {

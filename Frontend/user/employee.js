@@ -1,7 +1,7 @@
 new Vue({
     el: "#app",
     data: {
-
+        idEmpleado: localStorage.getItem("idEmpleado"),
         verTareasU: [],
         tareasComp: [],
     },
@@ -72,6 +72,12 @@ new Vue({
             }
         },
 
+        async verTareas(idEmpleado) {
+            console.log("el id a enviar es", idEmpleado)
+            window.location.href = `user-complete-tasks.html?idEmpleado=${idEmpleado}`;
+        },
+
+
         async viewTasksCompletes(idEmpleado) {
             try {
                 const response = await fetch(
@@ -118,6 +124,26 @@ new Vue({
                 hour: "2-digit",
                 minute: "2-digit",
             });
+        },
+
+        logout() {
+            localStorage.removeItem('idEmpleado');
+            this.idGerente = null;
+            this.empleados = [];
+            window.location.href = '../index.html';
+        },
+
+        getTaskCardClass(estado) {
+            switch (estado) {
+                case "ASG":
+                    return "task-card-asignada";
+                case "SCM":
+                    return "task-card-progreso";
+                case "COM":
+                    return "task-card-completada";
+                default:
+                    return "task-card-default";
+            }
         },
     },
 

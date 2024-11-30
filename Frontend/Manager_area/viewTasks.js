@@ -1,6 +1,7 @@
 new Vue({
     el: "#app",
     data: {
+        idGerente: localStorage.getItem("idGerente"),
         idEmpleado: null,
         verTareasU: [],
         tareasFiltradas: [],
@@ -113,6 +114,12 @@ new Vue({
                     alert("No se pudo eliminar la tarea.");
                 }
             }
+        },
+        logout() {
+            localStorage.removeItem('idGerente');
+            this.idGerente = null;
+            this.empleados = [];
+            window.location.href = '../index.html';
         },
     },
     mounted() {

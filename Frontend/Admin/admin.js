@@ -36,7 +36,9 @@ new Vue({
         empleadoSeleccionado: null,
         gerentes: [],
         viendoDeshabilitados: false,
-        employees:[]
+        employees:[],
+        showModal: false,
+        empleadoSeleccionado: null,
     },
 
     watch: {
@@ -56,6 +58,34 @@ new Vue({
         },
     },
     methods: {
+
+        async verEmpleadosSG(idUsuario) {
+            try {
+                const response = await fetch(`http://localhost:4000/verEmpleadoEspecifico/${idUsuario}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+
+                if (response.ok) {
+                    const empleado = await response.json();
+                    this.empleadoSeleccionado = empleado; // Guardamos la información del empleado
+                    this.showModal = true; // Mostramos el modal
+                } else {
+                    const errorData = await response.json();
+                    alert("Error al obtener el empleado.", errorData);
+                }
+            } catch (error) {
+                console.error("Error al obtener el empleado:", error);
+                alert("No se pudo cargar la información del empleado.");
+            }
+        },
+
+        closeModal() {
+            this.showModal = false; // Cambiamos el estado a false para cerrar el modal
+            this.empleadoSeleccionado = null; // Limpiamos los detalles del empleado
+        },
 
         cambiarPagina(nuevaPagina) {
             this.paginaActual = nuevaPagina;

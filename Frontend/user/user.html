@@ -33,11 +33,23 @@
         }
 
 
-
         if (payload.role !== 'EMP') {
             alert('Acceso no autorizado.');
             window.location.href = '../index.html';
             return;
+        }
+
+        const role = payload.role;
+        console.log('role', role);
+
+        const idEmpleado = payload.id;
+        const storedId = localStorage.getItem('idEmpleado');
+        const tokenenv = token
+
+        if (idEmpleado !== storedId) {
+            localStorage.setItem('idEmpleado', idEmpleado);
+            console.log('Recargando la página...');
+            location.reload();
         }
 
     }
@@ -47,11 +59,14 @@
         <i class="ri-menu-line icon icon-0 menu"></i>
         <h2>Hosp<span>Ital</span></h2>
     </div>
+    <div class="header-user">
+        <p class="user">{{ idEmpleado }}</p>
+    </div>
 
-    <div class="search--notification--profile">
-        <button class="button--notification--profile">
+    <div class="search--user--profile">
+        <button class="button--user--profile">
             <div class="picon lock" title="Notificaciones">
-                <i class="fa fa-bell"></i>
+                <i class="fa fa-user"></i>
             </div>
         </button>
     </div>
@@ -60,27 +75,25 @@
     <div class="sidebar">
         <ul class="sidebar--items">
             <li>
-                <a href="user.html"  id="active--link"  >
+                <a href="user.html" id="active--link">
                     <span class="icon icon-1"><i class="ri-layout-grid-line"></i></span>
                     <span class="sidebar--item">Tareas asignadas </span>
                 </a>
             </li>
-            <li>
-                <a href= "#" >
-                    <span class="icon icon-2"><i class="ri-calendar-2-line"></i></span>
-                    <span class="sidebar--item">Tareas Completas</span>
-                </a>
-            </li>
 
-        </ul>
-        <ul class="sidebar--bottom-items">
             <li>
-                <a href="../index.html">
-                    <span class="icon icon-8"><i class="ri-logout-box-r-line"></i></span>
-                    <span class="sidebar--item">Logout</span>
+                <a @click="verTarea(empleado.idEmpleado)">
+                    <span class="icon icon-2"><i class="ri-calendar-2-line"></i></span>
+                    <span class="sidebar--item">Tareas Completas </span>
                 </a>
             </li>
         </ul>
+        <li>
+            <a href="../index.html">
+                <span class="icon icon-8"><i class="ri-logout-box-r-line"></i></span>
+                <span class="sidebar--item">Logout</span>
+            </a>
+        </li>
     </div>
 
     <div class="main--content">
@@ -112,18 +125,21 @@
                         <h2 class="section--title">Tareas Asignadas</h2>
                     </div>
                     <div class="task-cards">
-                        <div class="task-card" v-for="tarea in verTareasU" :key="tarea.ID_TAREA">
+                        <div class="task-card"
+                             v-for="tarea in verTareasU"
+                             :key="tarea.ID_TAREA"
+                             :class="getTaskCardClass(tarea.ESTADO)">
                             <div class="task-header">
                                 <h3>{{ tarea.NOMBRE }}</h3>
-                                <span class="task-status">
-                                    <select v-model="tarea.ESTADO" class="estado-select"
-                                            :data-task-id="tarea.ID_TAREA"
-                                            @change="updateTaskStatus(tarea.ID_TAREA, tarea.ESTADO)">
-                                        <option value="ASG" class="asignada">Asignada </option>
-                                        <option value="SCM" class="progreso">En Progreso</option>
-                                        <option value="COM" class="completada">Completada</option>
-                                    </select>
-                                </span>
+                                        <span class="task-status">
+                              <select v-model="tarea.ESTADO" class="estado-select"
+                                     :data-task-id="tarea.ID_TAREA"
+                                    @change="updateTaskStatus(tarea.ID_TAREA, tarea.ESTADO)">
+                                <option value="ASG">Asignada</option>
+                                <option value="SCM">En Progreso</option>
+                                <option value="COM">Completada</option>
+                              </select>
+                           </span>
                             </div>
                             <p class="task-function">{{ tarea.DESCRIPCION }}</p>
                             <div class="task-time">

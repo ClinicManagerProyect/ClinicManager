@@ -29,11 +29,10 @@ body {
     color: #5073fb;
 }
 
-.search--notification--profile {
+.search--user--profile {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    width: calc(100% - 300px);
     padding: 0 40px;
 }
 
@@ -53,7 +52,7 @@ body {
     align-items: center;
 }
 
-.button--notification--profile {
+.button--user--profile {
     background: transparent;
     font-size: x-large;
 }
@@ -349,6 +348,26 @@ a {
     color: #333;
 }
 
+.task-card-asignada {
+    background-color: rgba(231, 201, 204, 0.94);
+    border: 1px solid #f5c6cb;
+}
+
+.task-card-progreso {
+    background-color: rgba(211, 202, 173, 0.93);
+    border: 1px solid #ffeeba;
+}
+
+.task-card-completada {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+
+.task-card-default {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+}
+
 
 
 /*Estilo del selec */
@@ -496,7 +515,7 @@ a {
         width: fit-content;
     }
 
-    .search--notification--profile {
+    .search--user--profile {
         padding: 0 20px;
         margin-left: auto;
     }
@@ -529,7 +548,7 @@ a {
         margin-left: auto;
     }
 
-    .search--notification--profile {
+    .search--user--profile {
         width: fit-content;
     }
 
@@ -570,7 +589,7 @@ a {
         padding-left: 10px;
     }
 
-    .search--notification--profile {
+    .search--user--profile {
         padding: 0 10px;
     }
 
