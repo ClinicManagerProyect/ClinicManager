@@ -111,14 +111,6 @@ img {
     transition: .3s;
 }
 
-.sidebar.active {
-    width: 103px;
-    overflow: hidden;
-}
-
-.sidebar.active .sidebar--item {
-    display: none;
-}
 
 li {
     list-style: none;
@@ -139,7 +131,14 @@ a {
     border-radius: 10px;
 }
 
-.sidebar--items a:hover.sidebar--bottom-items a:hover {
+.sidebar--items a:hover,
+.sidebar--bottom-items a:hover {
+    background-color: #5073fb;
+    color: #fff;
+}
+
+.sidebar--items a:focus,
+.sidebar--bottom-items a:focus {
     background-color: #5073fb;
     color: #fff;
 }

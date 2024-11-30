@@ -31,12 +31,12 @@ new Vue({
         searchQuery: '',
         paginaActual: 1,
         empleadosPorPagina: 5,
-        estadoFiltro: 'all',  
-        empleadosFiltrados: [],  
+        estadoFiltro: 'all',
+        empleadosFiltrados: [],
         empleadoSeleccionado: null,
         gerentes: [],
         viendoDeshabilitados: false,
-        employees:[],
+        employees: [],
         showModal: false,
         empleadoSeleccionado: null,
     },
@@ -151,7 +151,7 @@ new Vue({
                     return;
                 }
 
-          
+
                 if (!this.empleadoSeleccionado.ID_PERSONA || !this.empleadoSeleccionado.NOMBRES) {
                     alert("Por favor, complete todos los campos requeridos.");
                     return;
@@ -282,7 +282,7 @@ new Vue({
             try {
                 const response = await fetch("http://localhost:4000/empleados", {
                     method: "GET",
-                    headers: { "Content-Type": "application/json" },
+                    headers: {"Content-Type": "application/json"},
                 });
                 if (response.ok) {
                     this.empleados = await response.json();
@@ -328,7 +328,7 @@ new Vue({
                     this.gerentes = await response.json();
                 } else {
                     const errorData = await response.json();
-                    alert("Error al obtener gerentes.",errorData);
+                    alert("Error al obtener gerentes.", errorData);
                 }
             } catch (error) {
                 console.error("Error al obtener gerentes:", error);
@@ -405,9 +405,12 @@ new Vue({
                 this.empleadosFiltrados = this.empleados;
             }
         },
+
     },
 
+
     mounted() {
+
         this.verEmpleadosSG();
         this.verEmpleados();
         this.verGerentes();
@@ -418,5 +421,6 @@ new Vue({
         } else {
             console.log('No hay empleado seleccionado en el localStorage');
         }
+
     },
 });

@@ -348,24 +348,29 @@ a {
     color: #333;
 }
 
+/* Colores de Las tarjetas */
 .task-card-asignada {
-    background-color: rgba(231, 201, 204, 0.94);
-    border: 1px solid #f5c6cb;
+    background-color: rgba(246, 154, 153, 0.97);
+    border: 1px solid #f52636;
+    border-left-width: 5px; /* Ajusta este valor para el grosor deseado */
 }
 
 .task-card-progreso {
-    background-color: rgba(211, 202, 173, 0.93);
-    border: 1px solid #ffeeba;
+    background-color: rgba(220, 201, 140, 0.94);
+    border: 1px solid #a1c096;
+    border-left-width: 5px; /* Ajusta este valor para el grosor deseado */
 }
 
 .task-card-completada {
     background-color: #d4edda;
     border: 1px solid #c3e6cb;
+    border-left-width: 5px; /* Ajusta este valor para el grosor deseado */
 }
 
 .task-card-default {
     background-color: #f8f9fa;
     border: 1px solid #dee2e6;
+    border-left-width: 5px; /* Ajusta este valor para el grosor deseado */
 }
 
 
