@@ -7,6 +7,7 @@ new Vue({
         tareasFiltradas: [],
         prioridadSeleccionada: "",
         modalVisible: false,
+
         tareaSeleccionada: {
             ID_HABITACION: null,
             NOMBRE: "",
