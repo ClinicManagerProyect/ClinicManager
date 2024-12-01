@@ -114,12 +114,12 @@
                 </thead>
                 <tbody>
                 <tr v-for="empleado in empleadosPaginados" :key="empleado.ID_PERSONA">
-                    <td>{{ empleado.ID_PERSONA }}</td>
-                    <td>{{ empleado.NOMBRE_COMPLETO }}</td>
-                    <td>{{ empleado.ESTADO_USUARIO === 'A' ? 'Activo' : 'Inactivo' }}</td>
-                    <td>{{ empleado.NOMBRE_EMPLEO }}</td>
-                    <td>{{ empleado.ID_USUARIO }}</td>
-                    <td>
+                    <td data-label="ID">{{ empleado.ID_PERSONA }}</td>
+                    <td data-label="Nombre">{{ empleado.NOMBRE_COMPLETO }}</td>
+                    <td data-label="Estado">{{ empleado.ESTADO_USUARIO === 'A' ? 'Activo' : 'Inactivo' }}</td>
+                    <td data-label="Rol">{{ empleado.NOMBRE_EMPLEO }}</td>
+                    <td data-label="Usuario">{{ empleado.ID_USUARIO }}</td>
+                    <td data-label="Acciones">
                         <button @click="obtenerEmpleadoEspecifico(empleado.ID_USUARIO)" class="btn-icon" title="Editar">
                             <i class="fas fa-edit"></i>
                         </button>

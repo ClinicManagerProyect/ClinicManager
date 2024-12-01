@@ -25,7 +25,7 @@ body {
 }
 
 .logo span {
-    color: #5073fb;
+    color: #3A7CA5;
 }
 
 .search--user--profile {
@@ -107,7 +107,7 @@ img {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border-right: 2px solid #f1f1f1;
+    border-right: 2px solid #fff;
     transition: .3s;
 }
 
@@ -133,18 +133,18 @@ a {
 
 .sidebar--items a:hover,
 .sidebar--bottom-items a:hover {
-    background-color: #5073fb;
+    background-color: #3A7CA5;
     color: #fff;
 }
 
 .sidebar--items a:focus,
 .sidebar--bottom-items a:focus {
-    background-color: #5073fb;
+    background-color: #2F6690;
     color: #fff;
 }
 
 #active--link {
-    background-color: #5073fb;
+    background-color: #2F6690;
     color: #fff;
 }
 
@@ -242,19 +242,19 @@ a {
 }
 
 .card-1 {
-    background-color: rgba(65, 97, 225, 0.1);
+    background-color: #81C3D7;
 }
 
 .card-1 .card--title {
-    color: rgb(24, 65, 238);
+    color: #0f3041;
 }
 
 .card-2 {
-    background-color: rgba(142, 103, 206, 0.1);
+    background-color: #CDE6F5;
 }
 
 .card-2 .card--title {
-    color: rgba(114, 60, 225, 0.78);
+    color:  #16425B;
 }
 
 
@@ -303,7 +303,7 @@ a {
     padding: 5px 10px;
     outline: none;
     border: none;
-    background-color: #5073fb;
+    background-color: #2F6690;
     color: #fff;
     border-radius: 5px;
     cursor: pointer;
@@ -326,15 +326,15 @@ a {
 }
 
 .employees--card {
-    padding: 20px;
+    padding: 15px;
     border-radius: 20px;
     height: auto;
     transition: .3s;
-    border: 2px solid #f1f1f1;
+    border: 2.5px solid #CDE6F5;
     display: ruby;
     flex-direction: column;
     align-items: center;
-    font-size: .8rem;
+    font-size: .9rem;
 }
 
 .employees--card:hover {
@@ -342,7 +342,7 @@ a {
 }
 
 .img--box--cover {
-    border: 1px solid #5073fb;
+    border: 1px solid #81C3D7;
     padding: 2px;
     border-radius: 50%;
     display: inline-block;
@@ -358,11 +358,11 @@ a {
 }
 
 .free {
-    color: #70d7a5;
+    color: #2F6690;
 }
 
 .busy {
-    color: #fb5050;
+    color: #8f2f2f;
 }
 
 /* Ajusta los filtros  */
@@ -411,22 +411,20 @@ a {
 }
 
 .employees-table th {
-    background-color: #007BFF;
-    color: white;
+    background-color: #3A7CA5;
+    color: #ffffff;
     font-weight: bold;
 }
 
-.employees-table tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
+
 
 .employees-table tr:hover {
-    background-color: #ddd;
+    background-color: #81C3D7;
 }
 
 .employees-table td button {
-    background-color: #54b6b6;
-    color: white;
+    background-color: #3A7CA5;
+    color: #000000;
     border: none;
     padding: 5px 10px;
     cursor: pointer;
@@ -435,7 +433,7 @@ a {
 }
 
 .employees-table td button:hover {
-    background-color: #0056b3;
+    background-color: #2F6690;
 }
 
 .employee-details {
@@ -453,7 +451,7 @@ a {
     width: 40px;
     height: 40px;
     padding: 0;
-    background-color: #5073fb;
+    background-color: #2F6690;
     color: #fff;
     border: none;
     border-radius: 50%;
@@ -463,7 +461,7 @@ a {
 }
 
 .btn-icon:hover {
-    background-color: #405bb5;
+    background-color: #2F6690;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
@@ -473,7 +471,7 @@ a {
 
 /* Estilo específico para botón de deshabilitar */
 .btn-icon.btn-icon-disable {
-    background-color: #e74c3c;
+    background-color: #de6656;
 }
 
 .btn-icon.btn-icon-disable:hover {
@@ -495,7 +493,7 @@ a {
     padding: 10px 15px;
     font-size: 14px;
     color: #ffffff;
-    background-color: #007bff; /* Color azul para los botones */
+    background-color: #2F6690;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -518,118 +516,66 @@ a {
 }
 
 /* responsive starts here */
-@media screen and (max-width: 1350px) {
-    .cards,
-    .employees--cards {
-        overflow-x: scroll;
-    }
-}
-
-@media screen and (max-width: 1024px) {
-    table {
-        min-width: 600px;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .logo {
-        padding-left: 30px;
-        width: fit-content;
-    }
-
-    .search--user--profile {
-        padding: 0 20px;
-        margin-left: auto;
-    }
-
-    .main--content {
-        padding: 0 20px;
-    }
-
-    .sidebar {
-        padding: 20px;
-    }
-
-    .sidebar.active {
-        width: 85px;
-    }
-
-    .main--content.active {
-        width: calc(100% - 85px);
-    }
-}
-
-@media screen and (max-width: 480px) {
+@media (max-width: 768px) {
     .sidebar {
         position: relative;
+        bottom: 0;
+        left: 0;
         width: 100%;
-        padding: 10px;
-        border-right: none;
-        border-bottom: 2px solid #f1f1f1;
-    }
-
-    .main {
-        padding-top: 60px;
-    }
-}
-
-@media screen and (max-width: 590px) {
-    .search,
-    .lock,
-    .chat {
-        display: none;
-    }
-
-    .notification--profile {
-        margin-left: auto;
-    }
-
-    .search--user--profile {
-        width: fit-content;
-    }
-
-    .sidebar {
-        transform: translateX(-100%);
-        z-index: 10;
+        height: auto;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 10px 0;
+        border-top: 2px solid #ddd;
         background-color: #fff;
     }
 
-    .sidebar.active {
-        transform: translateX(0);
-        width: 300px;
+    .sidebar--items,
+    .sidebar--bottom-items {
+        display: flex;
+        flex-direction: row;
     }
 
-    .sidebar.active .sidebar--item {
+    .sidebar--items a,
+    .sidebar--bottom-items a {
+        flex-direction: column;
+        align-items: center;
+        font-size: 0.9rem;
+    }
+
+    .main--content {
+        width: 100%;
+        top: 60px; /* Asegúrate de que respete el espacio del header */
+        height: calc(100vh - 120px); /* Resta el header y el menú inferior */
+    }
+}
+
+@media (max-width: 768px) {
+    .employees-table td {
         display: block;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+        padding-left: 80%; /* Asegura que el contenido se empuje hacia la derecha */
     }
 
-    .main--content {
-        width: calc(100% - 0px);
+    /* Muestra el título de la celda cuando se hace scroll */
+    .employees-table td::before {
+        content: attr(data-label); /* Muestra el título correspondiente a la columna */
+        font-weight: bold;
+        text-transform: uppercase;
+        position: absolute;
+        left: 0;
+        width: 45%;
+        padding-left: 10px; /* Espaciado adecuado */
     }
 
-    .main--content.active {
-        width: calc(100% - 0px);
+    .employees-table td:not(:last-child) {
+        padding-left: 50%; /* Empuja el contenido hacia la derecha */
+    }
+    .employees-table thead {
+        display: none; /* Oculta los encabezados estándar */
     }
 }
 
-@media screen and (max-width: 450px) {
-    .doctor--filter {
-        display: none;
-    }
 
-    .main--content {
-        padding: 0 10px;
-    }
 
-    .logo {
-        padding-left: 10px;
-    }
-
-    .search--user--profile {
-        padding: 0 10px;
-    }
-
-    .sidebar {
-        padding: 10px;
-    }
-}
