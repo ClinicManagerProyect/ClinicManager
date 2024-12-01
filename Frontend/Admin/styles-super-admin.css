@@ -518,7 +518,6 @@ a {
 /* responsive starts here */
 @media (max-width: 768px) {
     .sidebar {
-        position: relative;
         bottom: 0;
         left: 0;
         width: 100%;
@@ -576,6 +575,37 @@ a {
         display: none; /* Oculta los encabezados estándar */
     }
 }
+
+@media (max-width: 768px) {
+
+
+    .employees--card {
+        margin-bottom: 20px;
+        display: table-caption;
+        padding: 15px;
+        border-radius: 20px;
+        transition: .3s;
+        border: 1.5px solid #CDE6F5;
+
+    }
+    .card {
+        padding: 20px;
+        border-radius: 20px;
+        min-width: 20px;
+        height: auto;
+        transition: .3s;
+        }
+
+    .employees--right--btns {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        position: absolute;
+        top: 20px;
+    }
+
+}
+
 
 
 
