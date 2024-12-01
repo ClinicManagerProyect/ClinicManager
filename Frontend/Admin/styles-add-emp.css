@@ -28,7 +28,7 @@ h2 {
 
 h3 {
     color: #555;
-    border-bottom: 2px solid #007BFF;
+    border-bottom: 2px solid #81C3D7;
     padding-bottom: 5px;
     margin-top: 20px;
 }
@@ -51,7 +51,7 @@ input, select, button {
 }
 
 input:focus, select:focus {
-    border-color: #007BFF;
+    border-color: #2F6690;
     outline: none;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.6);
 }
@@ -111,7 +111,7 @@ button, a {
 }
 
 button {
-    background-color: #007BFF;
+    background-color: #2F6690;
     color: #fff;
 }
 
@@ -120,7 +120,7 @@ button:hover {
 }
 
 a {
-    background-color: #FF4B4B;
+    background-color: #bb3636;
     color: #fff;
 }
 

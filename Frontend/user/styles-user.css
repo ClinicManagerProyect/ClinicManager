@@ -141,12 +141,12 @@ a {
 
 .sidebar--items a:hover,
 .sidebar--bottom-items a:hover {
-    background-color: #5073fb;
+    background-color: #3A7CA5;
     color: #fff;
 }
 
 #active--link {
-    background-color: #5073fb;
+    background-color: #2F6690;
     color: #fff;
 }
 
@@ -167,13 +167,6 @@ a {
     color: #5073fb;
 }
 
-.icon-1 {
-    color: #c5bc58;
-}
-
-.icon-2 {
-    color: #a280e9;
-}
 
 /* Contenedor Principal  */
 
@@ -260,11 +253,11 @@ a {
 
 
 .card-1 {
-    background-color: rgba(251, 80, 217, 0.1);
+    background-color: #CDE6F5;
 }
 
 .card-1 .card--title {
-    color: rgb(236, 64, 64);
+    color: #0f3041;
 }
 
 /*Lista de tareas */
@@ -273,22 +266,8 @@ a {
     flex-wrap: wrap;
     gap: 20px;
 }
-.asignada-bg {
-    background-color: #fffbea; /* Amarillo claro */
-    border-left: 4px solid #ffc107; /* Amarillo */
-}
 
-/* Fondo para el estado "En Progreso" */
-.progreso-bg {
-    background-color: #e0f7fa; /* Azul claro */
-    border-left: 4px solid #00bcd4; /* Azul */
-}
 
-/* Fondo para el estado "Completada" */
-.completada-bg {
-    background-color: #e8f5e9; /* Verde claro */
-    border-left: 4px solid #4caf50; /* Verde */
-}
 
 /* Estilo común para las tarjetas */
 .task-card {
@@ -348,31 +327,29 @@ a {
     color: #333;
 }
 
-/* Colores de Las tarjetas */
 .task-card-asignada {
-    background-color: rgba(246, 154, 153, 0.97);
-    border: 1px solid #f52636;
+    background-color: #81C3D7; /* Azul suave claro */
+    border: 1px solid #82aaff; /* Azul claro */
     border-left-width: 5px; /* Ajusta este valor para el grosor deseado */
 }
 
 .task-card-progreso {
-    background-color: rgba(220, 201, 140, 0.94);
-    border: 1px solid #a1c096;
+    background-color: rgba(211, 237, 204, 0.94); /* Verde suave pastel */
+    border: 1px solid #a5d6a7; /* Verde suave */
     border-left-width: 5px; /* Ajusta este valor para el grosor deseado */
 }
 
 .task-card-completada {
-    background-color: #d4edda;
-    border: 1px solid #c3e6cb;
+    background-color: rgba(222, 248, 220, 0.94); /* Verde menta suave */
+    border: 1px solid #b8e0b2; /* Verde claro */
     border-left-width: 5px; /* Ajusta este valor para el grosor deseado */
 }
 
 .task-card-default {
-    background-color: #f8f9fa;
-    border: 1px solid #dee2e6;
+    background-color: #f4f7f6; /* Gris muy claro */
+    border: 1px solid #cfd8dc; /* Gris suave */
     border-left-width: 5px; /* Ajusta este valor para el grosor deseado */
 }
-
 
 
 /*Estilo del selec */
@@ -515,90 +492,47 @@ a {
 }
 
 @media screen and (max-width: 768px) {
-    .logo {
-        padding-left: 30px;
-        width: fit-content;
-    }
-
-    .search--user--profile {
-        padding: 0 20px;
-        margin-left: auto;
-    }
-
-    .main--content {
-        padding: 0 20px;
-    }
-
     .sidebar {
-        padding: 20px;
-    }
-
-    .sidebar.active {
-        width: 85px;
-    }
-
-    .main--content.active {
-        width: calc(100% - 85px);
-    }
-}
-
-@media screen and (max-width: 590px) {
-    .search,
-    .lock,
-    .chat {
-        display: none;
-    }
-
-    .notification--profile {
-        margin-left: auto;
-    }
-
-    .search--user--profile {
-        width: fit-content;
-    }
-
-    .sidebar {
-        transform: translateX(-100%);
-        z-index: 10;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 10px 0;
+        border-top: 2px solid #ddd;
         background-color: #fff;
     }
 
-    .sidebar.active {
-        transform: translateX(0);
-        width: 300px;
+    .task-cards {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: space-between; /* Adjust spacing between cards */
+    }
+    .task-card {
+        flex: 0 0 48%; /* Set card width to 48% */
+        min-width: 250px; /* Ensure minimum width for smaller screens */
     }
 
-    .sidebar.active .sidebar--item {
-        display: block;
+
+    .sidebar--items,
+    .sidebar--bottom-items {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .sidebar--items a,
+    .sidebar--bottom-items a {
+        flex-direction: column;
+        align-items: center;
+        font-size: 0.9rem;
     }
 
     .main--content {
-        width: calc(100% - 0px);
-    }
-
-    .main--content.active {
-        width: calc(100% - 0px);
+        width: 100%;
+        top: 60px; /* Asegúrate de que respete el espacio del header */
+        height: calc(100vh - 120px); /* Resta el header y el menú inferior */
     }
 }
 
-@media screen and (max-width: 450px) {
-    .doctor--filter {
-        display: none;
-    }
-
-    .main--content {
-        padding: 0 10px;
-    }
-
-    .logo {
-        padding-left: 10px;
-    }
-
-    .search--user--profile {
-        padding: 0 10px;
-    }
-
-    .sidebar {
-        padding: 10px;
-    }
-}

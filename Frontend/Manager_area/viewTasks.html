@@ -99,7 +99,7 @@
             </label>
 
             <div v-if="verTareasU.length > 0">
-                <table>
+                <table class="table">
                     <thead>
                     <tr>
                         <th>Descripción</th>
@@ -112,12 +112,12 @@
                     </thead>
                     <tbody>
                     <tr v-for="tarea in tareasFiltradas" :key="tarea.ID_TAREA">
-                        <td>{{ tarea.DESCRIPCION }}</td>
-                        <td>{{ tarea.ESTADO }}</td>
-                        <td>{{ new Date(tarea.FECHA_VENCIMIENTO).toLocaleString() }}</td>
-                        <td>{{ tarea.ID_HABITACION }}</td>
-                        <td>{{ tarea.PRIORIDAD }}</td>
-                        <td>
+                        <td data-label="Descripción">{{ tarea.DESCRIPCION }}</td>
+                        <td data-label="Estado">{{ tarea.ESTADO }}</td>
+                        <td data-label="Fecha de Vencimiento">{{ new Date(tarea.FECHA_VENCIMIENTO).toLocaleString() }}</td>
+                        <td data-label="Habitación">{{ tarea.ID_HABITACION }}</td>
+                        <td data-label="Prioridad">{{ tarea.PRIORIDAD }}</td>
+                        <td data-label="Acciones">
                             <button @click="abrirModal(tarea)"   class="btn-icon3" title="Editar"><i class="fa fa-edit"></i></button>
                             <button @click="eliminarTarea(tarea.ID_TAREA)"  class="btn-icon4" title="Elimianr" > <i class="fa fa-trash"></i></button>
                         </td>

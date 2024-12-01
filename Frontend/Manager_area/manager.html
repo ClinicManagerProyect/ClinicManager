@@ -119,7 +119,7 @@
                     <h2 class="section--title">Empleados Asociados</h2>
                 </div>
                 <!-- Tabla de empleados -->
-                <table v-if="empleados.length > 0">
+                <table class="table" v-if="empleados.length > 0">
                     <thead>
                     <tr>
                         <th>ID Empleado</th>
@@ -132,12 +132,12 @@
                     </thead>
                     <tbody>
                     <tr v-for="empleado in empleados" :key="empleado.ID_EMPLEADO">
-                        <td>{{ empleado.ID_EMPLEADO }}</td>
-                        <td>{{ empleado.NOMBRE_COMPLETO }}</td>
-                        <td>{{ empleado.ESTADO_USUARIO }}</td>
-                        <td>{{ empleado['AREA ENCARGADA'] }}</td>
-                        <td>{{ empleado.HORARIO }}</td>
-                        <td>
+                        <td data-label="ID Empleado">{{ empleado.ID_EMPLEADO }}</td>
+                        <td data-label="Nombre Completo">{{ empleado.NOMBRE_COMPLETO }}</td>
+                        <td data-label="Estado">{{ empleado.ESTADO_USUARIO }}</td>
+                        <td data-label="Área Encargada">{{ empleado['AREA ENCARGADA'] }}</td>
+                        <td data-label="Horario">{{ empleado.HORARIO }}</td>
+                        <td data-label="Acciones">
                             <button @click="mostrarFormularioTarea(empleado.ID_EMPLEADO) "
                                     class="btn-icon1" title="Asignar Tarea"><i class="fas fa-tasks"></i></button>
 

@@ -69,9 +69,9 @@ body {
 .header-user {
     display: flex;
     align-items: center;
-    justify-content: flex-end; /* Ya está alineado a la derecha */
-    width: 100%; /* Elimina el cálculo para ocupar todo el ancho */
-    padding: 0 20px; /* Reduce el padding para que no se desplace mucho hacia adentro */
+    justify-content: flex-end;
+    width: 100%;
+    padding: 0 20px;
 }
 
 .user {
@@ -141,12 +141,12 @@ a {
 
 .sidebar--items a:hover,
 .sidebar--bottom-items a:hover {
-    background-color: #5073fb;
+    background-color: #3A7CA5;
     color: #fff;
 }
 
 #active--link {
-    background-color: #5073fb;
+    background-color: #2F6690;
     color: #fff;
 }
 
@@ -255,20 +255,14 @@ a {
 }
 
 .card-1 {
-    background-color: rgba(80, 115, 251, .1);
+    background-color: #81C3D7;
 }
 
 .card-1 .card--title {
-    color: rgba(80, 115, 251, 1);
+    color: #0f3041;
 }
 
-.card-2 {
-    background-color: rgba(241, 210, 67, .1);
-}
 
-.card-2 .card--title {
-    color: rgba(241, 210, 67, 1);
-}
 
 
 /* Doctores */
@@ -284,7 +278,7 @@ a {
     padding: 5px 10px;
     outline: none;
     border: none;
-    background-color: #5073fb;
+    background-color: #2F6690;
     color: #fff;
     border-radius: 5px;
     cursor: pointer;
@@ -488,12 +482,12 @@ input, textarea, select {
 input:focus, textarea:focus, select:focus {
     background: #fff;
     outline: none;
-    box-shadow: 0 0 4px #0078d7;
+    box-shadow: 0 0 4px #3A7CA5;
 }
 
 button[type="submit"] {
     align-self: flex-end;
-    background: #0078d7;
+    background: #3A7CA5;
     color: #fff;
     padding: 12px 20px;
     border: none;
@@ -517,7 +511,7 @@ button[type="submit"]:hover {
     z-index: 999;
 }
 
-/*Tabla de empleados asignados */
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -662,7 +656,7 @@ button:hover {
 .form-group-horizontal input[type="datetime-local"]:focus,
 .form-group-horizontal textarea:focus,
 .form-group-horizontal select:focus {
-    border-color: #5073fb;
+    border-color: #3A7CA5;
     outline: none;
     background-color: #fff;
 
@@ -691,12 +685,12 @@ button:hover {
 }
 
 .formulario-tarea .button-container button.btn-icon:hover {
-    background-color: #405bb5;
+    background-color: #3A7CA5;
 }
 
 
 .formulario-tarea button.btn-icon:hover {
-    background-color: #405bb5;
+    background-color: #3A7CA5;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
@@ -707,5 +701,58 @@ button:hover {
 
 /* responsive starts here */
 @media (max-width: 768px) {
+    .sidebar {
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 10px 0;
+        border-top: 2px solid #ddd;
+        background-color: #fff;
+    }
 
+    .sidebar--items,
+    .sidebar--bottom-items {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .sidebar--items a,
+    .sidebar--bottom-items a {
+        flex-direction: column;
+        align-items: center;
+        font-size: 0.9rem;
+    }
+
+    .main--content {
+        width: 100%;
+        top: 60px; /* Asegúrate de que respete el espacio del header */
+        height: calc(100vh - 120px); /* Resta el header y el menú inferior */
+    }
+
+    .table td {
+        display: block;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+        padding-left: 80%;
+    }
+
+    .table td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        text-transform: uppercase;
+        position: absolute;
+        left: 0;
+        width: 45%;
+        padding-left: 10px;
+    }
+
+    .table td:not(:last-child) {
+        padding-left: 50%;
+    }
+    .table thead {
+        display: none;
+    }
 }

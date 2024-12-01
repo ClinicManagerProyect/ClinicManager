@@ -25,7 +25,7 @@ body {
 }
 
 .logo span {
-    color: #3A7CA5;
+    color: #5073fb;
 }
 
 .search--user--profile {
@@ -70,9 +70,9 @@ body {
 .header-user {
     display: flex;
     align-items: center;
-    justify-content: flex-end; /* Ya está alineado a la derecha */
-    width: 100%; /* Elimina el cálculo para ocupar todo el ancho */
-    padding: 0 20px; /* Reduce el padding para que no se desplace mucho hacia adentro */
+    justify-content: flex-end;
+    width: 100%;
+    padding: 0 20px;
 }
 
 .user {
@@ -163,14 +163,6 @@ a {
 
 .icon-0 {
     color: #5073fb;
-}
-
-.icon-1 {
-    color: #c5bc58;
-}
-
-.icon-2 {
-    color: #a280e9;
 }
 
 /* Contenedor Principal  */
@@ -554,25 +546,24 @@ a {
         display: block;
         border-bottom: 1px solid #ddd;
         text-align: center;
-        padding-left: 80%; /* Asegura que el contenido se empuje hacia la derecha */
+        padding-left: 80%;
     }
 
-    /* Muestra el título de la celda cuando se hace scroll */
     .employees-table td::before {
-        content: attr(data-label); /* Muestra el título correspondiente a la columna */
+        content: attr(data-label);
         font-weight: bold;
         text-transform: uppercase;
         position: absolute;
         left: 0;
         width: 45%;
-        padding-left: 10px; /* Espaciado adecuado */
+        padding-left: 10px;
     }
 
     .employees-table td:not(:last-child) {
-        padding-left: 50%; /* Empuja el contenido hacia la derecha */
+        padding-left: 50%;
     }
     .employees-table thead {
-        display: none; /* Oculta los encabezados estándar */
+        display: none;
     }
 }
 
