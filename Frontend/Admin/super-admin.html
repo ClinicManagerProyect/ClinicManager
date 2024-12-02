@@ -122,7 +122,7 @@
                 </div>
                 <h2 class="section--title">Gerentes de Area</h2>
                 <div class="employees--cards" id="gerentes-list">
-                    <a href="#" class="employees--card" v-for="gerente in gerentes" :key="gerente.id_usuario">
+                    <a href="#" class="employees--card" v-for="gerente in gerentes" :key="gerente.id_usuario" @click.prevent="mostrarGerente(gerente)">
                         <div class="img--box--cover">
                             <div class="img--box">
                                 <img src="../img/People.png" alt="">
@@ -130,6 +130,21 @@
                         </div>
                         <p class="gerente.id_usuario">{{gerente.NOMBRE_COMPLETO}}</p>
                     </a>
+                </div>
+                <div v-if="showModalGerente" class="modal-overlay">
+                    <div class="modal">
+                        <button @click="closeModalGerente" class="close-btn">&times;</button>
+                        <div v-if="gerenteSeleccionado">
+                            <p><strong>ID Persona:</strong> {{ gerenteSeleccionado.ID_PERSONA }}</p>
+                            <p><strong>Nombre:</strong> {{ gerenteSeleccionado.NOMBRE_COMPLETO}}</p>
+                            <p><strong>Identificación:</strong> {{ gerenteSeleccionado.TIPO_IDENTIFICACION }} - {{ empleadoSeleccionado.ID_PERSONA }}</p>
+                            <p><strong>Género:</strong> {{ gerenteSeleccionado.GENERO }}</p>
+                            <p><strong>Correo:</strong> {{ gerenteSeleccionado.CORREO }}</p>
+                            <p><strong>Dirección:</strong> {{ gerenteSeleccionado.DIRECCION }}</p>
+                            <p><strong>Teléfono:</strong> {{ gerenteSeleccionado.TELEFONO }}</p>
+
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -141,36 +156,36 @@
 
                     </div>
                 </div>
-                <div class="employees--cards" id="employees-list" @click="verEmpleadosSG">
-                    <a href="#" class="employees--card" v-for="employee in employees" :key="employee.id_usuario">
+                <div class="employees--cards" id="employees-list">
+                    <a href="#" class="employees--card" 
+                       v-for="employee in employees" 
+                       :key="employee.id_usuario" 
+                       @click.prevent="mostrarDetallesEmpleado(employee)">
                         <div class="img--box--cover">
                             <div class="img--box">
                                 <img src="../img/People.png" alt="">
                             </div>
                         </div>
-                        <p class="employee.id_usuario">{{employee.NOMBRE_COMPLETO}}</p>
+                        <p>{{employee.NOMBRE_COMPLETO}}</p>
                     </a>
                 </div>
 
                 <div v-if="showModal" class="modal-overlay">
                     <div class="modal">
                         <button @click="closeModal" class="close-btn">&times;</button>
-                        <!-- Mostrar detalles del empleado -->
                         <div v-if="empleadoSeleccionado">
-                            <p><strong>ID Persona:</strong> {{ employee.ID_PERSONA }}</p>
-                            <p><strong>Nombre:</strong> {{ employee.NOMBRES }} {{ employee.APELLIDOS }}</p>
-                            <p><strong>Identificación:</strong> {{ employee.TIPO_IDENTIFICACION }} - {{ obtenerEmpleadoEspecifico.ID_PERSONA }}</p>
-                            <p><strong>Género:</strong> {{ employee.GENERO }}</p>
-                            <p><strong>Correo:</strong> {{ employee.CORREO }}</p>
-                            <p><strong>Dirección:</strong> {{ employee.DIRECCION }}</p>
-                            <p><strong>Teléfono:</strong> {{ employee.TELEFONO }}</p>
-                            <p><strong>Estado de usuario:</strong> {{ employee.ESTADO }}</p>
-                            <p><strong>Fecha de contratación:</strong> {{ employee.FECHA_CONTRATACION }}</p>
-                            <p><strong>Hora de entrada:</strong> {{ employee.HORA_ENTRADA }}</p>
-                            <p><strong>Hora de salida:</strong> {{ employee.HORA_SALIDA }}</p>
+                            <p><strong>ID Persona:</strong> {{ empleadoSeleccionado.ID_PERSONA }}</p>
+                            <p><strong>Nombre:</strong> {{ empleadoSeleccionado.NOMBRE_COMPLETO}}</p>
+                            <p><strong>Identificación:</strong> {{ empleadoSeleccionado.TIPO_IDENTIFICACION }} - {{ empleadoSeleccionado.ID_PERSONA }}</p>
+                            <p><strong>Género:</strong> {{ empleadoSeleccionado.GENERO }}</p>
+                            <p><strong>Correo:</strong> {{ empleadoSeleccionado.CORREO }}</p>
+                            <p><strong>Dirección:</strong> {{ empleadoSeleccionado.DIRECCION }}</p>
+                            <p><strong>Teléfono:</strong> {{ empleadoSeleccionado.TELEFONO }}</p>
+                            <p><strong>Estado de usuario:</strong> {{ empleadoSeleccionado.ESTADO }}</p>
                         </div>
                     </div>
                 </div>
+                
             </div>
 
         </div>

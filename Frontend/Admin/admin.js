@@ -33,8 +33,9 @@ new Vue({
         empleadosPorPagina: 5,
         estadoFiltro: 'all',
         empleadosFiltrados: [],
-        empleadoSeleccionado: null,
         gerentes: [],
+        gerenteSeleccionado: null,
+        showModalGerente: false,
         viendoDeshabilitados: false,
         employees: [],
         showModal: false,
@@ -58,35 +59,6 @@ new Vue({
         },
     },
     methods: {
-
-        async verEmpleadosSG(idUsuario) {
-            try {
-                const response = await fetch(`http://localhost:4000/verEmpleadoEspecifico/${idUsuario}`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                });
-
-                if (response.ok) {
-                    const empleado = await response.json();
-                    this.empleadoSeleccionado = empleado; // Guardamos la información del empleado
-                    this.showModal = true; // Mostramos el modal
-                } else {
-                    const errorData = await response.json();
-                    alert("Error al obtener el empleado.", errorData);
-                }
-            } catch (error) {
-                console.error("Error al obtener el empleado:", error);
-                alert("No se pudo cargar la información del empleado.");
-            }
-        },
-
-        closeModal() {
-            this.showModal = false; // Cambiamos el estado a false para cerrar el modal
-            this.empleadoSeleccionado = null; // Limpiamos los detalles del empleado
-        },
-
         cambiarPagina(nuevaPagina) {
             this.paginaActual = nuevaPagina;
         },
@@ -335,6 +307,14 @@ new Vue({
                 alert("No se pudieron cargar los gerentes.");
             }
         },
+        mostrarGerente(gerente) {
+            this.gerenteSeleccionado = gerente;
+            this.showModalGerente = true;
+        },
+        closeModalGerente() {
+            this.showModalGerente = false;
+            this.gerenteSeleccionado = null;
+        },
 
         aplicarFiltros() {
             let empleadosFiltrados = this.empleados;
@@ -370,6 +350,7 @@ new Vue({
                 });
                 if (response.ok) {
                     this.employees = await response.json();
+                    
                 } else {
                     const errorData = await response.json();
                     alert("Error al obtener empleados.", errorData);
@@ -378,6 +359,15 @@ new Vue({
                 console.error("Error al obtener los empleados del server:", error);
                 alert("No se pudieron cargar los empleados.");
             }
+        },
+        mostrarDetallesEmpleado(employee) {
+            this.empleadoSeleccionado = employee;
+            this.showModal = true;
+        },
+    
+        closeModal() {
+            this.showModal = false;
+            this.empleadoSeleccionado = null;
         },
         async filtrarEmpleados(event) {
             this.estadoFiltro = event.target.value;
