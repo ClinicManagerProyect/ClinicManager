@@ -4,7 +4,8 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 const path = require('path');
-require('dotenv').config({ path: ".env" }); 
+require('dotenv').config({ path: ".env" });
+
 
 const { 
     obtenerGerentes,
