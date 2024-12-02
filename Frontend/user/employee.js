@@ -73,10 +73,9 @@ new Vue({
         },
 
         async verTareas(idEmpleado) {
-            console.log("el id a enviar es", idEmpleado)
-            window.location.href = `user-complete-tasks.html?idEmpleado=${idEmpleado}`;
-        },
-
+            const url = `user-complete-tasks.html?idEmpleado=${idEmpleado}`;
+            window.location.href = url;
+        }, 
 
         async viewTasksCompletes(idEmpleado) {
             try {
@@ -92,6 +91,7 @@ new Vue({
                 if (response.ok) {
                     this.tareasComp = await response.json();
                     console.log("Tareas obtenidas:", this.verTareasU);
+                    this.showModal = true;
                 } else {
                     const errorData = await response.json();
                     console.error("Error del servidor:", errorData);
@@ -101,6 +101,9 @@ new Vue({
                 console.error("Error al obtener las tareas:", error);
                 alert("No se pudieron cargar las tareas.");
             }
+        },
+        closeModal() {
+            this.showModal = false;
         },
 
         estadoTexto(estado) {

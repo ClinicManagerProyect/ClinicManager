@@ -51,6 +51,8 @@
             console.log('Recargando la página...');
             location.reload();
         }
+        const idEmpleadoS = payload.id;
+        localStorage.setItem('idEmpleado', idEmpleado);
 
     }
 </script>
@@ -60,7 +62,7 @@
         <h2>Hosp<span>Ital</span></h2>
     </div>
     <div class="header-user">
-        <p class="user">{{ idEmpleado }}</p>
+        <p class="user">Seccion empleado</p>
     </div>
 
     <div class="search--user--profile">
@@ -81,12 +83,8 @@
                 </a>
             </li>
 
-            <li>
-                <a @click="verTarea(empleado.idEmpleado)">
-                    <span class="icon icon-2"><i class="ri-calendar-2-line"></i></span>
-                    <span class="sidebar--item">Tareas Completas </span>
-                </a>
-            </li>
+
+            
         </ul>
         <li>
             <a href="../index.html">
@@ -99,6 +97,7 @@
     <div class="main--content">
 
         <div id="app">
+
             <div class="parent-container">
                 <div class="card card-1">
                     <div class="card--data">
@@ -138,6 +137,27 @@
                     </div>
                 </div>
             </div>
+            <li>
+                <a @click="viewTasksCompletes(idEmpleado)">
+                    <span class="icon icon-2"><i class="ri-calendar-2-line"></i></span>
+                    <span class="sidebar--item">Tareas Completas</span>
+                </a>
+            </li>
+<!-- Modal de tareas completadas -->
+<div v-if="tareasComp.length > 0" class="modal-overlay" @click="closeModal">
+    <div class="modal-content" @click.stop>
+        <h3>Tareas Completadas</h3>
+        <div v-for="tarea in tareasComp" :key="tarea.ID_TAREA" class="task-card-completa">
+            <h4>{{ tarea.NOMBRE }}</h4>
+            <p>{{ tarea.DESCRIPCION }}</p>
+            <p><strong>Habitación:</strong> {{ tarea.ID_HABITACION }}</p>
+            <p><strong>Vencimiento:</strong> {{ formatFecha(tarea.FECHA_VENCIMIENTO) }}</p>
+            <p><strong>Prioridad:</strong> {{ tarea.PRIORIDAD }}</p>
+        </div>
+        <button @click="closeModal">Cerrar</button>
+    </div>
+</div>
+
         </div>
     </div>
 </section>
