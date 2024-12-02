@@ -444,37 +444,48 @@ a {
 
 }
 
-/* Estilos adicionales para los elementos del formulario */
-.modal-content label {
-    display: block;
-    margin-bottom: 5px;
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
-.modal-content input,
-.modal-content textarea,
-.modal-content select {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 600px; /* Ajustar el ancho para que las columnas se vean bien */
+    width: 90%;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columnas iguales */
+    gap: 15px; /* Espacio entre columnas */
+}
+
+.modal-content .item {
+    background-color: #f5f5f5; /* Color de fondo para los elementos */
+    padding: 10px;
     border-radius: 4px;
-    box-sizing: border-box;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.modal-content button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 18px;
     cursor: pointer;
-    width: 100%;
 }
 
-.modal-content button:hover {
-    opacity:  0.8;
-}
 
 
 /* responsive starts here */
