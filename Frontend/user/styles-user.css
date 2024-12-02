@@ -110,6 +110,37 @@ img {
     border-right: 2px solid #f1f1f1;
     transition: .3s;
 }
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.btn-complete-tasks {
+    background-color: #3A7CA5;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-complete-tasks:hover {
+    background-color: #2F6690;
+    transform: translateY(-2px);
+}
+
+.btn-complete-tasks:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
 
 .sidebar.active {
     width: 103px;

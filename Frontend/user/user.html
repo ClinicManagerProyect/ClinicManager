@@ -137,14 +137,14 @@
                     </div>
                 </div>
             </div>
-            <li>
-                <a @click="viewTasksCompletes(idEmpleado)">
+            <li class="button-container">
+                <button @click="viewTasksCompletes(idEmpleado)" class="btn-complete-tasks">
                     <span class="icon icon-2"><i class="ri-calendar-2-line"></i></span>
-                    <span class="sidebar--item">Tareas Completas</span>
-                </a>
+                    Tareas Completadas
+                </button>
             </li>
 <!-- Modal de tareas completadas -->
-<div v-if="tareasComp.length > 0" class="modal-overlay" @click="closeModal">
+<div v-if="showModal && tareasComp.length > 0" class="modal-overlay" @click="closeModal">
     <div class="modal-content" @click.stop>
         <h1>Tareas Completadas</h1>
         <div v-for="tarea in tareasComp" :key="tarea.ID_TAREA" class="task-card-completa">
@@ -154,7 +154,9 @@
             <p><strong>Vencimiento:</strong> {{ formatFecha(tarea.FECHA_VENCIMIENTO) }}</p>
             <p><strong>Prioridad:</strong> {{ tarea.PRIORIDAD }}</p>
         </div>
-        <button @click="closeModal" class="close-btn" ><i class="fa fa-close"></i></button>
+        <button @click="closeModal" class="close-btn">
+            <i class="fa fa-close"></i>
+        </button>
     </div>
 </div>
 

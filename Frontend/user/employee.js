@@ -4,6 +4,7 @@ new Vue({
         idEmpleado: localStorage.getItem("idEmpleado"),
         verTareasU: [],
         tareasComp: [],
+        showModal:false,
     },
 
 
