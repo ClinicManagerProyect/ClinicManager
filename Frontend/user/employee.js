@@ -60,6 +60,8 @@ new Vue({
                         this.verTareasU = this.verTareasU.filter(
                             (tarea) => tarea.ID_TAREA !== taskId
                         );
+                        await this.viewTasksCompletes(idEmpleado);
+
                     }
 
                 } else {
@@ -78,7 +80,7 @@ new Vue({
             window.location.href = url;
         }, 
 
-        async viewTasksCompletes(idEmpleado) {
+        async viewTasksCompletes( idEmpleado ) {
             try {
                 const response = await fetch(
                     `http://localhost:4000/verTareasCompletas/${idEmpleado}`,

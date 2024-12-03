@@ -5,13 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="01766308-ce1f-4529-bda9-98408469c766" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ClinicManager.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Login.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/Admin/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/Admin/admin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/Admin/super-admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/Admin/super-admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/Admin/viewEmp.html" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/Admin/viewEmp.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/Manager_area/manager.html" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/Manager_area/manager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/Manager_area/viewTasks.html" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/Manager_area/viewTasks.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/user/employee.js" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/user/employee.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/user/user-complete-tasks.html" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/user/user-complete-tasks.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Frontend/user/user.html" beforeDir="false" afterPath="$PROJECT_DIR$/Frontend/user/user.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +40,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -72,6 +75,9 @@
       <option name="presentableId" value="Default" />
       <updated>1733155095800</updated>
       <workItem from="1733155097597" duration="553000" />
+      <workItem from="1733157703299" duration="202000" />
+      <workItem from="1733188492549" duration="3748000" />
+      <workItem from="1733238090306" duration="2197000" />
     </task>
     <servers />
   </component>

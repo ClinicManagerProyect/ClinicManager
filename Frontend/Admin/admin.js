@@ -26,6 +26,7 @@ new Vue({
             hora_entrada: "",
             hora_salida: "",
         },
+        idUsuario: localStorage.getItem("idUsuario"),
         empleados: [],
         empleadosFiltrados: [],
         searchQuery: '',
@@ -317,11 +318,11 @@ new Vue({
         },
 
         aplicarFiltros() {
+
             let empleadosFiltrados = this.empleados;
 
-            // Filtrar por estado
             if (this.estadoFiltro !== 'all') {
-                const estado = this.estadoFiltro === 'busy' ? 'N' : 'A';
+                const estado = this.estadoFiltro === 'busy' ? 'N' : 'A'; // 'busy' para inactivos ('N') y 'active' para activos ('A')
                 empleadosFiltrados = empleadosFiltrados.filter(
                     (empleado) => empleado.ESTADO_USUARIO === estado
                 );
@@ -350,7 +351,7 @@ new Vue({
                 });
                 if (response.ok) {
                     this.employees = await response.json();
-                    
+
                 } else {
                     const errorData = await response.json();
                     alert("Error al obtener empleados.", errorData);
@@ -364,7 +365,7 @@ new Vue({
             this.empleadoSeleccionado = employee;
             this.showModal = true;
         },
-    
+
         closeModal() {
             this.showModal = false;
             this.empleadoSeleccionado = null;
@@ -410,6 +411,9 @@ new Vue({
             console.log('Empleado recuperado:', this.empleadoSeleccionado);
         } else {
             console.log('No hay empleado seleccionado en el localStorage');
+        }
+        if (this.idUsuario) {
+            this.verEmpleados();
         }
 
     },
